@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP core and ScrollTrigger plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -282,6 +285,42 @@
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // register GSAP plugins
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // hero section entrance
+            gsap.from("#home h1, #home h2, #home p, #home .pt-8 a, #home .social-links", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.2
+            });
+
+            gsap.from("#home img", {
+                scale: 0.8,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+
+            // animate each section when it scrolls into view
+            gsap.utils.toArray("section").forEach(section => {
+                gsap.from(section.querySelectorAll("h2, .grid > div, .skills-card, .job-entry, .group"), {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    stagger: 0.2,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%"
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
