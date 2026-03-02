@@ -96,7 +96,7 @@
                     <div class="absolute w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-slate-50 rounded-full mix-blend-multiply opacity-60 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"></div>
                     
                     <!-- Profile Picture -->
-                    <img src="img/perfil.png" alt="Robson Vital" class="relative z-10 w-full max-w-[600px] h-full object-contain object-bottom mix-blend-multiply filter grayscale hover:grayscale-0 transition-all duration-700">
+                    <img src="img/perfil.png" alt="Robson Vital" class="relative z-10 w-full max-w-[600px] h-full object-contain object-bottom mix-blend-multiply filter grayscale hover:grayscale-0 transition-all duration-700" id="profileImg" style="perspective: 1000px;">
                     
                     <!-- Scroll Indicator -->
                     <div class="hidden lg:flex absolute right-4 bottom-32 origin-bottom-right -rotate-90 text-xs font-semibold tracking-[0.2em] text-slate-400 items-center gap-4 uppercase z-20">
@@ -224,12 +224,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
                         
                         <!-- Project 1 Space -->
-                        <div class="group cursor-pointer">
+                        <div class="group cursor-pointer project-card" data-title="Kwik Ledgers - Plataforma Global" data-description="Redesign de sistema contábil internacional focado em usabilidade para fluxos de dados massivos." data-tools="Figma, HTML/CSS, JS, Tailwind" data-images="img/KL-portal.jpg,img/another1.jpg">
                             <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                <!-- <i data-lucide="image" stroke-width="1.5" class="w-10 h-10 text-slate-300 mb-4"></i> -->
-                                <!-- <span class="text-sm font-medium tracking-wide text-slate-400 uppercase">Adicionar Imagem do Projeto 1</span> -->
                                  <img src="img/KL-portal.jpg" alt="Imagem do portal Kwikledgers onde apresenta um dashboard">
-
                                 <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                             <div class="flex gap-3 mb-3">
@@ -241,10 +238,8 @@
                         </div>
 
                         <!-- Project 2 Space -->
-                        <div class="group cursor-pointer">
+                        <div class="group cursor-pointer project-card" data-title="Proposta de Site Institucional" data-description="Projeto de criação de uma nova proposta de site institucional conforme especificações em anexo." data-tools="Figma, Pesquisa A/B, HTML/CSS" data-images="img/kwik-ledgers-landing.jpg,img/another2.jpg">
                             <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                <!-- <i data-lucide="image" stroke-width="1.5" class="w-10 h-10 text-slate-300 mb-4"></i>
-                                <span class="text-sm font-medium tracking-wide text-slate-400 uppercase">Adicionar Imagem do Projeto 2</span> -->
                                  <img src="img/kwik-ledgers-landing.jpg" alt="Imagem do site institucional do Kwikledgers onde apresenta a landing page">
                                 <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
@@ -318,6 +313,71 @@
                         trigger: section,
                         start: "top 80%"
                     }
+                });
+            });
+
+            // project modal handling
+            const modal = document.createElement('div');
+            modal.id = 'projectModal';
+            // make overlay flex so children can center, and ensure full viewport coverage
+            modal.className = 'fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white w-[90vw] h-[90vh] max-w-none max-h-none overflow-y-auto p-8 relative rounded-lg flex flex-col md:flex-row">
+                    <button id="closeModal" class="absolute top-4 right-4 text-slate-500 hover:text-slate-900">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                    <div id="modalImageContainer" class="md:w-1/2 flex items-center justify-center mb-6 md:mb-0">
+                        <img id="modalImage" src="" class="w-full h-auto object-cover rounded" alt="Preview">
+                    </div>
+                    <div class="md:w-1/2 md:pl-8 flex flex-col justify-between">
+                        <div>
+                            <h2 id="modalTitle" class="text-2xl font-semibold mb-4"><i data-lucide="file-text" class="w-6 h-6 inline-block mr-2"></i></h2>
+                            <p id="modalDescription" class="text-lg text-slate-700 mb-4"></p>
+                            <div id="modalTools" class="text-sm text-slate-500 mb-6"></div>
+                        </div>
+                        <a href="https://wa.link/hs0fpr" target="_blank" class="inline-flex items-center justify-center bg-red-600 hover:bg-red-500 text-white px-6 py-3 text-sm font-semibold tracking-[0.15em] uppercase transition-colors">
+                            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Vamos Conversar
+                        </a>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            lucide.createIcons();
+
+            function openModal(data) {
+                document.getElementById('modalTitle').textContent = data.title;
+                // use only first image for new layout
+                const imgEl = document.getElementById('modalImage');
+                if (data.images && data.images.length) {
+                    imgEl.src = data.images[0];
+                } else {
+                    imgEl.src = '';
+                }
+                document.getElementById('modalDescription').textContent = data.description;
+                document.getElementById('modalTools').textContent = 'Ferramentas & técnicas: ' + data.tools;
+                modal.classList.remove('hidden');
+                // fade overlay and scale content
+                gsap.fromTo(modal, {opacity:0}, {opacity:1, duration:0.5});
+                gsap.fromTo(modal.querySelector('> div'), {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:'power3.out'});
+                lucide.createIcons();
+            }
+
+            function closeModal() {
+                gsap.to(modal, {opacity:0, duration:0.3, onComplete:()=>modal.classList.add('hidden')});
+            }
+
+            modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const data = {
+                        title: card.dataset.title,
+                        description: card.dataset.description,
+                        tools: card.dataset.tools,
+                        images: card.dataset.images.split(',')
+                    };
+                    openModal(data);
                 });
             });
         }
