@@ -25,7 +25,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Robson Moura – Senior UX/UI & Product Designer" />
     <meta property="og:description"
-        content="Portfólio de Robson Moura – especialista em UX/UI, front-end e produto digital. Explore experiência profissional e projetos em destaque." />
+        content="Portfólio de Robson Moura – especialista em UX/UI, front-end e produto. Explore experiência profissional, projetos em destaque e cases de sucesso." />
     <meta property="og:url" content="https://robsonmouras.github.io/robson-vital/" />
     <meta property="og:image" content="https://robsonmouras.github.io/robson-vital/featured-image.png" />
 
@@ -798,6 +798,48 @@
                     }
                 }
             });
+
+            // Easter Egg: Konami Code (Up, Up, Down, Down, Left, Right, Left)
+            const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft'];
+            let konamiIndex = 0;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === konamiCode[konamiIndex]) {
+                    konamiIndex++;
+                    if (konamiIndex === konamiCode.length) {
+                        triggerEasterEgg();
+                        konamiIndex = 0;
+                    }
+                } else {
+                    konamiIndex = 0;
+                }
+            });
+
+            function triggerEasterEgg() {
+                const easterEgg = document.createElement('div');
+                easterEgg.id = 'easterEgg';
+                easterEgg.className = 'fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none';
+                easterEgg.innerHTML = '<img src="img/eu-vetor.svg" alt="Easter Egg" class="w-full h-full object-cover" style="max-width: 100vw; max-height: 100vh;">';
+                document.body.appendChild(easterEgg);
+
+                // Create timeline for quick appear and disappear effect
+                const tl = gsap.timeline();
+                
+                // Fade in from opacity 0 to 1
+                tl.fromTo(easterEgg, 
+                    { opacity: 0, scale: 0.8 }, 
+                    { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }
+                );
+
+                // Fade out while entrance animation is still happening (starts at 70% of entrance)
+                tl.to(easterEgg, {
+                    opacity: 0,
+                    scale: 1.1,
+                    duration: 0.6,
+                    ease: 'power2.in',
+                    onComplete: () => easterEgg.remove()
+                }, 0.35); // Begin before fade in completes
+            }
         }
     </script>
 </body>
