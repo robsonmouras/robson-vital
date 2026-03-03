@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +14,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
+    <!-- Hotjar Tracking Code for Meu Portifolio  -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6660116, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
 </head>
+
 <body class="bg-slate-100 text-slate-800 antialiased selection:bg-red-100 selection:text-red-900">
 
     <!-- Wrapper Desktop Background Frame -->
     <div class="min-h-screen p-0 sm:p-8 flex flex-col items-center">
-        
+
         <!-- Main Content Card -->
         <div class="bg-white w-full max-w-[1440px] shadow-2xl relative flex flex-col overflow-hidden">
-            
+
             <!-- Subtle Vertical Grid Lines Background -->
             <div class="absolute inset-0 pointer-events-none flex justify-evenly z-0">
                 <div class="w-px h-full bg-slate-50"></div>
@@ -33,11 +48,12 @@
             </div>
 
             <!-- Navigation -->
-            <header class="flex flex-col sm:flex-row justify-between items-center py-8 px-6 lg:px-16 relative z-10 text-xs tracking-[0.15em] font-medium uppercase text-slate-400">
+            <header
+                class="flex flex-col sm:flex-row justify-between items-center py-8 px-6 lg:px-16 relative z-10 text-xs tracking-[0.15em] font-medium uppercase text-slate-400">
                 <div class="text-slate-900 font-semibold text-lg tracking-tight mb-4 sm:mb-0">
                     Robson<span class="text-red-600">.</span>
                 </div>
-                
+
                 <nav class="flex flex-wrap justify-center gap-6 sm:gap-10">
                     <a href="#home" class="text-red-600 font-semibold hover:text-red-700 transition-colors">Home</a>
                     <a href="#about" class="hover:text-slate-900 transition-colors">Sobre</a>
@@ -48,40 +64,48 @@
             </header>
 
             <!-- Hero Section -->
-            <main id="home" class="flex-1 flex flex-col lg:flex-row items-center relative z-10 px-6 lg:px-16 pt-12 pb-24 lg:py-0 min-h-[800px]">
-                
+            <main id="home"
+                class="flex-1 flex flex-col lg:flex-row items-center relative z-10 px-6 lg:px-16 pt-12 pb-24 lg:py-0 min-h-[800px]">
+
                 <!-- Left Content -->
                 <div class="w-full lg:w-1/2 space-y-8 relative z-20 pt-10 lg:pt-0">
-                    <div class="flex items-center gap-4 text-slate-500 text-xs font-semibold tracking-[0.2em] uppercase">
+                    <div
+                        class="flex items-center gap-4 text-slate-500 text-xs font-semibold tracking-[0.2em] uppercase">
                         <div class="w-8 h-[1px] bg-slate-300"></div> Olá
                     </div>
-                    
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-slate-900 leading-[1.1]">
-                        Eu sou <span class="text-red-600"><br/>Robson</span> Moura
+
+                    <h1
+                        class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-slate-900 leading-[1.1]">
+                        Eu sou <span class="text-red-600"><br />Robson</span> Moura
                     </h1>
-                    
+
                     <h2 class="text-2xl font-medium tracking-tight text-slate-600 mt-2">
                         Senior UX/UI & Product Designer
                     </h2>
-                    
+
                     <p class="text-lg text-slate-500 max-w-lg leading-relaxed mt-6">
-                        Perfil híbrido em design, front-end e produto. Especialista em experiências digitais orientadas a dados, conversão e produtos escaláveis há mais de 15 anos.
+                        Perfil híbrido em design, front-end e produto. Especialista em experiências digitais orientadas
+                        a dados, conversão e produtos escaláveis há mais de 15 anos.
                     </p>
-                    
+
                     <div class="pt-8">
                         <!-- provide a downloadable link for the CV file -->
-                        <a href="Cv – Robson Vital.pdf" download class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors flex items-center gap-3 group inline-flex">
+                        <a href="Cv – Robson Vital.pdf" download
+                            class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors flex items-center gap-3 group inline-flex">
                             Download CV
-                            <i data-lucide="download" stroke-width="1.5" class="w-4 h-4 group-hover:-translate-y-1 transition-transform"></i>
+                            <i data-lucide="download" stroke-width="1.5"
+                                class="w-4 h-4 group-hover:-translate-y-1 transition-transform"></i>
                         </a>
                     </div>
-                    
+
                     <!-- Social Links -->
                     <div class="flex gap-8 pt-20 text-slate-400">
-                        <a href="https://www.linkedin.com/in/robson-vital/" target="_blank" class="hover:text-red-600 transition-colors">
+                        <a href="https://www.linkedin.com/in/robson-vital/" target="_blank"
+                            class="hover:text-red-600 transition-colors">
                             <i data-lucide="linkedin" stroke-width="1.5" class="w-5 h-5"></i>
                         </a>
-                        <a href="https://github.com/robsonmouras" target="_blank" class="hover:text-red-600 transition-colors">
+                        <a href="https://github.com/robsonmouras" target="_blank"
+                            class="hover:text-red-600 transition-colors">
                             <i data-lucide="github" stroke-width="1.5" class="w-5 h-5"></i>
                         </a>
                         <a href="mailto:robson.moura88@gmail.com" class="hover:text-red-600 transition-colors">
@@ -89,17 +113,23 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Right Image Area -->
-                <div class="w-full lg:w-1/2 h-[500px] lg:h-full flex justify-center lg:justify-end items-end relative mt-16 lg:mt-0">
+                <div
+                    class="w-full lg:w-1/2 h-[500px] lg:h-full flex justify-center lg:justify-end items-end relative mt-16 lg:mt-0">
                     <!-- Decorative Element -->
-                    <div class="absolute w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-slate-50 rounded-full mix-blend-multiply opacity-60 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"></div>
-                    
+                    <div
+                        class="absolute w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-slate-50 rounded-full mix-blend-multiply opacity-60 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+                    </div>
+
                     <!-- Profile Picture -->
-                    <img src="img/perfil.png" alt="Robson Moura" class="relative z-10 w-full max-w-[600px] h-full object-contain object-bottom mix-blend-multiply filter grayscale hover:grayscale-0 transition-all duration-700" id="profileImg" style="perspective: 1000px;">
-                    
+                    <img src="img/perfil.png" alt="Robson Moura"
+                        class="relative z-10 w-full max-w-[600px] h-full object-contain object-bottom mix-blend-multiply filter grayscale hover:grayscale-0 transition-all duration-700"
+                        id="profileImg" style="perspective: 1000px;">
+
                     <!-- Scroll Indicator -->
-                    <div class="hidden lg:flex absolute right-4 bottom-32 origin-bottom-right -rotate-90 text-xs font-semibold tracking-[0.2em] text-slate-400 items-center gap-4 uppercase z-20">
+                    <div
+                        class="hidden lg:flex absolute right-4 bottom-32 origin-bottom-right -rotate-90 text-xs font-semibold tracking-[0.2em] text-slate-400 items-center gap-4 uppercase z-20">
                         Scroll Down <i data-lucide="arrow-right" stroke-width="1.5" class="w-4 h-4"></i>
                     </div>
                 </div>
@@ -109,32 +139,44 @@
             <section id="about" class="py-24 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
                 <div class="max-w-7xl mx-auto">
                     <div class="mb-16">
-                        <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-6">Principais Competências</h2>
+                        <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-6">Principais
+                            Competências</h2>
                         <p class="text-lg text-slate-500 max-w-3xl leading-relaxed">
-                            Forte histórico em SaaS, plataformas B2B, e-commerces e produtos complexos. Domínio na interseção entre design de interface, engenharia front-end e estratégia de crescimento focado em usabilidade e métricas de negócio.
+                            Forte histórico em SaaS, plataformas B2B, e-commerces e produtos complexos. Domínio na
+                            interseção entre design de interface, engenharia front-end e estratégia de crescimento
+                            focado em usabilidade e métricas de negócio.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Skill Card 1 -->
-                        <div class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
+                        <div
+                            class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
                             <i data-lucide="layout-dashboard" stroke-width="1.5" class="w-8 h-8 text-red-600"></i>
                             <h3 class="text-xl font-semibold tracking-tight text-slate-900">UX/UI & Product Design</h3>
-                            <p class="text-lg text-slate-500 leading-relaxed">Design orientado a dados e conversão. Pesquisa, discovery, testes de usabilidade e criação de Design Systems focados em escala.</p>
+                            <p class="text-lg text-slate-500 leading-relaxed">Design orientado a dados e conversão.
+                                Pesquisa, discovery, testes de usabilidade e criação de Design Systems focados em
+                                escala.</p>
                         </div>
-                        
+
                         <!-- Skill Card 2 -->
-                        <div class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
+                        <div
+                            class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
                             <i data-lucide="braces" stroke-width="1.5" class="w-8 h-8 text-red-600"></i>
                             <h3 class="text-xl font-semibold tracking-tight text-slate-900">Front-end Oriented</h3>
-                            <p class="text-lg text-slate-500 leading-relaxed">Ampla base em HTML, CSS, JavaScript e Angular. Capacidade de transformar layouts em código responsivo de alta fidelidade e performance.</p>
+                            <p class="text-lg text-slate-500 leading-relaxed">Ampla base em HTML, CSS, JavaScript e
+                                Angular. Capacidade de transformar layouts em código responsivo de alta fidelidade e
+                                performance.</p>
                         </div>
 
                         <!-- Skill Card 3 -->
-                        <div class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
+                        <div
+                            class="p-8 border border-slate-100 bg-slate-50 flex flex-col gap-5 hover:border-red-200 transition-colors">
                             <i data-lucide="bot" stroke-width="1.5" class="w-8 h-8 text-red-600"></i>
                             <h3 class="text-xl font-semibold tracking-tight text-slate-900">IA & Metodologias</h3>
-                            <p class="text-lg text-slate-500 leading-relaxed">Uso avançado de IA (ChatGPT, Cursor, v0) integrada ao fluxo de design para eficiência operacional. Atuação sob Metodologias Ágeis (Scrum).</p>
+                            <p class="text-lg text-slate-500 leading-relaxed">Uso avançado de IA (ChatGPT, Cursor, v0)
+                                integrada ao fluxo de design para eficiência operacional. Atuação sob Metodologias Ágeis
+                                (Scrum).</p>
                         </div>
                     </div>
                 </div>
@@ -143,24 +185,32 @@
             <!-- Experience Timeline -->
             <section id="experience" class="py-24 px-6 lg:px-16 bg-slate-50 border-t border-slate-100 relative z-10">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-16">Experiência Profissional</h2>
-                    
+                    <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-16">Experiência
+                        Profissional</h2>
+
                     <div class="space-y-16">
                         <!-- Job 1 -->
                         <div class="relative pl-8 md:pl-0">
                             <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
-                            
+
                             <div class="flex flex-col md:flex-row gap-6 md:gap-16">
                                 <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div class="absolute w-3 h-3 bg-red-600 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_white]"></div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-red-600 uppercase">2025 – 2026</div>
+                                    <div
+                                        class="absolute w-3 h-3 bg-red-600 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_white]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-red-600 uppercase">2025 –
+                                        2026</div>
                                     <div class="text-sm font-medium text-slate-400 mt-1">Nov - Jan</div>
                                 </div>
                                 <div class="flex-1">
                                     <h3 class="text-2xl font-semibold tracking-tight text-slate-900">V4 Company</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">Web Designer Sênior · Remoto</div>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">Web Designer Sênior ·
+                                        Remoto</div>
                                     <p class="text-lg text-slate-600 leading-relaxed">
-                                        Atuação estratégica em UX/UI com foco absoluto em conversão e crescimento de negócios digitais. Aplicação de IA no fluxo de design, acelerando entregas e padronizando componentes. Integração Figma + Cursor para ganho de escala e performance.
+                                        Atuação estratégica em UX/UI com foco absoluto em conversão e crescimento de
+                                        negócios digitais. Aplicação de IA no fluxo de design, acelerando entregas e
+                                        padronizando componentes. Integração Figma + Cursor para ganho de escala e
+                                        performance.
                                     </p>
                                 </div>
                             </div>
@@ -169,18 +219,24 @@
                         <!-- Job 2 -->
                         <div class="relative pl-8 md:pl-0">
                             <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
-                            
+
                             <div class="flex flex-col md:flex-row gap-6 md:gap-16">
                                 <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]"></div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2023 – 2025</div>
+                                    <div
+                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2023 –
+                                        2025</div>
                                     <div class="text-sm font-medium text-slate-400 mt-1">Jan - Jun</div>
                                 </div>
                                 <div class="flex-1">
                                     <h3 class="text-2xl font-semibold tracking-tight text-slate-900">Ambra IT</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">UI/UX Designer & Product Designer · Remoto</div>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">UI/UX Designer & Product
+                                        Designer · Remoto</div>
                                     <p class="text-lg text-slate-600 leading-relaxed">
-                                        Designer de Produtos no Kwik Ledgers, plataforma de contabilidade internacional. Condução ponta a ponta: discovery, fluxos, wireframes, protótipos em alta fidelidade e desenvolvimento de interfaces acessíveis.
+                                        Designer de Produtos no Kwik Ledgers, plataforma de contabilidade internacional.
+                                        Condução ponta a ponta: discovery, fluxos, wireframes, protótipos em alta
+                                        fidelidade e desenvolvimento de interfaces acessíveis.
                                     </p>
                                 </div>
                             </div>
@@ -190,15 +246,21 @@
                         <div class="relative pl-8 md:pl-0">
                             <div class="flex flex-col md:flex-row gap-6 md:gap-16">
                                 <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]"></div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2020 – 2023</div>
+                                    <div
+                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2020 –
+                                        2023</div>
                                     <div class="text-sm font-medium text-slate-400 mt-1">Dez - Jan</div>
                                 </div>
                                 <div class="flex-1">
                                     <h3 class="text-2xl font-semibold tracking-tight text-slate-900">OmniChat</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">Front-end Developer · Remoto</div>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium">Front-end Developer ·
+                                        Remoto</div>
                                     <p class="text-lg text-slate-600 leading-relaxed">
-                                        Evolução contínua da interface do SaaS OmniChat. Transformação de complexos requisitos de negócio em UIs fluidas e intuitivas, consolidando a visão de design diretamente na engenharia front-end.
+                                        Evolução contínua da interface do SaaS OmniChat. Transformação de complexos
+                                        requisitos de negócio em UIs fluidas e intuitivas, consolidando a visão de
+                                        design diretamente na engenharia front-end.
                                     </p>
                                 </div>
                             </div>
@@ -212,8 +274,10 @@
                 <div class="max-w-7xl mx-auto">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
                         <div class="max-w-2xl">
-                            <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-4">Projetos em Destaque</h2>
-                            <p class="text-lg text-slate-500 leading-relaxed">Conheça casos práticos onde uni UX/UI e front-end para construir produtos digitais orientados a conversão e escala.</p>
+                            <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-4">Projetos
+                                em Destaque</h2>
+                            <p class="text-lg text-slate-500 leading-relaxed">Conheça casos práticos onde uni UX/UI e
+                                front-end para construir produtos digitais orientados a conversão e escala.</p>
                         </div>
                         <!-- <a href="#" class="text-red-600 text-xs font-semibold tracking-[0.15em] uppercase hover:text-red-700 transition-colors flex items-center gap-2 group">
                             Ver todos os projetos 
@@ -222,64 +286,118 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-16">
-                        
+
                         <!-- Project 1 Space -->
-                        <div class="group cursor-pointer project-card" data-title="Kwik Ledgers - Plataforma Global" data-description="Redesign de sistema contábil internacional focado em usabilidade para fluxos de dados massivos." data-tools="Figma, HTML/CSS, JS, Tailwind" data-images="img/KL-portal.jpg,img/another1.jpg">
-                            <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                 <img src="img/KL-portal.jpg" alt="Imagem do portal Kwikledgers onde apresenta um dashboard">
-                                <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="group cursor-pointer project-card" data-title="Kwik Ledgers - Plataforma Global"
+                            data-description="Redesign de sistema contábil internacional focado em usabilidade para fluxos de dados massivos."
+                            data-tools="Figma, HTML/CSS, JS, Tailwind" data-images="img/KL-portal.jpg,img/another1.jpg">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/KL-portal.jpg"
+                                    alt="Imagem do portal Kwikledgers onde apresenta um dashboard">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">SaaS B2B</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">SaaS
+                                    B2B</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
                             </div>
-                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">Kwik Ledgers - Plataforma Global</h3>
-                            <p class="text-lg text-slate-500 mt-2">Redesign de sistema contábil internacional focado em usabilidade para fluxos de dados massivos.</p>
+                            <h3
+                                class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">
+                                Kwik Ledgers - Plataforma Global</h3>
+                            <p class="text-lg text-slate-500 mt-2">Redesign de sistema contábil internacional focado em
+                                usabilidade para fluxos de dados massivos.</p>
                         </div>
 
                         <!-- Project 2 Space -->
-                        <div class="group cursor-pointer project-card" data-title="Site Institucional - KwikLedgers" data-description="Projeto de criação de uma nova proposta de site institucional conforme especificações em anexo." data-tools="Figma, Pesquisa A/B, HTML/CSS" data-url="https://kwikledgers.com/" data-images="img/kwik-ledgers-landing.jpg,img/another2.jpg">
-                            <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                 <img src="img/kwik-ledgers-landing.jpg" alt="Imagem do site institucional do Kwikledgers onde apresenta a landing page">
-                                <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="group cursor-pointer project-card" data-title="Site Institucional - KwikLedgers"
+                            data-description="Projeto de criação de uma nova proposta de site institucional conforme especificações em anexo."
+                            data-tools="Figma, Pesquisa A/B, HTML/CSS" data-url="https://kwikledgers.com/"
+                            data-images="img/kwik-ledgers-landing.jpg,img/another2.jpg">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/kwik-ledgers-landing.jpg"
+                                    alt="Imagem do site institucional do Kwikledgers onde apresenta a landing page">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Redesign</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Estudo A/B</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Redesign</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Estudo
+                                    A/B</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
                             </div>
-                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">Site Institucional - KwikLedgers</h3>
-                            <p class="text-lg text-slate-500 mt-2">Projeto de criação de uma nova proposta de site institucional conforme especificações em anexo.</p>
+                            <h3
+                                class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">
+                                Site Institucional - KwikLedgers</h3>
+                            <p class="text-lg text-slate-500 mt-2">Projeto de criação de uma nova proposta de site
+                                institucional conforme especificações em anexo.</p>
                         </div>
 
                         <!-- Project 3 Space - Totem Interativo -->
-                        <div class="group cursor-pointer project-card" data-title="Totem Interativo - Feira de Negócios" data-description="Projeto de layout para totem interativo em feira de negócios. Interface otimizada para interação em pé com navegação intuitiva e responsiva. Desenvolvimento completo do layout com IA para prototipagem e refinamento visual." data-tools="Figma, IA (Design), HTML/CSS, Responsivo" data-images="img/layout-totem-interno.jpg">
-                            <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                 <img src="img/layout-totem.jpg" alt="Imagem do layout externo do totem interativo para feira de negócios">
-                                <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="group cursor-pointer project-card" data-title="Totem Interativo - Feira de Negócios"
+                            data-description="Projeto de layout para totem interativo em feira de negócios. Interface otimizada para interação em pé com navegação intuitiva e responsiva. Desenvolvimento completo do layout com IA para prototipagem e refinamento visual."
+                            data-tools="Figma, IA (Design), HTML/CSS, Responsivo"
+                            data-images="img/layout-totem-interno.jpg">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/layout-totem.jpg"
+                                    alt="Imagem do layout externo do totem interativo para feira de negócios">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Interativo</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">IA & Design</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UI/UX</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Interativo</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">IA
+                                    & Design</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UI/UX</span>
                             </div>
-                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">Totem Interativo - Feira de Negócios</h3>
-                            <p class="text-lg text-slate-500 mt-2">Interface otimizada para totem em ponto de venda. Layout completo desenvolvido com IA para eficiência e inovação visual.</p>
+                            <h3
+                                class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">
+                                Totem Interativo - Feira de Negócios</h3>
+                            <p class="text-lg text-slate-500 mt-2">Interface otimizada para totem em ponto de venda.
+                                Layout completo desenvolvido com IA para eficiência e inovação visual.</p>
                         </div>
 
                         <!-- Project 4 Space - Luz Curitiba -->
-                        <div class="group cursor-pointer project-card" data-title="Luz Curitiba - Website Sustentável" data-description="Desenvolvimento completo de website para empresa de soluções sustentáveis em gerenciamento de lixo urbano. Site implementado em WordPress com Elementor, focado em responsividade, conversão e apresentação clara das soluções oferecidas." data-tools="WordPress, Elementor, HTML/CSS" data-url="https://luzcuritibana.com.br/" data-images="img/luz-curitiba-interno.png">
-                            <div class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
-                                 <img src="img/luz-curitiba.jpg" alt="Imagem do website Luz Curitiba apresentando soluções de lixeiras inteligentes">
-                                <div class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="group cursor-pointer project-card" data-title="Luz Curitiba - Website Sustentável"
+                            data-description="Desenvolvimento completo de website para empresa de soluções sustentáveis em gerenciamento de lixo urbano. Site implementado em WordPress com Elementor, focado em responsividade, conversão e apresentação clara das soluções oferecidas."
+                            data-tools="WordPress, Elementor, HTML/CSS" data-url="https://luzcuritibana.com.br/"
+                            data-images="img/luz-curitiba-interno.png">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/luz-curitiba.jpg"
+                                    alt="Imagem do website Luz Curitiba apresentando soluções de lixeiras inteligentes">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Website</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">WordPress</span>
-                                <span class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Front-end</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Website</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">WordPress</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Front-end</span>
                             </div>
-                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">Luz Curitiba - Website Sustentável</h3>
-                            <p class="text-lg text-slate-500 mt-2">Desenvolvimento de website responsivo em WordPress. Implementação de layout via Elementor com otimização para conversão e experiência mobile.</p>
+                            <h3
+                                class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors">
+                                Luz Curitiba - Website Sustentável</h3>
+                            <p class="text-lg text-slate-500 mt-2">Desenvolvimento de website responsivo em WordPress.
+                                Implementação de layout via Elementor com otimização para conversão e experiência
+                                mobile.</p>
                         </div>
                     </div>
                 </div>
@@ -288,18 +406,25 @@
             <!-- Footer -->
             <footer class="bg-slate-900 py-16 px-6 lg:px-16 text-center relative z-10 border-t-4 border-red-600">
                 <h2 class="text-3xl font-semibold tracking-tight text-white mb-6">Pronto para acelerar seu produto?</h2>
-                <p class="text-lg text-slate-400 mb-10 max-w-xl mx-auto">Disponível para oportunidades remotas, projetos estratégicos e desenvolvimento colaborativo.</p>
-                
-                <a href="https://wa.link/hs0fpr" target="_blank" class="inline-flex items-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
+                <p class="text-lg text-slate-400 mb-10 max-w-xl mx-auto">Disponível para oportunidades remotas, projetos
+                    estratégicos e desenvolvimento colaborativo.</p>
+
+                <a href="https://wa.link/hs0fpr" target="_blank"
+                    class="inline-flex items-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
                     Vamos Conversar <i data-lucide="arrow-right" stroke-width="1.5" class="w-4 h-4"></i>
                 </a>
 
-                <div class="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p class="text-sm text-slate-500 tracking-wide">&copy; 2024 Robson Moura. Todos os direitos reservados.</p>
+                <div
+                    class="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p class="text-sm text-slate-500 tracking-wide">&copy; 2024 Robson Moura. Todos os direitos
+                        reservados.</p>
                     <div class="flex gap-6 text-slate-500">
-                        <a href="https://www.linkedin.com/in/robson-vital/" target="_blank" class="text-sm hover:text-white cursor-pointer transition-colors">LinkedIn</a>
-                        <a href="https://www.behance.net/robsonmoura" target="_blank" class="text-sm hover:text-white cursor-pointer transition-colors">Behance</a>
-                        <a href="https://github.com/robsonmouras" target="_blank" class="text-sm hover:text-white cursor-pointer transition-colors">GitHub</a>
+                        <a href="https://www.linkedin.com/in/robson-vital/" target="_blank"
+                            class="text-sm hover:text-white cursor-pointer transition-colors">LinkedIn</a>
+                        <a href="https://www.behance.net/robsonmoura" target="_blank"
+                            class="text-sm hover:text-white cursor-pointer transition-colors">Behance</a>
+                        <a href="https://github.com/robsonmouras" target="_blank"
+                            class="text-sm hover:text-white cursor-pointer transition-colors">GitHub</a>
                     </div>
                 </div>
             </footer>
@@ -388,13 +513,13 @@
                 document.getElementById('modalTools').textContent = 'Ferramentas & técnicas: ' + data.tools;
                 modal.classList.remove('hidden');
                 // fade overlay and scale content
-                gsap.fromTo(modal, {opacity:0}, {opacity:1, duration:0.5});
-                gsap.fromTo(modal.querySelector('> div'), {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:'power3.out'});
+                gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+                gsap.fromTo(modal.querySelector('> div'), { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
                 lucide.createIcons();
             }
 
             function closeModal() {
-                gsap.to(modal, {opacity:0, duration:0.3, onComplete:()=>modal.classList.add('hidden')});
+                gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden') });
             }
 
             modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
@@ -414,4 +539,5 @@
         }
     </script>
 </body>
+
 </html>
