@@ -640,7 +640,8 @@
                 modal.classList.remove('hidden');
                 // fade overlay and scale content
                 gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.5 });
-                gsap.fromTo(modal.querySelector('> div'), { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
+                const modalContent = modal.firstElementChild;
+                gsap.fromTo(modalContent, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
                 lucide.createIcons();
             }
 
@@ -669,15 +670,38 @@
                 card.addEventListener('click', () => {
                     currentIndex = idx;
                     openModal(buildDataFromCard(card));
+                    updateModalNav();
                 });
             });
 
+            // enable/disable modal prev/next buttons
+            function updateModalNav() {
+                const prev = document.getElementById('modalPrev');
+                const next = document.getElementById('modalNext');
+                if (!prev || !next) return;
+                if (currentIndex <= 0) {
+                    prev.disabled = true;
+                    prev.classList.add('opacity-50','cursor-not-allowed');
+                } else {
+                    prev.disabled = false;
+                    prev.classList.remove('opacity-50','cursor-not-allowed');
+                }
+                if (currentIndex >= projectCards.length - 1) {
+                    next.disabled = true;
+                    next.classList.add('opacity-50','cursor-not-allowed');
+                } else {
+                    next.disabled = false;
+                    next.classList.remove('opacity-50','cursor-not-allowed');
+                }
+            }
+
             function updateModalContent(data, direction) {
-                const container = modal.querySelector('> div');
+                const container = modal.firstElementChild;
                 // animate out
                 gsap.to(container, {
                     x: direction === 'right' ? 100 : -100, opacity: 0, duration: 0.18, ease: 'power2.in', onComplete: () => {
                         // update fields
+                        updateModalNav();
                         document.getElementById('modalTitle').textContent = data.title;
                         const imgEl = document.getElementById('modalImage');
                         imgEl.src = data.images && data.images.length ? data.images[0] : '';
@@ -750,7 +774,7 @@
                         }
 
                         // animate in from opposite side
-                        gsap.fromTo(container, { x: direction === 'right' ? -100 : 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.28, ease: 'power3.out' });
+                        gsap.fromTo(container, { x: direction === 'right' ? -100 : 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.28, ease: 'power3.out', onComplete: updateModalNav });
                         lucide.createIcons();
                     }
                 });
