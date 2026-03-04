@@ -341,7 +341,7 @@
                         <!-- Project 1 Space -->
                         <div class="group cursor-pointer project-card" data-title="Kwik Ledgers - Plataforma Global"
                             data-description="Redesign de sistema contábil internacional focado em usabilidade para fluxos de dados massivos."
-                            data-tools="Figma, HTML/CSS, JS, Tailwind" data-images="img/KL-portal.jpg,img/another1.jpg">
+                            data-tools="Figma, HTML/CSS, JS, Tailwind" data-images="img/KL-portal.webp,img/another1.jpg">
                             <div
                                 class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
                                 <img src="img/KL-portal.webp"
@@ -840,6 +840,21 @@
                     onComplete: () => easterEgg.remove()
                 }, 0.35); // Begin before fade in completes
             }
+        }
+    </script>
+
+    <!-- register service worker for caching -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function (reg) {
+                        console.log('Service worker registered:', reg);
+                    })
+                    .catch(function (err) {
+                        console.warn('Service worker registration failed:', err);
+                    });
+            });
         }
     </script>
 </body>
