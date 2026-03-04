@@ -1,14 +1,16 @@
 // Simple service worker to cache static assets for improved performance
 
 const CACHE_NAME = 'portfolio-cache-v1';
+const BASE_PATH = '/robson-vital/';
+
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/img/perfil.webp',
-  '/apple-touch-icon.png',
-  '/favicon-32x32.png',
-  '/favicon-16x16.png',
-  '/site.webmanifest'
+  BASE_PATH,
+  BASE_PATH + 'index.html',
+  BASE_PATH + 'img/perfil.webp',
+  BASE_PATH + 'apple-touch-icon.png',
+  BASE_PATH + 'favicon-32x32.png',
+  BASE_PATH + 'favicon-16x16.png',
+  BASE_PATH + 'site.webmanifest'
 ];
 
 self.addEventListener('install', event => {

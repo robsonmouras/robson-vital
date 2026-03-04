@@ -847,7 +847,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/robson-vital/sw.js', { scope: '/robson-vital/' })
                     .then(function (reg) {
                         console.log('Service worker registered:', reg);
                     })
