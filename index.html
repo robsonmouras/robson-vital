@@ -68,6 +68,17 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* animated roles list styling */
+        #animatedRoles {
+            position: relative;
+        }
+        #animatedRoles li {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
     </style>
     <!-- Hotjar Tracking Code for Meu Portifolio  -->
     <script>
@@ -131,7 +142,12 @@
                     </h1>
 
                     <h2 class="text-2xl font-medium tracking-tight text-slate-600 mt-2">
-                        Senior UX/UI & Product Designer
+                        <!-- animated role list -->
+                        <ul id="animatedRoles" class="relative h-8 overflow-hidden">
+                            <li class="absolute w-full top-0 left-0">Senior UX/UI</li>
+                            <li class="absolute w-full top-0 left-0">Product Designer</li>
+                            <li class="absolute w-full top-0 left-0">Web Designer</li>
+                        </ul>
                     </h2>
 
                     <p class="text-lg text-slate-500 max-w-lg leading-relaxed mt-6">
@@ -506,6 +522,20 @@
                 duration: 1.5,
                 ease: "power3.out"
             });
+
+            // cycle roles list animation (one at a time, up/down)
+            const roleItems = gsap.utils.toArray("#animatedRoles li");
+            if (roleItems.length) {
+                // remove extra delay between cycles so last->first shift matches others
+                const roleTimeline = gsap.timeline({ repeat: -1, repeatDelay: 0 });
+                roleItems.forEach(item => {
+                    roleTimeline.fromTo(item,
+                        { y: "100%", opacity: 0 },
+                        { y: "0%", opacity: 1, duration: 0.5, ease: "power3.out" }
+                    )
+                    .to(item, { y: "-100%", opacity: 0, duration: 0.5, ease: "power3.in" }, "+=1");
+                });
+            }
 
             // animate each section when it scrolls into view
             gsap.utils.toArray("section").forEach(section => {
