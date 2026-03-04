@@ -9,7 +9,7 @@ const translations = {
     
     // Hero Section
     'hello': 'Olá',
-    'intro_name': 'Eu sou Robson Moura',
+    'intro_name': "Eu sou <br/>Robson <span class='text-red-600'>Moura</span>",
     'role_1': 'Senior UX/UI',
     'role_2': 'Product Designer',
     'role_3': 'Web Designer',
@@ -112,7 +112,7 @@ const translations = {
     
     // Hero Section
     'hello': 'Hello',
-    'intro_name': 'I am Robson Moura',
+    'intro_name': `I am <br/>Robson <span class='text-red-600'>Moura</span>`,
     'role_1': 'Senior UX/UI',
     'role_2': 'Product Designer',
     'role_3': 'Web Designer',
@@ -244,7 +244,7 @@ function translatePage(lang) {
   // Translate all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const key = element.getAttribute('data-i18n');
-    element.textContent = translations[lang][key] || translations['pt'][key] || key;
+    element.innerHTML = translations[lang][key] || translations['pt'][key] || key;
   });
   
   // Update HTML lang attribute
