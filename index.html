@@ -609,7 +609,7 @@
             </section>
 
             <!-- Footer -->
-            <footer class="bg-slate-900 py-16 px-6 lg:px-16 text-center relative z-10 border-t-4 border-red-600">
+            <footer id="contact" class="bg-slate-900 py-16 px-6 lg:px-16 text-center relative z-10 border-t-4 border-red-600">
                 <h2 class="text-3xl font-semibold tracking-tight text-white mb-6" data-i18n="ready_accelerate">Pronto
                     para acelerar seu produto?</h2>
                 <p class="text-lg text-slate-400 mb-10 max-w-xl mx-auto" data-i18n="footer_description">Disponível para
@@ -1022,10 +1022,10 @@
                 }, 0.35); // Begin before fade in completes
             }
         }
-    </script>
 
-    <!-- navigation highlight script -->
-    <script>
+
+    //  navigation highlight script
+
         document.addEventListener('DOMContentLoaded', function () {
             const sections = document.querySelectorAll('main[id], section[id]');
             const navLinks = document.querySelectorAll('header nav a');
@@ -1059,10 +1059,9 @@
             });
             updateActiveLink();
         });
-    </script>
+  
+    // Mobile Menu Script
 
-    <!-- Mobile Menu Script -->
-    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const menuToggle = document.getElementById('menuToggle');
             const closeMenu = document.getElementById('closeMenu');
