@@ -82,6 +82,56 @@
             left: 0;
             opacity: 0;
         }
+
+        /* sticky header glass fallback and active link styling */
+        header a.active {
+            color: #dc2626; /* Tailwind red-600 */
+            font-weight: 600;
+        }
+
+        /* shrink logo and header on scroll */
+        header {
+            transition: padding 0.3s ease, font-size 0.3s ease;
+        }
+        header .logo {
+            transition: color 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+        header .logo .full {
+            transition: opacity 0.3s ease;
+        }
+        header .logo .short {
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #0f172a; /* dark slate color for R */
+        }
+        header .logo .dot {
+            transition: margin 0.3s ease, color 0.3s ease;
+            color: #dc2626; /* red for dot */
+            margin-left: 0;
+        }
+        header.scrolled .logo .full { opacity: 0; display: none; }
+        header.scrolled .logo .short { opacity: 1; }
+        header.scrolled .logo .dot { margin-left: 0.7rem; }
+        header.scrolled { padding-top: 1rem; padding-bottom: 1rem; } /* reduce height */
+
+        /* ensure sections scroll correctly under sticky header */
+        main, section[id] {
+            scroll-margin-top: 96px; /* approximate header height */
+        }
+
+        /* Mobile Menu Styles */
+        #mobileMenu {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #mobileMenu.menu-open {
+            transform: translateX(0) !important;
+        }
     </style>
     <!-- Hotjar Tracking Code for Meu Portifolio  -->
     <script>
@@ -102,7 +152,7 @@
     <div class="min-h-screen p-0 sm:p-8 flex flex-col items-center">
 
         <!-- Main Content Card -->
-        <div class="bg-white w-full max-w-[1440px] shadow-2xl relative flex flex-col overflow-hidden">
+        <div class="bg-white w-full max-w-[1440px] shadow-2xl relative flex flex-col overflow-visible">
 
             <!-- Subtle Vertical Grid Lines Background -->
             <div class="absolute inset-0 pointer-events-none flex justify-evenly z-0">
@@ -114,13 +164,16 @@
 
             <!-- Navigation -->
             <header
-                class="flex flex-col sm:flex-row justify-between items-center py-8 px-6 lg:px-16 relative z-10 text-xs tracking-[0.15em] font-medium uppercase text-slate-400">
-                <div class="text-slate-900 font-semibold text-lg tracking-tight mb-4 sm:mb-0">
-                    Robson<span class="text-red-600">.</span>
+                class="sticky top-0 flex justify-between items-center py-8 px-6 lg:px-16 text-xs tracking-[0.15em] font-medium uppercase text-slate-400 bg-white/70 backdrop-blur-sm shadow-sm z-30">
+                <div class="logo font-semibold text-lg tracking-tight relative" style="color:#0f172a;">
+                    <span class="full">ROBSON</span>
+                    <span class="short absolute top-0 left-0 opacity-0">R</span>
+                    <span class="dot">.</span>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center">
-                    <nav class="flex flex-wrap justify-center gap-6 sm:gap-10">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex flex-row gap-6 lg:gap-10 items-center">
+                    <nav class="flex gap-6 lg:gap-10">
                         <a href="#home" class="text-red-600 font-semibold hover:text-red-700 transition-colors"
                             data-i18n="home">Home</a>
                         <a href="#about" class="hover:text-slate-900 transition-colors" data-i18n="about">Sobre</a>
@@ -140,7 +193,49 @@
                             class="text-slate-400 hover:text-slate-900 transition-colors">EN</button>
                     </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuToggle" class="md:hidden flex items-center justify-center p-2 text-slate-800 hover:text-red-600 transition-colors"
+                    aria-label="Toggle menu">
+                    <i id="menuIcon" data-lucide="menu" stroke-width="1.5" class="w-6 h-6"></i>
+                </button>
             </header>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="fixed inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out z-40 md:hidden overflow-y-auto"
+                style="transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+                <div class="flex flex-col h-screen">
+                    <!-- Close Button -->
+                    <div class="flex justify-end items-center py-8 px-6">
+                        <button id="closeMenu" class="flex items-center justify-center p-2 text-slate-800 hover:text-red-600 transition-colors"
+                            aria-label="Close menu">
+                            <i data-lucide="x" stroke-width="1.5" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Navigation -->
+                    <nav class="flex flex-col gap-8 px-6 py-8 flex-1">
+                        <a href="#home" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="home">Home</a>
+                        <a href="#about" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="about">Sobre</a>
+                        <a href="#experience" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="experience">Experiência</a>
+                        <a href="#portfolio" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="portfolio">Portfólio</a>
+                        <a href="#contact" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="contact">Contato</a>
+                    </nav>
+
+                    <!-- Mobile Language Selector -->
+                    <div class="flex gap-6 text-lg tracking-tight font-medium px-6 py-8 border-t border-slate-200">
+                        <button id="langPTMobile" onclick="setLanguage('pt')"
+                            class="text-red-600 font-semibold hover:text-red-700 transition-colors">PT</button>
+                        <button id="langENMobile" onclick="setLanguage('en')"
+                            class="text-slate-400 hover:text-slate-900 transition-colors">EN</button>
+                    </div>
+                </div>
+            </div>
 
             <!-- Hero Section -->
             <main id="home"
@@ -942,6 +1037,86 @@
                     });
             });
         }
+    </script>
+
+    <!-- navigation highlight script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('main[id], section[id]');
+            const navLinks = document.querySelectorAll('header nav a');
+
+            function updateActiveLink() {
+                let scrollPos = window.scrollY + 120; // offset for header height
+                sections.forEach(sec => {
+                    const top = sec.offsetTop;
+                    const bottom = top + sec.offsetHeight;
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-red-600', 'font-semibold');
+                            link.classList.add('hover:text-slate-900');
+                            if (link.getAttribute('href') === '#' + sec.id) {
+                                link.classList.add('text-red-600', 'font-semibold');
+                            }
+                        });
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', () => {
+                updateActiveLink();
+                // shrink header when beyond top
+                const header = document.querySelector('header');
+                if (window.scrollY > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            updateActiveLink();
+        });
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            // Open menu
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.add('menu-open');
+                mobileMenu.style.transform = 'translateX(0)';
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            });
+
+            // Close menu
+            function closeMenuFunc() {
+                mobileMenu.classList.remove('menu-open');
+                mobileMenu.style.transform = 'translateX(100%)';
+                // Allow body scroll
+                document.body.style.overflow = 'auto';
+            }
+
+            closeMenu.addEventListener('click', closeMenuFunc);
+
+            // Close menu when clicking on a nav link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    closeMenuFunc();
+                });
+            });
+
+            // Close menu when clicking outside (on the overlay area)
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    closeMenuFunc();
+                }
+            });
+        });
     </script>
 </body>
 
