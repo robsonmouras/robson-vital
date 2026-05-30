@@ -36,6 +36,9 @@ const translations = {
     'job_1_company': 'V4 Company',
     'job_1_position': 'Web Designer Sênior · Remoto',
     'job_1_description': 'Atuação estratégica em UX/UI com foco absoluto em conversão e crescimento de negócios digitais. Aplicação de IA no fluxo de design, acelerando entregas e padronizando componentes. Integração Figma + Cursor para ganho de escala e performance.',
+    'job_zalieza_company': 'Zalieza',
+    'job_zalieza_position': 'Designer da web · Freelance',
+    'job_zalieza_description': '<strong>Atuo na Zalieza como responsável pelo desenvolvimento e gestão de sites</strong>, conduzindo projetos de <strong>ponta a ponta, da estratégia à entrega</strong>. Estruturo <strong>layout, arquitetura da informação e usabilidade</strong> com foco em experiência do usuário e conversão. Utilizo <strong>Figma</strong> para prototipação e desenvolvo soluções em <strong>WordPress</strong> e outras tecnologias, garantindo <strong>performance, responsividade e escalabilidade</strong>. Integro ferramentas de <strong>Inteligência Artificial</strong>, como <strong>Cursor e Claude Code</strong>, para acelerar processos, otimizar código e aumentar a eficiência das entregas. Meu foco é criar soluções digitais que gerem <strong>resultados concretos para o negócio</strong>.',
     
     'job_2_company': 'Ambra IT',
     'job_2_position': 'UI/UX Designer & Product Designer · Remoto',
@@ -139,6 +142,9 @@ const translations = {
     'job_1_company': 'V4 Company',
     'job_1_position': 'Senior Web Designer · Remote',
     'job_1_description': 'Strategic UX/UI work with absolute focus on conversion and digital business growth. AI application in design workflow, accelerating deliverables and standardizing components. Figma + Cursor integration for scalability and performance.',
+    'job_zalieza_company': 'Zalieza',
+    'job_zalieza_position': 'Web Designer · Freelance',
+    'job_zalieza_description': '<strong>I work at Zalieza responsible for website development and management</strong>, leading projects end-to-end, <strong>from strategy to delivery</strong>. I structure <strong>layout, information architecture and usability</strong> focused on user experience and conversion. I use <strong>Figma</strong> for prototyping and develop solutions in <strong>WordPress</strong> and other technologies, ensuring <strong>performance, responsiveness and scalability</strong>. I integrate <strong>AI tools</strong> such as <strong>Cursor and Claude Code</strong> to accelerate processes, optimize code and increase delivery efficiency. My focus is to create digital solutions that deliver <strong>concrete business results</strong>.',
     
     'job_2_company': 'Ambra IT',
     'job_2_position': 'UI/UX Designer & Product Designer · Remote',
