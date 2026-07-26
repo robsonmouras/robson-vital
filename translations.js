@@ -63,7 +63,18 @@ const translations = {
     
     'project_4_title': 'Luz Curitiba - Website Sustentável',
     'project_4_desc': 'Desenvolvimento de website responsivo em WordPress. Implementação de layout via Elementor com otimização para conversão e experiência mobile.',
-    
+
+    'project_5_title': 'Jumper Segurança - Site Institucional',
+    'project_5_desc': 'Landing page com animação 3D controlada pelo scroll. Direção visual, geração de cenas com IA e desenvolvimento em Vite, Tailwind e GSAP.',
+    'project_5_context': 'Site institucional para empresa de segurança e facilities, com hero em animação 3D scroll-driven. Conduzi o projeto de ponta a ponta: direção visual do diorama 3D (torre corporativa com entorno urbano), geração das 5 cenas de vídeo com IA, extração e otimização de frames em WebP via ffmpeg, e desenvolvimento front-end com Vite, Tailwind, GSAP e Lenis, sincronizando cada seção de conteúdo com o progresso da animação.',
+
+    'project_6_title': 'Grupo Vikings - Site Institucional',
+    'project_6_desc': 'Site institucional para grupo de facilities e segurança, com cards animados por scroll, arquitetura multimarca e versão bilíngue PT/EN.',
+    'project_6_context': 'Site institucional para grupo com mais de 25 anos no setor de facilities e segurança. O projeto organiza uma operação multimarca em uma única navegação: além dos serviços do grupo, apresenta as unidades Odin Segurança e High Clean com seções dedicadas. A home combina hero de alto impacto com prova social em números, seis cards de serviços com animação acionada pelo scroll e CTAs de orçamento distribuídos pela jornada. Estrutura bilíngue PT/EN e design responsivo orientado a conversão.',
+
+    'zalieza_client_credit': 'Projeto desenvolvido para cliente da',
+    'website_institucional': 'Website Institucional',
+
     'saas_b2b': 'SaaS B2B',
     'redesign': 'Redesign',
     'ab_test': 'Estudo A/B',
@@ -169,7 +180,18 @@ const translations = {
     
     'project_4_title': 'Luz Curitiba - Sustainable Website',
     'project_4_desc': 'Responsive website development in WordPress. Layout implementation via Elementor optimized for conversion and mobile experience.',
-    
+
+    'project_5_title': 'Jumper Security - Institutional Website',
+    'project_5_desc': 'Landing page with scroll-driven 3D animation. Visual direction, AI-generated scenes and development with Vite, Tailwind and GSAP.',
+    'project_5_context': 'Institutional website for a security and facilities company, featuring a scroll-driven 3D hero animation. I led the project end-to-end: visual direction of the 3D diorama (corporate tower with urban surroundings), AI generation of the 5 video scenes, frame extraction and WebP optimization via ffmpeg, and front-end development with Vite, Tailwind, GSAP and Lenis, syncing each content section to the animation\'s scroll progress.',
+
+    'project_6_title': 'Grupo Vikings - Corporate Website',
+    'project_6_desc': 'Corporate website for a facilities and security group, featuring scroll-driven service cards, multi-brand architecture and PT/EN bilingual structure.',
+    'project_6_context': 'Corporate website for a group with over 25 years in facilities and security. The project organizes a multi-brand operation into a single navigation: beyond the group\'s services, it presents the Odin Segurança and High Clean units with dedicated sections. The homepage combines a high-impact hero with social proof metrics, six scroll-animated service cards and quote CTAs placed throughout the journey. Bilingual PT/EN structure and conversion-oriented responsive design.',
+
+    'zalieza_client_credit': 'Project developed for a client of',
+    'website_institucional': 'Corporate Website',
+
     'saas_b2b': 'SaaS B2B',
     'redesign': 'Redesign',
     'ab_test': 'A/B Test',

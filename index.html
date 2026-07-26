@@ -501,6 +501,73 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-16">
 
+                        <!-- Project 5 Space - Jumper Segurança -->
+                        <div class="group cursor-pointer project-card" data-title="project_5_title"
+                            data-description="project_5_desc" data-tools="Vite, Tailwind, GSAP, Lenis, IA (Geração de Cenas), ffmpeg"
+                            data-url="https://jumper-v2.web-cf8.workers.dev/" data-images="img/full-jumper.png">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/jumper-showcase.png"
+                                    alt="Imagem do site institucional da Jumper Segurança com hero em animação 3D">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <div class="flex gap-3 mb-3">
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Landing
+                                    Page</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">3D
+                                    Scroll</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1"
+                                    data-i18n="frontend">Front-end</span>
+                            </div>
+                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors"
+                                data-i18n="project_5_title">
+                                Jumper Segurança - Site Institucional</h3>
+                            <p class="text-lg text-slate-500 mt-2" data-i18n="project_5_desc">Landing page com animação
+                                3D controlada pelo scroll. Direção
+                                visual, geração de cenas com IA e desenvolvimento em Vite, Tailwind e GSAP.</p>
+                        </div>
+
+                        <!-- Project 6 Space - Grupo Vikings -->
+                        <div class="group cursor-pointer project-card" data-title="project_6_title"
+                            data-description="project_6_desc" data-tools="Figma, HTML/CSS, JS, GSAP, i18n PT/EN"
+                            data-url="https://grupo-vikings.web-cf8.workers.dev/" data-images="img/full-vikings.png">
+                            <div
+                                class="w-full aspect-[4/3] bg-slate-50 mb-6 overflow-hidden relative flex flex-col items-center justify-center border border-slate-100 rounded-sm">
+                                <img src="img/vikings-showcase.png"
+                                    alt="Imagem do site institucional do Grupo Vikings com cards de serviços animados por scroll">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <div class="flex gap-3 mb-3">
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1"
+                                    data-i18n="website_institucional">Website
+                                    Institucional</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">UX/UI</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1">Scroll
+                                    Animation</span>
+                                <span
+                                    class="text-xs font-medium tracking-wider text-slate-400 uppercase border border-slate-200 px-2 py-1"
+                                    data-i18n="frontend">Front-end</span>
+                            </div>
+                            <h3 class="text-2xl font-semibold tracking-tight text-slate-900 group-hover:text-red-600 transition-colors"
+                                data-i18n="project_6_title">
+                                Grupo Vikings - Site Institucional</h3>
+                            <p class="text-lg text-slate-500 mt-2" data-i18n="project_6_desc">Site institucional para
+                                grupo de facilities e segurança,
+                                com cards animados por scroll, arquitetura multimarca e versão bilíngue PT/EN.</p>
+                        </div>
+
                         <!-- Project 1 Space -->
                         <div class="group cursor-pointer project-card" data-title="project_1_title"
                             data-description="project_1_desc" data-tools="Figma, HTML/CSS, JS, Tailwind"
@@ -810,6 +877,22 @@
                                 </div>
                             </div>
                         `;
+                    } else if (data.title.includes('Jumper')) {
+                        extraContainer.innerHTML = `
+                            <div>
+                                <h3 class="font-semibold">${t('context')}</h3>
+                                <p>${t('project_5_context')}</p>
+                                <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
+                            </div>
+                        `;
+                    } else if (data.title.includes('Vikings')) {
+                        extraContainer.innerHTML = `
+                            <div>
+                                <h3 class="font-semibold">${t('context')}</h3>
+                                <p>${t('project_6_context')}</p>
+                                <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
+                            </div>
+                        `;
                     } else {
                         extraContainer.innerHTML = '';
                     }
@@ -952,6 +1035,22 @@
                                             <div class="bg-red-600 h-2 rounded" style="width:62%"></div>
                                         </div>
                                     </div>
+                                </div>
+                            `;
+                            } else if (data.title.includes('Jumper')) {
+                                extraContainer.innerHTML = `
+                                <div>
+                                    <h3 class="font-semibold">${t('context')}</h3>
+                                    <p>${t('project_5_context')}</p>
+                                    <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
+                                </div>
+                            `;
+                            } else if (data.title.includes('Vikings')) {
+                                extraContainer.innerHTML = `
+                                <div>
+                                    <h3 class="font-semibold">${t('context')}</h3>
+                                    <p>${t('project_6_context')}</p>
+                                    <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
                                 </div>
                             `;
                             } else {
