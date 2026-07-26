@@ -6,7 +6,9 @@ const translations = {
     'experience': 'Experiência',
     'portfolio': 'Portfólio',
     'contact': 'Contato',
-    
+    'nav_expertise': 'Especialidades',
+    'nav_projects': 'Projetos',
+
     // Hero Section
     'hero_eyebrow': 'UX/UI Designer • Product Designer • Front-end Developer',
     'hero_title': 'Transformo ideias em produtos digitais que unem estratégia, experiência e resultados.',
@@ -30,8 +32,18 @@ const translations = {
     'download_cv': 'Download CV',
     'scroll_down': 'Scroll Down',
 
+    // Credibility Bar
+    'cred_1_value': '18+',
+    'cred_1_label': 'Anos de experiência',
+    'cred_2_value': 'UX/UI',
+    'cred_2_label': 'Product Design + Front-end',
+    'cred_3_value': 'Produtos Digitais',
+    'cred_3_label': 'Sites, Sistemas e Landing Pages',
+    'cred_4_value': 'IA',
+    'cred_4_label': 'Automação, SEO e Performance',
+
     // Skills Section
-    'main_skills': 'Principais Competências',
+    'main_skills': 'Especialidades',
     'skills_description': 'Minha atuação vai além da criação de interfaces. Combino estratégia, experiência do usuário e desenvolvimento para transformar desafios de negócio em soluções digitais completas.',
 
     'skill_title_1': 'UX Strategy & Research',
@@ -88,9 +100,11 @@ const translations = {
     'skill_badge_6_5': 'MVP',
     'skill_badge_6_6': 'Melhoria Contínua',
 
-    // Experience Section
+    // About / Experience Section
+    'about_title': 'Sobre mim',
+    'about_description': 'Ao longo de mais de 18 anos, trabalhei em agências, produtos SaaS e projetos internacionais, sempre no ponto de encontro entre design e tecnologia. Essa trajetória me permite conduzir um projeto do discovery à implementação, conversando tanto com times de negócio quanto de engenharia — o que torna a entrega mais rápida, consistente e alinhada aos objetivos.',
     'professional_experience': 'Experiência Profissional',
-    
+
     'job_1_company': 'V4 Company',
     'job_1_position': 'Web Designer Sênior · Remoto',
     'job_1_description': 'Atuação estratégica em UX/UI com foco absoluto em conversão e crescimento de negócios digitais. Aplicação de IA no fluxo de design, acelerando entregas e padronizando componentes. Integração Figma + Cursor para ganho de escala e performance.',
@@ -139,6 +153,42 @@ const translations = {
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
     
+    // Technologies Section
+    'tech_title': 'Tecnologias',
+    'tech_description': 'Cada ferramenta tem um papel dentro do processo. Abaixo, o que utilizo em cada etapa, da concepção do design à operação do produto no ar.',
+    'tech_cat_design': 'Design',
+    'tech_cat_design_desc': 'Da ideia ao protótipo navegável.',
+    'tech_cat_frontend': 'Front-end',
+    'tech_cat_frontend_desc': 'Interfaces reais, fiéis ao design.',
+    'tech_cat_cms': 'CMS',
+    'tech_cat_cms_desc': 'Sites que o time consegue manter sozinho.',
+    'tech_cat_performance': 'Performance',
+    'tech_cat_performance_desc': 'Velocidade, SEO e conversão medidos.',
+    'tech_cat_automation': 'Automação',
+    'tech_cat_automation_desc': 'IA aplicada ao fluxo de trabalho.',
+    'tech_cms_1': 'Temas Customizados',
+    'tech_cms_2': 'Landing Pages',
+    'tech_cms_3': 'Sites Institucionais',
+    'tech_perf_1': 'Otimização de Imagens',
+
+    // Work Process Section
+    'process_title': 'Como transformo ideias em produtos digitais',
+    'process_description': 'Um método claro e transparente, do primeiro contato à evolução contínua do produto. Cada etapa entrega algo concreto e prepara a seguinte.',
+    'process_1_title': 'Discovery',
+    'process_1_desc': 'Compreensão do negócio, objetivos e necessidades.',
+    'process_2_title': 'Pesquisa & Estratégia',
+    'process_2_desc': 'Mapeamento da experiência e definição da solução.',
+    'process_3_title': 'UX/UI Design',
+    'process_3_desc': 'Wireframes, protótipos e interfaces.',
+    'process_4_title': 'Desenvolvimento',
+    'process_4_desc': 'Implementação Front-end e integrações.',
+    'process_5_title': 'Otimização',
+    'process_5_desc': 'Performance, SEO, métricas e melhorias contínuas.',
+
+    // Final CTA Section
+    'cta_title': 'Vamos construir seu próximo projeto?',
+    'cta_description': 'Se você procura alguém capaz de unir estratégia, UX, design e desenvolvimento para criar experiências digitais que realmente façam diferença, vamos conversar.',
+
     // Footer
     'ready_accelerate': 'Pronto para acelerar seu produto?',
     'footer_description': 'Disponível para oportunidades remotas, projetos estratégicos e desenvolvimento colaborativo.',
@@ -178,7 +228,9 @@ const translations = {
     'experience': 'Experience',
     'portfolio': 'Portfolio',
     'contact': 'Contact',
-    
+    'nav_expertise': 'Expertise',
+    'nav_projects': 'Projects',
+
     // Hero Section
     'hero_eyebrow': 'UX/UI Designer • Product Designer • Front-end Developer',
     'hero_title': 'I turn ideas into digital products that unite strategy, experience and results.',
@@ -202,8 +254,18 @@ const translations = {
     'download_cv': 'Download CV',
     'scroll_down': 'Scroll Down',
 
+    // Credibility Bar
+    'cred_1_value': '18+',
+    'cred_1_label': 'Years of experience',
+    'cred_2_value': 'UX/UI',
+    'cred_2_label': 'Product Design + Front-end',
+    'cred_3_value': 'Digital Products',
+    'cred_3_label': 'Websites, Systems and Landing Pages',
+    'cred_4_value': 'AI',
+    'cred_4_label': 'Automation, SEO and Performance',
+
     // Skills Section
-    'main_skills': 'Core Skills',
+    'main_skills': 'Expertise',
     'skills_description': 'My work goes beyond building interfaces. I combine strategy, user experience and development to turn business challenges into complete digital solutions.',
 
     'skill_title_1': 'UX Strategy & Research',
@@ -260,9 +322,11 @@ const translations = {
     'skill_badge_6_5': 'MVP',
     'skill_badge_6_6': 'Continuous Improvement',
 
-    // Experience Section
+    // About / Experience Section
+    'about_title': 'About me',
+    'about_description': 'Over more than 18 years, I have worked in agencies, SaaS products and international projects, always at the meeting point between design and technology. That background lets me lead a project from discovery to implementation, speaking the language of both business and engineering teams — which makes delivery faster, more consistent and aligned with the goals.',
     'professional_experience': 'Professional Experience',
-    
+
     'job_1_company': 'V4 Company',
     'job_1_position': 'Senior Web Designer · Remote',
     'job_1_description': 'Strategic UX/UI work with absolute focus on conversion and digital business growth. AI application in design workflow, accelerating deliverables and standardizing components. Figma + Cursor integration for scalability and performance.',
@@ -311,6 +375,42 @@ const translations = {
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
     
+    // Technologies Section
+    'tech_title': 'Technologies',
+    'tech_description': 'Every tool has a role within the process. Below is what I use at each stage, from design conception to running the product in production.',
+    'tech_cat_design': 'Design',
+    'tech_cat_design_desc': 'From idea to clickable prototype.',
+    'tech_cat_frontend': 'Front-end',
+    'tech_cat_frontend_desc': 'Real interfaces, faithful to the design.',
+    'tech_cat_cms': 'CMS',
+    'tech_cat_cms_desc': 'Websites the team can maintain on its own.',
+    'tech_cat_performance': 'Performance',
+    'tech_cat_performance_desc': 'Speed, SEO and conversion, measured.',
+    'tech_cat_automation': 'Automation',
+    'tech_cat_automation_desc': 'AI applied to the workflow.',
+    'tech_cms_1': 'Custom Themes',
+    'tech_cms_2': 'Landing Pages',
+    'tech_cms_3': 'Corporate Websites',
+    'tech_perf_1': 'Image Optimization',
+
+    // Work Process Section
+    'process_title': 'How I turn ideas into digital products',
+    'process_description': 'A clear, transparent method, from the first conversation to the continuous evolution of the product. Each stage delivers something concrete and sets up the next one.',
+    'process_1_title': 'Discovery',
+    'process_1_desc': 'Understanding the business, its goals and needs.',
+    'process_2_title': 'Research & Strategy',
+    'process_2_desc': 'Mapping the experience and defining the solution.',
+    'process_3_title': 'UX/UI Design',
+    'process_3_desc': 'Wireframes, prototypes and interfaces.',
+    'process_4_title': 'Development',
+    'process_4_desc': 'Front-end implementation and integrations.',
+    'process_5_title': 'Optimization',
+    'process_5_desc': 'Performance, SEO, metrics and continuous improvement.',
+
+    // Final CTA Section
+    'cta_title': 'Shall we build your next project?',
+    'cta_description': 'If you are looking for someone able to combine strategy, UX, design and development to create digital experiences that truly make a difference, let\'s talk.',
+
     // Footer
     'ready_accelerate': 'Ready to accelerate your product?',
     'footer_description': 'Available for remote opportunities, strategic projects and collaborative development.',

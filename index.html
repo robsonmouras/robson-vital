@@ -123,6 +123,11 @@
             scroll-margin-top: 96px; /* approximate header height */
         }
 
+        /* hide the flow arrow after the last step of the work process */
+        .process-step:last-child .step-connector {
+            display: none;
+        }
+
         /* Mobile Menu Styles */
         #mobileMenu {
             width: 100%;
@@ -176,11 +181,11 @@
                     <nav class="flex gap-6 lg:gap-10">
                         <a href="#home" class="text-red-600 font-semibold hover:text-red-700 transition-colors"
                             data-i18n="home">Home</a>
-                        <a href="#about" class="hover:text-slate-900 transition-colors" data-i18n="about">Sobre</a>
-                        <a href="#experience" class="hover:text-slate-900 transition-colors"
-                            data-i18n="experience">Experiência</a>
+                        <a href="#expertise" class="hover:text-slate-900 transition-colors"
+                            data-i18n="nav_expertise">Especialidades</a>
                         <a href="#portfolio" class="hover:text-slate-900 transition-colors"
-                            data-i18n="portfolio">Portfólio</a>
+                            data-i18n="nav_projects">Projetos</a>
+                        <a href="#about" class="hover:text-slate-900 transition-colors" data-i18n="about">Sobre</a>
                         <a href="#contact" class="hover:text-slate-900 transition-colors"
                             data-i18n="contact">Contato</a>
                     </nav>
@@ -217,12 +222,12 @@
                     <nav class="flex flex-col gap-8 px-6 py-8 flex-1">
                         <a href="#home" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
                             data-i18n="home">Home</a>
+                        <a href="#expertise" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="nav_expertise">Especialidades</a>
+                        <a href="#portfolio" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
+                            data-i18n="nav_projects">Projetos</a>
                         <a href="#about" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
                             data-i18n="about">Sobre</a>
-                        <a href="#experience" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
-                            data-i18n="experience">Experiência</a>
-                        <a href="#portfolio" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
-                            data-i18n="portfolio">Portfólio</a>
                         <a href="#contact" class="text-3xl font-semibold text-slate-900 hover:text-red-600 transition-colors mobile-nav-link"
                             data-i18n="contact">Contato</a>
                     </nav>
@@ -413,13 +418,47 @@
                 </div>
             </main>
 
-            <!-- Skills & About Section -->
-            <section id="about" class="py-24 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
+            <!-- Credibility Bar -->
+            <section id="credibility"
+                class="py-12 lg:py-14 px-6 lg:px-16 bg-slate-50 border-t border-slate-100 relative z-10">
+                <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+                    <div class="lg:border-l lg:border-slate-200 lg:pl-8 lg:first:border-l-0 lg:first:pl-0">
+                        <div class="w-8 h-[1px] bg-red-600 mb-4"></div>
+                        <div class="text-xl lg:text-2xl font-semibold tracking-tight text-slate-900"
+                            data-i18n="cred_1_value">18+</div>
+                        <div class="text-sm text-slate-500 mt-2 leading-relaxed" data-i18n="cred_1_label">Anos de
+                            experiência</div>
+                    </div>
+                    <div class="lg:border-l lg:border-slate-200 lg:pl-8">
+                        <div class="w-8 h-[1px] bg-red-600 mb-4"></div>
+                        <div class="text-xl lg:text-2xl font-semibold tracking-tight text-slate-900"
+                            data-i18n="cred_2_value">UX/UI</div>
+                        <div class="text-sm text-slate-500 mt-2 leading-relaxed" data-i18n="cred_2_label">Product Design
+                            + Front-end</div>
+                    </div>
+                    <div class="lg:border-l lg:border-slate-200 lg:pl-8">
+                        <div class="w-8 h-[1px] bg-red-600 mb-4"></div>
+                        <div class="text-xl lg:text-2xl font-semibold tracking-tight text-slate-900"
+                            data-i18n="cred_3_value">Produtos Digitais</div>
+                        <div class="text-sm text-slate-500 mt-2 leading-relaxed" data-i18n="cred_3_label">Sites,
+                            Sistemas e Landing Pages</div>
+                    </div>
+                    <div class="lg:border-l lg:border-slate-200 lg:pl-8">
+                        <div class="w-8 h-[1px] bg-red-600 mb-4"></div>
+                        <div class="text-xl lg:text-2xl font-semibold tracking-tight text-slate-900"
+                            data-i18n="cred_4_value">IA</div>
+                        <div class="text-sm text-slate-500 mt-2 leading-relaxed" data-i18n="cred_4_label">Automação, SEO
+                            e Performance</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Especialidades Section -->
+            <section id="expertise" class="py-24 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
                 <div class="max-w-7xl mx-auto">
                     <div class="mb-16">
                         <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-5"
-                            data-i18n="main_skills">Principais
-                            Competências</h2>
+                            data-i18n="main_skills">Especialidades</h2>
                         <p class="text-lg text-slate-500 max-w-3xl leading-relaxed" data-i18n="skills_description">
                             Minha atuação vai além da criação de interfaces. Combino estratégia, experiência do
                             usuário e desenvolvimento para transformar desafios de negócio em soluções digitais
@@ -656,122 +695,6 @@
                 </div>
             </section>
 
-            <!-- Experience Timeline -->
-            <section id="experience" class="py-24 px-6 lg:px-16 bg-slate-50 border-t border-slate-100 relative z-10">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-16"
-                        data-i18n="professional_experience">Experiência
-                        Profissional</h2>
-
-                    <div class="space-y-16">
-
-                        <!-- Job - Zalieza (adicionado) -->
-                        <div class="relative pl-8 md:pl-0">
-                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
-
-                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
-                                <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div
-                                        class="absolute w-3 h-3 bg-red-600 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_white]">
-                                    </div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-red-600 uppercase">2026 –
-                                        2026</div>
-                                    <div class="text-sm font-medium text-slate-400 mt-1">Mar - Atualmente</div>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900" data-i18n="job_zalieza_company">Zalieza</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium" data-i18n="job_zalieza_position">Designer da web · Freelance</div>
-                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_zalieza_description"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Job 1 -->
-                        <div class="relative pl-8 md:pl-0">
-                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
-
-                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
-                                <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div
-                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
-                                    </div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2025 –
-                                        2026</div>
-                                    <div class="text-sm font-medium text-slate-400 mt-1">Nov - Jan</div>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
-                                        data-i18n="job_1_company">V4 Company</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
-                                        data-i18n="job_1_position">Web Designer Sênior ·
-                                        Remoto</div>
-                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_1_description">
-                                        <strong>Atuação estratégica em UX/UI</strong> com foco absoluto em <strong>conversão e
-                                        crescimento de negócios digitais</strong>. <strong>Aplicação de IA</strong> no fluxo de
-                                        design, acelerando entregas e padronizando componentes. Integração <strong>Figma + Cursor</strong>
-                                        para ganho de escala e performance.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Job 2 -->
-                        <div class="relative pl-8 md:pl-0">
-                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
-
-                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
-                                <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div
-                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
-                                    </div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2023 –
-                                        2025</div>
-                                    <div class="text-sm font-medium text-slate-400 mt-1">Jan - Jun</div>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
-                                        data-i18n="job_2_company">Ambra IT</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
-                                        data-i18n="job_2_position">UI/UX Designer & Product
-                                        Designer · Remoto</div>
-                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_2_description">
-                                        <strong>Designer de Produtos</strong> no Kwik Ledgers, plataforma de contabilidade internacional.
-                                        <strong>Condução ponta a ponta</strong>: <strong>discovery</strong>, <strong>fluxos</strong>,
-                                        <strong>wireframes</strong>, <strong>protótipos em alta fidelidade</strong> e desenvolvimento de
-                                        <strong>interfaces acessíveis</strong>.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Job 3 -->
-                        <div class="relative pl-8 md:pl-0">
-                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
-                                <div class="md:w-[120px] shrink-0 pt-1 relative">
-                                    <div
-                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
-                                    </div>
-                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2020 –
-                                        2023</div>
-                                    <div class="text-sm font-medium text-slate-400 mt-1">Dez - Jan</div>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
-                                        data-i18n="job_3_company">OmniChat</h3>
-                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
-                                        data-i18n="job_3_position">Front-end Developer ·
-                                        Remoto</div>
-                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_3_description">
-                                        <strong>Evolução contínua da interface</strong> do SaaS OmniChat. <strong>Transformação de complexos
-                                        requisitos de negócio</strong> em <strong>UIs fluidas e intuitivas</strong>, consolidando a visão de
-                                        design diretamente na engenharia front-end.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Portfolio Section with Placeholders -->
             <section id="portfolio" class="py-24 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
                 <div class="max-w-7xl mx-auto">
@@ -946,6 +869,469 @@
                                 Layout completo desenvolvido com IA para eficiência e inovação visual.</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- About / Experience Timeline -->
+            <section id="about" class="py-24 px-6 lg:px-16 bg-slate-50 border-t border-slate-100 relative z-10">
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-16">
+                        <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-5"
+                            data-i18n="about_title">Sobre mim</h2>
+                        <p class="text-lg text-slate-500 leading-relaxed" data-i18n="about_description">
+                            Ao longo de mais de 18 anos, trabalhei em agências, produtos SaaS e projetos
+                            internacionais, sempre no ponto de encontro entre design e tecnologia. Essa trajetória me
+                            permite conduzir um projeto do discovery à implementação, conversando tanto com times de
+                            negócio quanto de engenharia — o que torna a entrega mais rápida, consistente e alinhada
+                            aos objetivos.
+                        </p>
+                    </div>
+
+                    <h3 class="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-10"
+                        data-i18n="professional_experience">Experiência Profissional</h3>
+
+                    <div class="space-y-16">
+
+                        <!-- Job - Zalieza (adicionado) -->
+                        <div class="relative pl-8 md:pl-0">
+                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
+
+                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
+                                <div class="md:w-[120px] shrink-0 pt-1 relative">
+                                    <div
+                                        class="absolute w-3 h-3 bg-red-600 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_white]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-red-600 uppercase">2026 –
+                                        2026</div>
+                                    <div class="text-sm font-medium text-slate-400 mt-1">Mar - Atualmente</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900" data-i18n="job_zalieza_company">Zalieza</h3>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium" data-i18n="job_zalieza_position">Designer da web · Freelance</div>
+                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_zalieza_description"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Job 1 -->
+                        <div class="relative pl-8 md:pl-0">
+                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
+
+                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
+                                <div class="md:w-[120px] shrink-0 pt-1 relative">
+                                    <div
+                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2025 –
+                                        2026</div>
+                                    <div class="text-sm font-medium text-slate-400 mt-1">Nov - Jan</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="job_1_company">V4 Company</h3>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
+                                        data-i18n="job_1_position">Web Designer Sênior ·
+                                        Remoto</div>
+                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_1_description">
+                                        <strong>Atuação estratégica em UX/UI</strong> com foco absoluto em <strong>conversão e
+                                        crescimento de negócios digitais</strong>. <strong>Aplicação de IA</strong> no fluxo de
+                                        design, acelerando entregas e padronizando componentes. Integração <strong>Figma + Cursor</strong>
+                                        para ganho de escala e performance.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job 2 -->
+                        <div class="relative pl-8 md:pl-0">
+                            <div class="hidden md:block absolute w-px h-full bg-slate-200 left-[120px] top-2"></div>
+
+                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
+                                <div class="md:w-[120px] shrink-0 pt-1 relative">
+                                    <div
+                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2023 –
+                                        2025</div>
+                                    <div class="text-sm font-medium text-slate-400 mt-1">Jan - Jun</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="job_2_company">Ambra IT</h3>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
+                                        data-i18n="job_2_position">UI/UX Designer & Product
+                                        Designer · Remoto</div>
+                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_2_description">
+                                        <strong>Designer de Produtos</strong> no Kwik Ledgers, plataforma de contabilidade internacional.
+                                        <strong>Condução ponta a ponta</strong>: <strong>discovery</strong>, <strong>fluxos</strong>,
+                                        <strong>wireframes</strong>, <strong>protótipos em alta fidelidade</strong> e desenvolvimento de
+                                        <strong>interfaces acessíveis</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job 3 -->
+                        <div class="relative pl-8 md:pl-0">
+                            <div class="flex flex-col md:flex-row gap-6 md:gap-16">
+                                <div class="md:w-[120px] shrink-0 pt-1 relative">
+                                    <div
+                                        class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[37px] md:left-[114px] top-2.5 shadow-[0_0_0_4px_#f8fafc]">
+                                    </div>
+                                    <div class="text-sm font-semibold tracking-[0.1em] text-slate-500 uppercase">2020 –
+                                        2023</div>
+                                    <div class="text-sm font-medium text-slate-400 mt-1">Dez - Jan</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="job_3_company">OmniChat</h3>
+                                    <div class="text-lg text-slate-500 mt-1 mb-4 font-medium"
+                                        data-i18n="job_3_position">Front-end Developer ·
+                                        Remoto</div>
+                                    <p class="text-lg text-slate-600 leading-relaxed" data-i18n="job_3_description">
+                                        <strong>Evolução contínua da interface</strong> do SaaS OmniChat. <strong>Transformação de complexos
+                                        requisitos de negócio</strong> em <strong>UIs fluidas e intuitivas</strong>, consolidando a visão de
+                                        design diretamente na engenharia front-end.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technologies Section -->
+            <section id="tech" class="py-24 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-16">
+                        <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-5"
+                            data-i18n="tech_title">Tecnologias</h2>
+                        <p class="text-lg text-slate-500 max-w-3xl leading-relaxed" data-i18n="tech_description">
+                            Cada ferramenta tem um papel dentro do processo. Abaixo, o que utilizo em cada etapa, da
+                            concepção do design à operação do produto no ar.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 border-t border-slate-100">
+
+                        <!-- Category - Design -->
+                        <div
+                            class="py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-16">
+                            <div class="md:w-[260px] shrink-0 flex gap-4">
+                                <div
+                                    class="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 border border-slate-200">
+                                    <i data-lucide="pen-tool" stroke-width="1.5" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="tech_cat_design">Design</h3>
+                                    <p class="text-sm text-slate-500 leading-relaxed mt-1"
+                                        data-i18n="tech_cat_design_desc">Da ideia ao protótipo navegável.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-wrap items-start gap-2 md:pt-2">
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Figma</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_2_1">Design Systems</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_2_2">Prototipação</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_1_5">Wireframes</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_2_4">Design Responsivo</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_2_5">Acessibilidade</span>
+                            </div>
+                        </div>
+
+                        <!-- Category - Front-end -->
+                        <div
+                            class="py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-16">
+                            <div class="md:w-[260px] shrink-0 flex gap-4">
+                                <div
+                                    class="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 border border-slate-200">
+                                    <i data-lucide="code-2" stroke-width="1.5" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="tech_cat_frontend">Front-end</h3>
+                                    <p class="text-sm text-slate-500 leading-relaxed mt-1"
+                                        data-i18n="tech_cat_frontend_desc">Interfaces reais, fiéis ao design.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-wrap items-start gap-2 md:pt-2">
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">HTML</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">CSS</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">JavaScript</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">TypeScript</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Vue.js</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">React</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Tailwind
+                                    CSS</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Vite</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">GSAP</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Lenis</span>
+                            </div>
+                        </div>
+
+                        <!-- Category - CMS -->
+                        <div
+                            class="py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-16">
+                            <div class="md:w-[260px] shrink-0 flex gap-4">
+                                <div
+                                    class="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 border border-slate-200">
+                                    <i data-lucide="layout-template" stroke-width="1.5" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="tech_cat_cms">CMS</h3>
+                                    <p class="text-sm text-slate-500 leading-relaxed mt-1" data-i18n="tech_cat_cms_desc">
+                                        Sites que o time consegue manter sozinho.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-wrap items-start gap-2 md:pt-2">
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">WordPress</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="tech_cms_1">Temas Customizados</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="tech_cms_2">Landing Pages</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="tech_cms_3">Sites Institucionais</span>
+                            </div>
+                        </div>
+
+                        <!-- Category - Performance -->
+                        <div
+                            class="py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-16">
+                            <div class="md:w-[260px] shrink-0 flex gap-4">
+                                <div
+                                    class="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 border border-slate-200">
+                                    <i data-lucide="gauge" stroke-width="1.5" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="tech_cat_performance">Performance</h3>
+                                    <p class="text-sm text-slate-500 leading-relaxed mt-1"
+                                        data-i18n="tech_cat_performance_desc">Velocidade, SEO e conversão medidos.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-wrap items-start gap-2 md:pt-2">
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_4_1">SEO Técnico</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_4_2">Core Web Vitals</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_4_4">CRO</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_4_5">Google Analytics</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_4_6">Hotjar</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="tech_perf_1">Otimização de Imagens</span>
+                            </div>
+                        </div>
+
+                        <!-- Category - Automação -->
+                        <div class="py-8 flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-16">
+                            <div class="md:w-[260px] shrink-0 flex gap-4">
+                                <div
+                                    class="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 border border-slate-200">
+                                    <i data-lucide="bot" stroke-width="1.5" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold tracking-tight text-slate-900"
+                                        data-i18n="tech_cat_automation">Automação</h3>
+                                    <p class="text-sm text-slate-500 leading-relaxed mt-1"
+                                        data-i18n="tech_cat_automation_desc">IA aplicada ao fluxo de trabalho.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-wrap items-start gap-2 md:pt-2">
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_5_1">IA Generativa</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Cursor</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide">Claude
+                                    Code</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_5_2">Integração de APIs</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_5_3">Automação de Processos</span>
+                                <span
+                                    class="inline-flex items-center text-[11px] font-medium text-slate-600 bg-slate-50 border border-slate-200 rounded-full px-2.5 py-1 tracking-wide"
+                                    data-i18n="skill_badge_5_4">Agentes Inteligentes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Process Section -->
+            <section id="process" class="py-24 px-6 lg:px-16 bg-slate-50 border-t border-slate-100 relative z-10">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-16">
+                        <h2 class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-5"
+                            data-i18n="process_title">Como transformo ideias em produtos digitais</h2>
+                        <p class="text-lg text-slate-500 max-w-3xl leading-relaxed" data-i18n="process_description">
+                            Um método claro e transparente, do primeiro contato à evolução contínua do produto. Cada
+                            etapa entrega algo concreto e prepara a seguinte.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+                        <!-- Step 01 -->
+                        <div class="process-step relative flex flex-col">
+                            <div
+                                class="h-full p-8 lg:p-6 border border-slate-100 bg-white flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                                <div class="text-3xl font-semibold tracking-tight text-slate-200">01</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold tracking-tight text-slate-900"
+                                        data-i18n="process_1_title">Discovery</h3>
+                                    <p class="text-[15px] text-slate-500 leading-relaxed mt-2"
+                                        data-i18n="process_1_desc">Compreensão do negócio, objetivos e necessidades.</p>
+                                </div>
+                            </div>
+                            <div class="step-connector flex lg:hidden justify-center py-4 text-slate-300">
+                                <i data-lucide="arrow-down" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="step-connector hidden lg:flex absolute top-1/2 -right-[22px] -translate-y-1/2 text-slate-300 z-10">
+                                <i data-lucide="arrow-right" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 02 -->
+                        <div class="process-step relative flex flex-col">
+                            <div
+                                class="h-full p-8 lg:p-6 border border-slate-100 bg-white flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                                <div class="text-3xl font-semibold tracking-tight text-slate-200">02</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold tracking-tight text-slate-900"
+                                        data-i18n="process_2_title">Pesquisa & Estratégia</h3>
+                                    <p class="text-[15px] text-slate-500 leading-relaxed mt-2"
+                                        data-i18n="process_2_desc">Mapeamento da experiência e definição da solução.</p>
+                                </div>
+                            </div>
+                            <div class="step-connector flex lg:hidden justify-center py-4 text-slate-300">
+                                <i data-lucide="arrow-down" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="step-connector hidden lg:flex absolute top-1/2 -right-[22px] -translate-y-1/2 text-slate-300 z-10">
+                                <i data-lucide="arrow-right" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 03 -->
+                        <div class="process-step relative flex flex-col">
+                            <div
+                                class="h-full p-8 lg:p-6 border border-slate-100 bg-white flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                                <div class="text-3xl font-semibold tracking-tight text-slate-200">03</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold tracking-tight text-slate-900"
+                                        data-i18n="process_3_title">UX/UI Design</h3>
+                                    <p class="text-[15px] text-slate-500 leading-relaxed mt-2"
+                                        data-i18n="process_3_desc">Wireframes, protótipos e interfaces.</p>
+                                </div>
+                            </div>
+                            <div class="step-connector flex lg:hidden justify-center py-4 text-slate-300">
+                                <i data-lucide="arrow-down" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="step-connector hidden lg:flex absolute top-1/2 -right-[22px] -translate-y-1/2 text-slate-300 z-10">
+                                <i data-lucide="arrow-right" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 04 -->
+                        <div class="process-step relative flex flex-col">
+                            <div
+                                class="h-full p-8 lg:p-6 border border-slate-100 bg-white flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                                <div class="text-3xl font-semibold tracking-tight text-slate-200">04</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold tracking-tight text-slate-900"
+                                        data-i18n="process_4_title">Desenvolvimento</h3>
+                                    <p class="text-[15px] text-slate-500 leading-relaxed mt-2"
+                                        data-i18n="process_4_desc">Implementação Front-end e integrações.</p>
+                                </div>
+                            </div>
+                            <div class="step-connector flex lg:hidden justify-center py-4 text-slate-300">
+                                <i data-lucide="arrow-down" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="step-connector hidden lg:flex absolute top-1/2 -right-[22px] -translate-y-1/2 text-slate-300 z-10">
+                                <i data-lucide="arrow-right" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 05 -->
+                        <div class="process-step relative flex flex-col">
+                            <div
+                                class="h-full p-8 lg:p-6 border border-slate-100 bg-white flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300">
+                                <div class="text-3xl font-semibold tracking-tight text-slate-200">05</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold tracking-tight text-slate-900"
+                                        data-i18n="process_5_title">Otimização</h3>
+                                    <p class="text-[15px] text-slate-500 leading-relaxed mt-2"
+                                        data-i18n="process_5_desc">Performance, SEO, métricas e melhorias contínuas.</p>
+                                </div>
+                            </div>
+                            <div class="step-connector flex lg:hidden justify-center py-4 text-slate-300">
+                                <i data-lucide="arrow-down" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="step-connector hidden lg:flex absolute top-1/2 -right-[22px] -translate-y-1/2 text-slate-300 z-10">
+                                <i data-lucide="arrow-right" stroke-width="1.5" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final CTA Section -->
+            <section id="cta" class="py-24 lg:py-28 px-6 lg:px-16 bg-white border-t border-slate-100 relative z-10">
+                <div class="max-w-3xl mx-auto text-center flex flex-col items-center">
+                    <div class="w-8 h-[1px] bg-red-600 mb-8"></div>
+                    <h2 class="text-3xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight text-slate-900 leading-[1.15]"
+                        data-i18n="cta_title">Vamos construir seu próximo projeto?</h2>
+                    <p class="mt-6 text-lg text-slate-500 leading-relaxed" data-i18n="cta_description">
+                        Se você procura alguém capaz de unir estratégia, UX, design e desenvolvimento para criar
+                        experiências digitais que realmente façam diferença, vamos conversar.
+                    </p>
+                    <a href="https://wa.link/hs0fpr" target="_blank"
+                        class="mt-10 bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors flex items-center gap-3 group inline-flex">
+                        <span data-i18n="hero_cta_secondary">Falar comigo</span>
+                        <i data-lucide="arrow-right" stroke-width="1.5"
+                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
