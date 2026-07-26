@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://robsonmouras.github.io/robson-vital/</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/perfil.webp</image:loc>
+      <image:title>Robson Moura – UX/UI &amp; Product Designer</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/jumper-showcase.webp</image:loc>
+      <image:title>Jumper Segurança – Site Institucional</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/vikings-showcase.webp</image:loc>
+      <image:title>Grupo Vikings – Site Institucional</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/KL-portal.webp</image:loc>
+      <image:title>Kwik Ledgers – Plataforma Global</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/kwik-ledgers-landing.webp</image:loc>
+      <image:title>Site Institucional – KwikLedgers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://robsonmouras.github.io/robson-vital/img/layout-totem.webp</image:loc>
+      <image:title>Totem Interativo – Feira de Negócios</image:title>
+    </image:image>
+  </url>
+</urlset>

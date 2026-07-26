@@ -1,6 +1,7 @@
 const translations = {
   pt: {
     // Navigation
+    'skip_to_content': 'Ir para o conteúdo',
     'home': 'Home',
     'about': 'Sobre',
     'experience': 'Experiência',
@@ -11,12 +12,11 @@ const translations = {
 
     // Hero Section
     'hero_eyebrow': 'UX/UI Designer • Product Designer • Front-end Developer',
-    'hero_title': 'Transformo ideias em produtos digitais que unem estratégia, experiência e resultados.',
-    'hero_focus_on': 'Especialista em',
-    'role_1': 'Estratégia de Produto',
-    'role_2': 'Experiência do Usuário',
-    'role_3': 'Conversão & Performance',
-    'role_4': 'IA & Automação',
+    'hero_title': 'Transformo ideias em produtos digitais que unem',
+    'hero_word_1': 'estratégia.',
+    'hero_word_2': 'experiência.',
+    'hero_word_3': 'resultados.',
+    'hero_word_longest': 'experiência.',
     'profile_description': 'Com mais de 18 anos de experiência, ajudo empresas a criar sites, sistemas e produtos digitais que combinam UX/UI Design, desenvolvimento Front-end e visão de negócio. Meu foco é desenvolver soluções intuitivas, performáticas e orientadas a resultados, acompanhando todo o processo, da estratégia à implementação.',
     'hero_badge_1': '18+ anos de experiência',
     'hero_badge_2': 'UX/UI • Produto • Front-end',
@@ -33,14 +33,7 @@ const translations = {
     'scroll_down': 'Scroll Down',
 
     // Credibility Bar
-    'cred_1_value': '18+',
-    'cred_1_label': 'Anos de experiência',
-    'cred_2_value': 'UX/UI',
-    'cred_2_label': 'Product Design + Front-end',
-    'cred_3_value': 'Produtos Digitais',
-    'cred_3_label': 'Sites, Sistemas e Landing Pages',
-    'cred_4_value': 'IA',
-    'cred_4_label': 'Automação, SEO e Performance',
+    'clients_label': 'Marcas com que já trabalhei',
 
     // Skills Section
     'main_skills': 'Especialidades',
@@ -193,7 +186,7 @@ const translations = {
     'ready_accelerate': 'Pronto para acelerar seu produto?',
     'footer_description': 'Disponível para oportunidades remotas, projetos estratégicos e desenvolvimento colaborativo.',
     'lets_talk': 'Vamos Conversar',
-    'copyright': '© 2024 Robson Moura. Todos os direitos reservados.',
+    'copyright': '© {year} Robson Moura. Todos os direitos reservados.',
     
     // Modal
     'tools_techniques': 'Ferramentas & técnicas: ',
@@ -223,6 +216,7 @@ const translations = {
   
   en: {
     // Navigation
+    'skip_to_content': 'Skip to content',
     'home': 'Home',
     'about': 'About',
     'experience': 'Experience',
@@ -233,12 +227,11 @@ const translations = {
 
     // Hero Section
     'hero_eyebrow': 'UX/UI Designer • Product Designer • Front-end Developer',
-    'hero_title': 'I turn ideas into digital products that unite strategy, experience and results.',
-    'hero_focus_on': 'Focused on',
-    'role_1': 'Product Strategy',
-    'role_2': 'User Experience',
-    'role_3': 'Conversion & Performance',
-    'role_4': 'AI & Automation',
+    'hero_title': 'I turn ideas into digital products that unite',
+    'hero_word_1': 'strategy.',
+    'hero_word_2': 'experience.',
+    'hero_word_3': 'results.',
+    'hero_word_longest': 'experience.',
     'profile_description': 'With over 18 years of experience, I help companies build websites, systems and digital products that combine UX/UI Design, Front-end development and business vision. My focus is building intuitive, high-performing, results-driven solutions, staying involved throughout the whole process — from strategy to implementation.',
     'hero_badge_1': '18+ years of experience',
     'hero_badge_2': 'UX/UI • Product • Front-end',
@@ -255,14 +248,7 @@ const translations = {
     'scroll_down': 'Scroll Down',
 
     // Credibility Bar
-    'cred_1_value': '18+',
-    'cred_1_label': 'Years of experience',
-    'cred_2_value': 'UX/UI',
-    'cred_2_label': 'Product Design + Front-end',
-    'cred_3_value': 'Digital Products',
-    'cred_3_label': 'Websites, Systems and Landing Pages',
-    'cred_4_value': 'AI',
-    'cred_4_label': 'Automation, SEO and Performance',
+    'clients_label': 'Brands I have worked with',
 
     // Skills Section
     'main_skills': 'Expertise',
@@ -415,7 +401,7 @@ const translations = {
     'ready_accelerate': 'Ready to accelerate your product?',
     'footer_description': 'Available for remote opportunities, strategic projects and collaborative development.',
     'lets_talk': 'Let\'s Talk',
-    'copyright': '© 2024 Robson Moura. All rights reserved.',
+    'copyright': '© {year} Robson Moura. All rights reserved.',
     
     // Modal
     'tools_techniques': 'Tools & techniques: ',
@@ -478,25 +464,64 @@ function t(key) {
   return translations[lang][key] || translations['pt'][key] || key;
 }
 
+// SEO metadata per language: title/description feed the SERP snippet and the
+// Open Graph tags feed link previews (LinkedIn, WhatsApp, X)
+const seoMeta = {
+  pt: {
+    title: 'Robson Moura | UX/UI & Product Designer Sênior + Front-end',
+    description: 'Portfólio de Robson Moura, UX/UI e Product Designer sênior com 18 anos de experiência unindo design e front-end em produtos SaaS, sites e apps.',
+    ogTitle: 'Robson Moura | UX/UI & Product Designer Sênior + Front-end',
+    ogDescription: 'Portfólio de Robson Moura: UX/UI, Product Design e front-end. Veja projetos, cases e a trajetória de 18 anos entre design e tecnologia.',
+    locale: 'pt_BR',
+    altLocale: 'en_US'
+  },
+  en: {
+    title: 'Robson Moura | Senior UX/UI & Product Designer + Front-end',
+    description: 'Portfolio of Robson Moura, senior UX/UI and Product Designer with 18 years bridging design and front-end across SaaS products, websites and apps.',
+    ogTitle: 'Robson Moura | Senior UX/UI & Product Designer + Front-end',
+    ogDescription: 'Portfolio of Robson Moura: UX/UI, product design and front-end. Explore projects, case studies and 18 years between design and technology.',
+    locale: 'en_US',
+    altLocale: 'pt_BR'
+  }
+};
+
+function setMeta(selector, value) {
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute('content', value);
+}
+
 function translatePage(lang) {
+  const year = new Date().getFullYear();
+
   // Translate all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const key = element.getAttribute('data-i18n');
-    element.innerHTML = translations[lang][key] || translations['pt'][key] || key;
+    const value = translations[lang][key] || translations['pt'][key] || key;
+    element.innerHTML = value.replace('{year}', year);
   });
   
+  // Translate labels that live in attributes instead of text content
+  // (used by icon-only links, where innerHTML would wipe out the icon)
+  document.querySelectorAll('[data-i18n-label]').forEach(element => {
+    const key = element.getAttribute('data-i18n-label');
+    const value = translations[lang][key] || translations['pt'][key] || key;
+    element.setAttribute('aria-label', value);
+    element.setAttribute('title', value);
+  });
+
   // Update HTML lang attribute
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-  
-  // Update meta tags
-  const titleElement = document.querySelector('title');
-  if (lang === 'en') {
-    titleElement.textContent = 'Robson Moura – Senior UX/UI & Product Designer | Case Studies';
-    document.querySelector('meta[name="description"]').setAttribute('content', 'Professional portfolio of Robson Moura – Senior UX/UI & Product Designer with over 15 years of experience in digital experiences, front-end and scalable products. Check out projects and experience.');
-  } else {
-    titleElement.textContent = 'Robson Moura – Senior UX/UI & Product Designer | Case Studies';
-    document.querySelector('meta[name="description"]').setAttribute('content', 'Portfólio profissional de Robson Moura – Senior UX/UI & Product Designer com mais de 15 anos de experiência em experiências digitais, front-end e produtos escaláveis. Confira projetos e experiência.');
-  }
+
+  // Keep title, description and social preview tags in sync with the language
+  const meta = seoMeta[lang] || seoMeta.pt;
+  document.title = meta.title;
+  setMeta('meta[name="description"]', meta.description);
+  setMeta('meta[property="og:title"]', meta.ogTitle);
+  setMeta('meta[property="og:description"]', meta.ogDescription);
+  setMeta('meta[property="og:locale"]', meta.locale);
+  setMeta('meta[property="og:locale:alternate"]', meta.altLocale);
+  setMeta('meta[name="twitter:title"]', meta.ogTitle);
+  setMeta('meta[name="twitter:description"]', meta.ogDescription);
 }
 
 function updateLanguageButton(lang) {

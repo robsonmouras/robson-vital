@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://robsonmouras.github.io/robson-vital/sitemap.xml
