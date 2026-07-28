@@ -7,8 +7,8 @@ Portfólio de Robson Moura — site estático publicado no GitHub Pages.
 O CSS é **pré-compilado**. O site não usa mais o `cdn.tailwindcss.com`, que baixava
 124 KiB de JavaScript bloqueante para gerar as classes dentro do navegador.
 
-Sempre que você **adicionar ou remover uma classe Tailwind** em `index.html`,
-`briefing.html`, `js/*.js` ou `translations.js`, é preciso regerar o `css/tailwind.css`:
+Sempre que você **adicionar ou remover uma classe Tailwind** em qualquer `.html`
+da raiz, em `js/*.js` ou em `translations.js`, é preciso regerar o `css/tailwind.css`:
 
 ```bash
 npm install       # só na primeira vez
@@ -24,18 +24,20 @@ publica o repositório como está, sem etapa de build.
 
 | Caminho             | O que é                                                        |
 | ------------------- | -------------------------------------------------------------- |
-| `index.html`        | Página única, com o CSS específico do site em um `<style>`      |
-| `briefing.html`     | Formulário de briefing de identidade visual (`noindex`)         |
-| `js/main.js`        | Animações (GSAP), modal de projetos, menu mobile, navegação     |
-| `js/briefing.js`    | Etapas, rascunho local, Turnstile e envio do briefing            |
-| `apps-script/`      | Back-end do briefing (Google Apps Script) — veja o README de lá  |
-| `translations.js`   | Dicionário PT/EN aplicado via atributos `data-i18n`             |
-| `src/tailwind.css`  | Entrada do Tailwind (não editar o CSS gerado em `css/`)         |
-| `fonts/`            | Inter (woff2) servida pelo próprio domínio                      |
+| `index.html`          | Página única, com o CSS específico do site em um `<style>`     |
+| `briefing.html`       | Briefing de identidade visual (`noindex`)                      |
+| `briefing-site.html`  | Briefing de site (`noindex`)                                   |
+| `js/main.js`          | Animações (GSAP), modal de projetos, menu mobile, navegação    |
+| `js/briefing.js`      | Etapas, rascunho local, Turnstile e envio — identidade visual  |
+| `js/briefing-site.js` | O mesmo, para o briefing de site                               |
+| `apps-script/`        | Back-end dos briefings (Google Apps Script) — README de lá     |
+| `translations.js`     | Dicionário PT/EN aplicado via atributos `data-i18n`            |
+| `src/tailwind.css`    | Entrada do Tailwind (não editar o CSS gerado em `css/`)        |
+| `fonts/`              | Inter (woff2) servida pelo próprio domínio                     |
 
-O `briefing.html` não entra no menu nem no `sitemap.xml`: o link é enviado direto
-ao cliente. Antes de usar, preencha as duas chaves no topo de `js/briefing.js`
-seguindo [`apps-script/README.md`](apps-script/README.md).
+As páginas de briefing não entram no menu nem no `sitemap.xml`: o link é enviado
+direto ao cliente. Antes de usar, preencha as chaves no topo de `js/briefing.js` e
+`js/briefing-site.js` seguindo [`apps-script/README.md`](apps-script/README.md).
 
 ## Fontes
 

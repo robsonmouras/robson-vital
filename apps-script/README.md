@@ -1,23 +1,34 @@
-# Back-end do briefing
+# Back-end dos briefings
 
-O formulário em [`/briefing.html`](../briefing.html) envia as respostas para um
-Web App do Google Apps Script, que grava tudo numa planilha do Drive. O código do
-Web App é o [`briefing.gs`](briefing.gs) — este arquivo não roda no site, ele é
-colado no editor do Apps Script. A cópia fica aqui para o back-end não existir
-só dentro do Google.
+Os formulários enviam as respostas para um Web App do Google Apps Script, que
+grava tudo numa planilha do Drive. Os arquivos `.gs` daqui não rodam no site: eles
+são colados no editor do Apps Script. A cópia fica versionada para o back-end não
+existir só dentro do Google.
+
+| Formulário                                       | Script                                 | Chaves em                                    |
+| ------------------------------------------------ | -------------------------------------- | -------------------------------------------- |
+| [`/briefing.html`](../briefing.html) — identidade | [`briefing.gs`](briefing.gs)           | [`../js/briefing.js`](../js/briefing.js)      |
+| [`/briefing-site.html`](../briefing-site.html) — site | [`briefing-site.gs`](briefing-site.gs) | [`../js/briefing-site.js`](../js/briefing-site.js) |
+
+**Cada formulário tem a sua própria planilha e a sua própria implantação.** Os dois
+scripts são gêmeos — muda a lista de perguntas —, e separá-los evita que um ajuste
+em um republique o outro ou misture briefings de tipos diferentes na mesma planilha.
+O widget do Turnstile, esse sim, pode ser o mesmo nos dois: ele é liberado por
+domínio, não por página.
 
 Ordem de configuração: **planilha → Apps Script → Turnstile → chaves no site**.
 
 ## 1. Planilha
 
-1. Crie uma planilha nova no Google Drive (ex.: `Briefings — Identidade Visual`).
+1. Crie uma planilha nova no Google Drive (ex.: `Briefings — Identidade Visual` ou
+   `Briefings — Sites`).
 2. Não precisa criar aba nem cabeçalho: o script cria a aba `Resumo` no primeiro
    envio e, a cada briefing, uma aba nova com o nome da empresa.
 
 ## 2. Apps Script
 
 1. Na planilha: **Extensões › Apps Script**.
-2. Apague o conteúdo do `Código.gs` e cole o [`briefing.gs`](briefing.gs) inteiro.
+2. Apague o conteúdo do `Código.gs` e cole o `.gs` correspondente ao formulário.
 3. **Configurações do projeto › Propriedades do script**, adicione:
 
    | Propriedade        | Valor                                                       |
@@ -43,9 +54,12 @@ Ordem de configuração: **planilha → Apps Script → Turnstile → chaves no 
 3. Modo **Managed**.
 4. Guarde a **site key** (pública) e a **secret key** (vai na propriedade do passo 2.3).
 
+O mesmo widget serve aos dois formulários; a secret key precisa ser cadastrada nas
+propriedades de **cada** projeto do Apps Script.
+
 ## 4. Ligar o site
 
-No topo de [`../js/briefing.js`](../js/briefing.js), substitua:
+No topo do JS do formulário, substitua:
 
 ```js
 const ENDPOINT = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
@@ -57,13 +71,14 @@ testar o layout: o Turnstile não é carregado e o envio avisa o que falta.
 
 ## Como fica a planilha
 
-- **`Resumo`** — uma linha por briefing: data, empresa, nome, e-mail, WhatsApp,
-  entregáveis, prazo e um link `Abrir aba`.
+- **`Resumo`** — uma linha por briefing, com um link `Abrir aba`. No de identidade:
+  data, empresa, nome, e-mail, WhatsApp, entregáveis e prazo. No de site: data,
+  empresa, nome, e-mail, WhatsApp, tipo de projeto, objetivo e prazo.
 - **Uma aba por cliente**, nomeada com o nome da empresa, com as respostas em duas
   colunas (pergunta / resposta) separadas pelos títulos das seções.
 
-Os rótulos das perguntas vêm da constante `SECTIONS` dentro do `briefing.gs`, e não
-do navegador — o que é gravado não depende do que o cliente mandar na requisição.
+Os rótulos das perguntas vêm da constante `SECTIONS` dentro do `.gs`, e não do
+navegador — o que é gravado não depende do que o cliente mandar na requisição.
 **Ao adicionar ou remover um campo no formulário, atualize `SECTIONS` também**,
 senão a resposta chega mas não aparece na aba.
 

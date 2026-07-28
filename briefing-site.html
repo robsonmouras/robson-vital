@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Briefing do Site | Robson Moura</title>
+    <meta name="description"
+        content="Formulário de briefing de site: algumas perguntas rápidas para entender o objetivo, o público e o conteúdo antes de começar o projeto." />
+
+    <!-- Página de cliente: fora de busca, fora do sitemap e sem link a partir do
+         site. Sem canonical de propósito — canonical pede indexação da URL e
+         contradiz o noindex.
+         noarchive/nosnippet impedem cache e trecho salvo caso o link vaze;
+         noimageindex mantém a página fora da busca por imagens. -->
+    <meta name="robots"
+        content="noindex, nofollow, noarchive, nosnippet, noimageindex, max-snippet:0, max-image-preview:none" />
+    <meta name="author" content="Robson Moura" />
+    <meta name="theme-color" content="#dc2626" />
+
+    <link rel="preload" as="font" type="font/woff2" href="fonts/inter-latin.woff2" crossorigin>
+    <link rel="stylesheet" href="css/tailwind.css">
+
+    <!-- O handshake do Turnstile sai do caminho crítico, mas o DNS já vai resolvido -->
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 600;
+            font-display: swap;
+            src: url('fonts/inter-latin.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+                U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 600;
+            font-display: swap;
+            src: url('fonts/inter-latin-ext.woff2') format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+                U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* Campos de texto: escritos em CSS puro em vez de utilitários repetidos em
+           cada input, que é o que o index.html faz com o CSS específico da página. */
+        .field-input {
+            display: block;
+            width: 100%;
+            border: 1px solid #e2e8f0;      /* slate-200 */
+            background: #fff;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #0f172a;                  /* slate-900 */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .field-input::placeholder { color: #94a3b8; }  /* slate-400 */
+
+        .field-input:focus {
+            outline: none;
+            border-color: #dc2626;           /* red-600 */
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        .field-input[aria-invalid="true"] {
+            border-color: #dc2626;
+            background: #fef2f2;             /* red-50 */
+        }
+
+        textarea.field-input {
+            resize: vertical;
+            min-height: 7rem;
+            line-height: 1.6;
+        }
+
+        /* Opções (checkbox e radio) como blocos clicáveis */
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            padding: 0.875rem 1rem;
+            font-size: 0.9375rem;
+            color: #334155;                  /* slate-700 */
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .opt:hover { border-color: #cbd5e1; }
+
+        .opt input {
+            accent-color: #dc2626;
+            width: 1.05rem;
+            height: 1.05rem;
+            margin-top: 0.15rem;
+            flex: 0 0 auto;
+        }
+
+        .opt:has(input:checked) {
+            border-color: #dc2626;
+            background: #fef2f2;
+            color: #0f172a;
+            font-weight: 500;
+        }
+
+        .opt:focus-within {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        /* Opção escondida pela ramificação de página única */
+        .opt[hidden] { display: none; }
+
+        /* Um passo por vez; o JS controla o hidden */
+        .step[hidden] { display: none; }
+
+        .step {
+            animation: step-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes step-in {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .step { animation: none; }
+        }
+
+        /* Campo-armadilha: invisível para gente, preenchido por robô de formulário.
+           Fica fora da tela em vez de display:none porque parte dos bots ignora
+           campos ocultos por display. */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-red-100 selection:text-red-900">
+
+    <div class="min-h-screen p-0 sm:p-8 flex flex-col items-center">
+        <div class="bg-white w-full max-w-[1100px] shadow-2xl relative flex flex-col">
+
+            <!-- Cabeçalho enxuto: sem menu e sem seletor de idioma, para não tirar o
+                 foco do preenchimento -->
+            <header
+                class="flex justify-between items-center py-8 px-6 lg:px-16 text-xs tracking-[0.15em] font-medium uppercase text-slate-400 border-b border-slate-100">
+                <a href="index.html" class="font-semibold text-lg tracking-tight text-slate-900 normal-case">
+                    ROBSON<span class="text-red-600">.</span>
+                </a>
+                <a href="index.html" class="hover:text-slate-900 transition-colors">Voltar ao site</a>
+            </header>
+
+            <main class="px-6 lg:px-16 py-12 lg:py-16">
+
+                <!-- Abertura -->
+                <div class="max-w-2xl">
+                    <p class="text-xs font-semibold tracking-[0.2em] text-red-600 uppercase">Briefing do site</p>
+                    <h1 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 leading-tight">
+                        Vamos entender o que o site precisa fazer por vocês.
+                    </h1>
+                    <p class="mt-5 text-lg text-slate-500 leading-relaxed">
+                        Responda com calma, no seu tempo. Essas respostas são o mapa pra gente construir um site com a
+                        cara de vocês e que traga resultado — não tem resposta certa ou errada. Leva de 10 a 15 minutos,
+                        e o que você escrever fica salvo neste navegador caso precise parar no meio.
+                    </p>
+                </div>
+
+                <!-- Progresso -->
+                <div id="progress" class="mt-12 mb-10">
+                    <div class="flex justify-between items-baseline text-xs font-semibold tracking-[0.15em] uppercase">
+                        <span class="text-slate-900">Etapa <span id="stepCurrent">1</span> de <span
+                                id="stepTotal">9</span></span>
+                        <span id="stepName" class="text-slate-400">Seus dados</span>
+                    </div>
+                    <div class="mt-3 h-1 w-full bg-slate-100" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                        aria-valuenow="11" aria-label="Progresso do briefing" id="progressBar">
+                        <div id="progressFill" class="h-full bg-red-600 transition-[width] duration-500 ease-out"
+                            style="width: 11%"></div>
+                    </div>
+                </div>
+
+                <form id="briefingForm" novalidate>
+
+                    <!-- =========================================================
+                         ETAPA 1 — Seus dados
+                         Não estava na lista original de perguntas, mas é o que dá
+                         nome à aba de cada cliente na planilha e o que permite
+                         responder a pessoa depois.
+                         ========================================================= -->
+                    <section class="step" data-step="1" data-step-name="Seus dados">
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Primeiro, quem é você</h2>
+                        <p class="mt-2 text-slate-500">Só para eu saber com quem estou falando e como te retornar.</p>
+
+                        <div class="mt-10 grid gap-8 md:grid-cols-2">
+                            <div>
+                                <label for="nome" class="block text-sm font-semibold text-slate-900">Seu nome <span
+                                        class="text-red-600">*</span></label>
+                                <input type="text" id="nome" name="nome" autocomplete="name" data-req="1"
+                                    class="field-input mt-3" placeholder="Como você quer ser chamado">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="empresa" class="block text-sm font-semibold text-slate-900">Nome da empresa
+                                    ou marca <span class="text-red-600">*</span></label>
+                                <input type="text" id="empresa" name="empresa" autocomplete="organization"
+                                    data-req="1" class="field-input mt-3" placeholder="Como a marca se chama hoje">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-semibold text-slate-900">E-mail <span
+                                        class="text-red-600">*</span></label>
+                                <input type="email" id="email" name="email" autocomplete="email" data-req="1"
+                                    class="field-input mt-3" placeholder="voce@empresa.com.br">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="whatsapp" class="block text-sm font-semibold text-slate-900">WhatsApp</label>
+                                <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel"
+                                    class="field-input mt-3" placeholder="(00) 00000-0000">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 2 — O objetivo do site
+                         A primeira pergunta é a que decide o rumo do projeto: quem
+                         responde "campanha" costuma precisar de uma página só, e o
+                         JS enxuga a etapa 6 a partir dessa resposta.
+                         ========================================================= -->
+                    <section class="step" data-step="2" data-step-name="O objetivo do site" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">O objetivo do site</h2>
+                        <p class="mt-2 text-slate-500">Antes de falar de visual, o que esse site precisa resolver.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_objetivo">
+                                <legend class="block text-sm font-semibold text-slate-900">O que você mais precisa que
+                                    esse site faça? <span class="text-red-600">*</span></legend>
+                                <div class="mt-4 grid gap-3" data-req-group="1">
+                                    <label class="opt"><input type="radio" name="q_objetivo"
+                                            value="Apresentar a empresa de forma bonita e profissional"><span>Apresentar
+                                            a empresa de forma bonita e profissional</span></label>
+                                    <label class="opt"><input type="radio" name="q_objetivo"
+                                            value="Vender um serviço ou produto específico"><span>Vender um serviço ou
+                                            produto específico</span></label>
+                                    <label class="opt"><input type="radio" name="q_objetivo"
+                                            value="Fazer o cliente entrar em contato (ligar, chamar no WhatsApp)"><span>Fazer
+                                            o cliente entrar em contato (ligar, chamar no WhatsApp)</span></label>
+                                    <label class="opt"><input type="radio" name="q_objetivo"
+                                            value="Divulgar uma campanha ou promoção"><span>Divulgar uma campanha ou
+                                            promoção</span></label>
+                                    <label class="opt"><input type="radio" name="q_objetivo"
+                                            value="Ainda não sei, me ajuda a decidir"><span>Ainda não sei, me ajuda a
+                                            decidir</span></label>
+                                </div>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+
+                                <!-- Preenchido pelo JS a partir da resposta acima: é o que
+                                     diz, na planilha, se o projeto nasceu como site completo
+                                     ou como página única. -->
+                                <input type="hidden" id="q_tipo_projeto" name="q_tipo_projeto" value="">
+                            </fieldset>
+
+                            <fieldset data-group="q_acao">
+                                <legend class="block text-sm font-semibold text-slate-900">Quando a pessoa entra no
+                                    site, o que você quer que ela faça?</legend>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="radio" name="q_acao" value="Chamar no WhatsApp"><span>Chamar
+                                            no WhatsApp</span></label>
+                                    <label class="opt"><input type="radio" name="q_acao" value="Ligar"><span>Ligar</span></label>
+                                    <label class="opt"><input type="radio" name="q_acao"
+                                            value="Preencher um formulário de contato"><span>Preencher um formulário de
+                                            contato</span></label>
+                                    <label class="opt"><input type="radio" name="q_acao"
+                                            value="Conhecer os serviços e depois decidir"><span>Conhecer os serviços e
+                                            depois decidir</span></label>
+                                    <label class="opt"><input type="radio" name="q_acao" value="Comprar direto"><span>Comprar
+                                            direto</span></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset data-group="q_tem_site">
+                                <legend class="block text-sm font-semibold text-slate-900">Vocês já têm site
+                                    hoje?</legend>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="radio" name="q_tem_site" value="Sim"><span>Sim</span></label>
+                                    <label class="opt"><input type="radio" name="q_tem_site" value="Não"><span>Não</span></label>
+                                </div>
+                            </fieldset>
+
+                            <!-- Só faz sentido se a resposta acima for "Sim" -->
+                            <div id="wrap_q_site_atual" hidden>
+                                <label for="q_site_atual" class="block text-sm font-semibold text-slate-900">O que
+                                    funciona bem e o que te incomoda no site de hoje?</label>
+                                <p class="mt-1 text-sm text-slate-500">Se puder, cole o endereço dele também.</p>
+                                <textarea id="q_site_atual" name="q_site_atual" rows="4" class="field-input mt-3"
+                                    placeholder="O que pode ser aproveitado e o que precisa mudar."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 3 — Sobre a empresa
+                         ========================================================= -->
+                    <section class="step" data-step="3" data-step-name="Sobre a empresa" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Sobre a empresa</h2>
+                        <p class="mt-2 text-slate-500">O que o site precisa contar sobre vocês.</p>
+
+                        <div class="mt-10 grid gap-8">
+                            <div>
+                                <label for="q_o_que_faz" class="block text-sm font-semibold text-slate-900">O que a
+                                    empresa faz, em poucas palavras? <span class="text-red-600">*</span></label>
+                                <textarea id="q_o_que_faz" name="q_o_que_faz" rows="4" data-req="1"
+                                    class="field-input mt-3"
+                                    placeholder="Explique como explicaria para alguém que acabou de conhecer vocês."></textarea>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="q_tempo_mercado" class="block text-sm font-semibold text-slate-900">Há
+                                    quanto tempo vocês existem?</label>
+                                <input type="text" id="q_tempo_mercado" name="q_tempo_mercado" class="field-input mt-3"
+                                    placeholder="Ex.: desde 2014.">
+                            </div>
+
+                            <div>
+                                <label for="q_melhor_escolha" class="block text-sm font-semibold text-slate-900">O que
+                                    faz vocês serem a melhor escolha pro cliente?</label>
+                                <textarea id="q_melhor_escolha" name="q_melhor_escolha" rows="4" class="field-input mt-3"
+                                    placeholder="O motivo real pelo qual alguém fecha com vocês e não com o concorrente."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="q_numeros" class="block text-sm font-semibold text-slate-900">Tem algum
+                                    número que impressiona?</label>
+                                <p class="mt-1 text-sm text-slate-500">Anos de mercado, quantidade de clientes
+                                    atendidos, projetos entregues…</p>
+                                <input type="text" id="q_numeros" name="q_numeros" class="field-input mt-3"
+                                    placeholder="Ex.: 12 anos, +800 clientes atendidos.">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 4 — Quem vai visitar o site
+                         ========================================================= -->
+                    <section class="step" data-step="4" data-step-name="Quem vai visitar o site" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Quem vai visitar o site</h2>
+                        <p class="mt-2 text-slate-500">Para quem a página precisa falar.</p>
+
+                        <div class="mt-10 grid gap-8">
+                            <div>
+                                <label for="q_visitante" class="block text-sm font-semibold text-slate-900">Quem é a
+                                    pessoa que vai entrar no site? Como ela é? <span
+                                        class="text-red-600">*</span></label>
+                                <textarea id="q_visitante" name="q_visitante" rows="4" data-req="1"
+                                    class="field-input mt-3"
+                                    placeholder="Idade, o que faz, o que ela valoriza na hora de decidir."></textarea>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="q_receio" class="block text-sm font-semibold text-slate-900">Qual a maior
+                                    dúvida ou receio que essa pessoa tem antes de fechar com vocês?</label>
+                                <textarea id="q_receio" name="q_receio" rows="4" class="field-input mt-3"
+                                    placeholder="O que ela pergunta sempre, o que a faz hesitar."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="q_convence" class="block text-sm font-semibold text-slate-900">O que costuma
+                                    convencer o cliente a confiar em vocês?</label>
+                                <textarea id="q_convence" name="q_convence" rows="4" class="field-input mt-3"
+                                    placeholder="O argumento que vira a chave na conversa."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 5 — Conteúdo que vocês já têm
+                         ========================================================= -->
+                    <section class="step" data-step="5" data-step-name="Conteúdo que vocês já têm" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Conteúdo que vocês já têm</h2>
+                        <p class="mt-2 text-slate-500">O que já existe pronto e o que precisa ser criado.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_textos">
+                                <legend class="block text-sm font-semibold text-slate-900">Vocês têm os textos prontos
+                                    ou preferem que a gente escreva?</legend>
+                                <div class="mt-4 grid gap-3">
+                                    <label class="opt"><input type="radio" name="q_textos"
+                                            value="Já temos os textos"><span>Já temos os textos</span></label>
+                                    <label class="opt"><input type="radio" name="q_textos"
+                                            value="Temos uma parte, precisamos de ajuda no resto"><span>Temos uma parte,
+                                            precisamos de ajuda no resto</span></label>
+                                    <label class="opt"><input type="radio" name="q_textos"
+                                            value="Preferimos que vocês escrevam tudo"><span>Preferimos que vocês
+                                            escrevam tudo</span></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset data-group="q_fotos">
+                                <legend class="block text-sm font-semibold text-slate-900">Vocês têm fotos próprias da
+                                    empresa, equipe ou serviço?</legend>
+                                <div class="mt-4 grid gap-3">
+                                    <label class="opt"><input type="radio" name="q_fotos"
+                                            value="Sim, temos boas fotos"><span>Sim, temos boas fotos</span></label>
+                                    <label class="opt"><input type="radio" name="q_fotos"
+                                            value="Temos poucas"><span>Temos poucas</span></label>
+                                    <label class="opt"><input type="radio" name="q_fotos"
+                                            value="Não temos, vamos precisar de outra solução"><span>Não temos, vamos
+                                            precisar de outra solução</span></label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset data-group="q_depoimentos">
+                                <legend class="block text-sm font-semibold text-slate-900">Têm depoimentos de clientes
+                                    satisfeitos pra mostrar?</legend>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                                    <label class="opt"><input type="radio" name="q_depoimentos" value="Sim"><span>Sim</span></label>
+                                    <label class="opt"><input type="radio" name="q_depoimentos"
+                                            value="Não, mas conseguimos pegar"><span>Não, mas conseguimos
+                                            pegar</span></label>
+                                    <label class="opt"><input type="radio" name="q_depoimentos" value="Não"><span>Não</span></label>
+                                </div>
+                            </fieldset>
+
+                            <div>
+                                <label for="q_logos_clientes" class="block text-sm font-semibold text-slate-900">Têm
+                                    logos de clientes ou parceiros que dá pra exibir no site?</label>
+                                <input type="text" id="q_logos_clientes" name="q_logos_clientes" class="field-input mt-3"
+                                    placeholder="Quais, e se vocês têm o arquivo em boa qualidade.">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 6 — O que o site precisa ter
+                         O texto e a lista mudam quando a etapa 2 aponta página
+                         única; o JS cuida disso.
+                         ========================================================= -->
+                    <section class="step" data-step="6" data-step-name="O que o site precisa ter" hidden>
+                        <h2 id="recursosTitulo" class="text-2xl font-semibold tracking-tight text-slate-900">O que o
+                            site precisa ter</h2>
+                        <p id="recursosIntro" class="mt-2 text-slate-500">Marque tudo que faz sentido pra vocês.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_recursos">
+                                <legend class="block text-sm font-semibold text-slate-900">Marque tudo que faz sentido
+                                    pra vocês <span class="text-red-600">*</span></legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2" data-req-group="1">
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Página Sobre a empresa"><span>Página "Sobre a empresa"</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Lista de serviços"><span>Lista de serviços</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Área de contato"><span>Área de contato</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Depoimentos de clientes"><span>Depoimentos de clientes</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Perguntas frequentes"><span>Perguntas frequentes</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Galeria de fotos ou trabalhos"><span>Galeria de fotos ou
+                                            trabalhos</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Mapa com a localização"><span>Mapa com a localização</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Botão de WhatsApp"><span>Botão de WhatsApp</span></label>
+                                    <!-- Blog não existe em página de campanha: o JS esconde -->
+                                    <label class="opt" data-so-site-completo="1"><input type="checkbox"
+                                            name="q_recursos" value="Blog ou área de notícias"><span>Blog ou área de
+                                            notícias</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos"
+                                            value="Ainda não sei"><span>Ainda não sei</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_recursos" value="Outro"
+                                            data-other="q_recursos_outro"><span>Outro</span></label>
+                                </div>
+                                <input type="text" id="q_recursos_outro" name="q_recursos_outro"
+                                    class="field-input mt-3 hidden" placeholder="O que mais o site precisa ter?" hidden>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 7 — Visual e referências
+                         ========================================================= -->
+                    <section class="step" data-step="7" data-step-name="Visual e referências" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Visual e referências</h2>
+                        <p class="mt-2 text-slate-500">O clima que o site precisa passar.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <div>
+                                <label for="q_referencias" class="block text-sm font-semibold text-slate-900">Tem algum
+                                    site que você acha bonito e se inspira?</label>
+                                <p class="mt-1 text-sm text-slate-500">Pode colar o link — de qualquer segmento.</p>
+                                <textarea id="q_referencias" name="q_referencias" rows="3" class="field-input mt-3"
+                                    placeholder="Cole os endereços aqui e, se quiser, diga o que gostou em cada um."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="q_cores_marca" class="block text-sm font-semibold text-slate-900">Vocês têm
+                                    cores da marca definidas? Quais?</label>
+                                <input type="text" id="q_cores_marca" name="q_cores_marca" class="field-input mt-3"
+                                    placeholder="Se souber o código das cores, melhor ainda.">
+                            </div>
+
+                            <fieldset data-group="q_clima">
+                                <legend class="block text-sm font-semibold text-slate-900">Que clima você quer que o
+                                    site passe?</legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Confiança e seriedade"><span>Confiança e seriedade</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Sofisticação"><span>Sofisticação</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Proximidade e simpatia"><span>Proximidade e simpatia</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Energia e movimento"><span>Energia e movimento</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Modernidade"><span>Modernidade</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_clima"
+                                            value="Simplicidade e clareza"><span>Simplicidade e clareza</span></label>
+                                </div>
+                            </fieldset>
+
+                            <div>
+                                <label for="q_evitar" class="block text-sm font-semibold text-slate-900">Tem alguma cor
+                                    ou estilo que você não quer de jeito nenhum?</label>
+                                <input type="text" id="q_evitar" name="q_evitar" class="field-input mt-3"
+                                    placeholder="Pode ser bem direto aqui.">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 8 — Contato e detalhes práticos
+                         ========================================================= -->
+                    <section class="step" data-step="8" data-step-name="Contato e detalhes práticos" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Contato e detalhes práticos</h2>
+                        <p class="mt-2 text-slate-500">Por onde o cliente chega até vocês.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_canais">
+                                <legend class="block text-sm font-semibold text-slate-900">Por onde o cliente vai falar
+                                    com vocês?</legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="checkbox" name="q_canais"
+                                            value="WhatsApp"><span>WhatsApp</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_canais"
+                                            value="Telefone"><span>Telefone</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_canais"
+                                            value="E-mail"><span>E-mail</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_canais"
+                                            value="Formulário no site"><span>Formulário no site</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_canais"
+                                            value="Redes sociais"><span>Redes sociais</span></label>
+                                </div>
+                            </fieldset>
+
+                            <div>
+                                <label for="q_redes" class="block text-sm font-semibold text-slate-900">Quais redes
+                                    sociais vocês querem linkar no site?</label>
+                                <p class="mt-1 text-sm text-slate-500">Cola os @ ou os links.</p>
+                                <textarea id="q_redes" name="q_redes" rows="3" class="field-input mt-3"
+                                    placeholder="@instagram, facebook.com/…, linkedin.com/…"></textarea>
+                            </div>
+
+                            <fieldset data-group="q_dominio">
+                                <legend class="block text-sm font-semibold text-slate-900">Vocês já têm o endereço do
+                                    site (aquele www ponto com) registrado?</legend>
+                                <div class="mt-4 grid gap-3">
+                                    <label class="opt"><input type="radio" name="q_dominio" value="Sim, já temos"><span>Sim,
+                                            já temos</span></label>
+                                    <label class="opt"><input type="radio" name="q_dominio"
+                                            value="Não, vamos precisar de ajuda com isso"><span>Não, vamos precisar de
+                                            ajuda com isso</span></label>
+                                    <label class="opt"><input type="radio" name="q_dominio" value="Não sei"><span>Não
+                                            sei</span></label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 9 — Pra fechar o combinado
+                         ========================================================= -->
+                    <section class="step" data-step="9" data-step-name="Pra fechar o combinado" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Pra fechar o combinado</h2>
+                        <p class="mt-2 text-slate-500">Prazo, aprovação e o que mais você quiser contar.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <div class="grid gap-8 md:grid-cols-2">
+                                <div>
+                                    <label for="q_prazo" class="block text-sm font-semibold text-slate-900">Pra quando
+                                        você precisa do site no ar?</label>
+                                    <input type="text" id="q_prazo" name="q_prazo" class="field-input mt-3"
+                                        placeholder="Uma data ou um evento que manda no prazo.">
+                                </div>
+                                <div>
+                                    <label for="q_aprovador" class="block text-sm font-semibold text-slate-900">Quem vai
+                                        aprovar o projeto dentro da empresa?</label>
+                                    <input type="text" id="q_aprovador" name="q_aprovador" class="field-input mt-3"
+                                        placeholder="Nome e cargo de quem dá a palavra final.">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="q_recado" class="block text-sm font-semibold text-slate-900">Quer deixar
+                                    algum recado ou detalhe que não perguntei aqui?</label>
+                                <textarea id="q_recado" name="q_recado" rows="4" class="field-input mt-3"
+                                    placeholder="Fique à vontade."></textarea>
+                            </div>
+
+                            <div class="border-t border-slate-100 pt-10">
+                                <label class="opt" id="lgpdWrap">
+                                    <input type="checkbox" id="lgpd" name="lgpd" data-req="1">
+                                    <span>Autorizo o uso destas informações para a elaboração da proposta e do projeto
+                                        do site. Os dados não são compartilhados com terceiros.</span>
+                                </label>
+                                <p class="field-error hidden mt-2 text-sm text-red-600" data-for="lgpd"></p>
+
+                                <!-- O widget do Turnstile é renderizado aqui pelo JS só quando
+                                     a pessoa chega nesta etapa: o token vale poucos minutos e
+                                     expiraria durante o preenchimento se carregasse antes. -->
+                                <div id="turnstileBox" class="mt-6"></div>
+
+                                <!-- Armadilha: humano nunca vê, robô preenche -->
+                                <div class="hp-field" aria-hidden="true">
+                                    <label for="website">Não preencha este campo</label>
+                                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mensagem de erro do envio -->
+                    <div id="formError"
+                        class="hidden mt-10 border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700"></div>
+
+                    <!-- Navegação -->
+                    <div id="formNav"
+                        class="mt-12 pt-8 border-t border-slate-100 flex flex-col-reverse sm:flex-row sm:justify-between gap-4">
+                        <button type="button" id="btnPrev"
+                            class="inline-flex items-center justify-center gap-3 border border-slate-200 text-slate-600 px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:border-slate-400 hover:text-slate-900 transition-colors disabled:opacity-40 disabled:pointer-events-none">
+                            Voltar
+                        </button>
+
+                        <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                            <button type="button" id="btnNext"
+                                class="inline-flex items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
+                                Próximo
+                            </button>
+                            <button type="submit" id="btnSubmit"
+                                class="hidden items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors disabled:opacity-60 disabled:pointer-events-none">
+                                Enviar briefing
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tela de sucesso -->
+                <div id="successBox" class="hidden py-10 text-center max-w-xl mx-auto">
+                    <div class="mx-auto w-16 h-16 border-2 border-red-600 flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.5" class="w-8 h-8"
+                            aria-hidden="true">
+                            <path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h2 class="mt-8 text-3xl font-semibold tracking-tight text-slate-900">Briefing recebido.</h2>
+                    <p class="mt-4 text-lg text-slate-500 leading-relaxed">
+                        Obrigado pelo tempo. Vou ler com calma e te retornar em até dois dias úteis com as próximas
+                        etapas.
+                    </p>
+                    <a href="index.html"
+                        class="mt-10 inline-flex items-center gap-3 bg-slate-900 hover:bg-slate-700 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
+                        Voltar ao site
+                    </a>
+                </div>
+
+            </main>
+
+            <footer class="bg-slate-900 py-10 px-6 lg:px-16 text-center border-t-4 border-red-600">
+                <p class="text-sm text-slate-500 tracking-wide">&copy; 2026 Robson Moura. Todos os direitos
+                    reservados.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="js/briefing-site.js" defer></script>
+</body>
+
+</html>
