@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Briefing de Identidade Visual | Robson Moura</title>
+    <meta name="description"
+        content="Formulário de briefing de identidade visual: algumas perguntas rápidas para entender o negócio, o público e o estilo da marca antes de começar o projeto." />
+
+    <!-- Página de cliente: fora de busca, fora do sitemap e sem link a partir do
+         site. Sem canonical de propósito — canonical pede indexação da URL e
+         contradiz o noindex.
+         noarchive/nosnippet impedem cache e trecho salvo caso o link vaze;
+         noimageindex mantém a página fora da busca por imagens. -->
+    <meta name="robots"
+        content="noindex, nofollow, noarchive, nosnippet, noimageindex, max-snippet:0, max-image-preview:none" />
+    <meta name="author" content="Robson Moura" />
+    <meta name="theme-color" content="#dc2626" />
+
+    <link rel="preload" as="font" type="font/woff2" href="fonts/inter-latin.woff2" crossorigin>
+    <link rel="stylesheet" href="css/tailwind.css">
+
+    <!-- O handshake do Turnstile sai do caminho crítico, mas o DNS já vai resolvido -->
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 600;
+            font-display: swap;
+            src: url('fonts/inter-latin.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+                U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 600;
+            font-display: swap;
+            src: url('fonts/inter-latin-ext.woff2') format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+                U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* Campos de texto: escritos em CSS puro em vez de utilitários repetidos em
+           cada input, que é o que o index.html faz com o CSS específico da página. */
+        .field-input {
+            display: block;
+            width: 100%;
+            border: 1px solid #e2e8f0;      /* slate-200 */
+            background: #fff;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #0f172a;                  /* slate-900 */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .field-input::placeholder { color: #94a3b8; }  /* slate-400 */
+
+        .field-input:focus {
+            outline: none;
+            border-color: #dc2626;           /* red-600 */
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        .field-input[aria-invalid="true"] {
+            border-color: #dc2626;
+            background: #fef2f2;             /* red-50 */
+        }
+
+        textarea.field-input {
+            resize: vertical;
+            min-height: 7rem;
+            line-height: 1.6;
+        }
+
+        /* Opções (checkbox e radio) como blocos clicáveis */
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            padding: 0.875rem 1rem;
+            font-size: 0.9375rem;
+            color: #334155;                  /* slate-700 */
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .opt:hover { border-color: #cbd5e1; }
+
+        .opt input {
+            accent-color: #dc2626;
+            width: 1.05rem;
+            height: 1.05rem;
+            margin-top: 0.15rem;
+            flex: 0 0 auto;
+        }
+
+        .opt:has(input:checked) {
+            border-color: #dc2626;
+            background: #fef2f2;
+            color: #0f172a;
+            font-weight: 500;
+        }
+
+        .opt:focus-within {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        /* Um passo por vez; o JS controla o hidden */
+        .step[hidden] { display: none; }
+
+        .step {
+            animation: step-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes step-in {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .step { animation: none; }
+        }
+
+        /* Campo-armadilha: invisível para gente, preenchido por robô de formulário.
+           Fica fora da tela em vez de display:none porque parte dos bots ignora
+           campos ocultos por display. */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-red-100 selection:text-red-900">
+
+    <div class="min-h-screen p-0 sm:p-8 flex flex-col items-center">
+        <div class="bg-white w-full max-w-[1100px] shadow-2xl relative flex flex-col">
+
+            <!-- Cabeçalho enxuto: sem menu e sem seletor de idioma, para não tirar o
+                 foco do preenchimento -->
+            <header
+                class="flex justify-between items-center py-8 px-6 lg:px-16 text-xs tracking-[0.15em] font-medium uppercase text-slate-400 border-b border-slate-100">
+                <a href="index.html" class="font-semibold text-lg tracking-tight text-slate-900 normal-case">
+                    ROBSON<span class="text-red-600">.</span>
+                </a>
+                <a href="index.html" class="hover:text-slate-900 transition-colors">Voltar ao site</a>
+            </header>
+
+            <main class="px-6 lg:px-16 py-12 lg:py-16">
+
+                <!-- Abertura -->
+                <div class="max-w-2xl">
+                    <p class="text-xs font-semibold tracking-[0.2em] text-red-600 uppercase">Identidade visual</p>
+                    <h1 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 leading-tight">
+                        Vamos entender sua marca antes de desenhar ela.
+                    </h1>
+                    <p class="mt-5 text-lg text-slate-500 leading-relaxed">
+                        São 7 blocos curtos de perguntas. Responda com suas palavras, sem se preocupar com termos
+                        técnicos — quanto mais honesto, melhor fica o resultado. Leva de 10 a 15 minutos, e o que
+                        você escrever fica salvo neste navegador caso precise parar no meio.
+                    </p>
+                </div>
+
+                <!-- Progresso -->
+                <div id="progress" class="mt-12 mb-10">
+                    <div class="flex justify-between items-baseline text-xs font-semibold tracking-[0.15em] uppercase">
+                        <span class="text-slate-900">Etapa <span id="stepCurrent">1</span> de <span
+                                id="stepTotal">7</span></span>
+                        <span id="stepName" class="text-slate-400">Seus dados</span>
+                    </div>
+                    <div class="mt-3 h-1 w-full bg-slate-100" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                        aria-valuenow="14" aria-label="Progresso do briefing" id="progressBar">
+                        <div id="progressFill" class="h-full bg-red-600 transition-[width] duration-500 ease-out"
+                            style="width: 14%"></div>
+                    </div>
+                </div>
+
+                <form id="briefingForm" novalidate>
+
+                    <!-- =========================================================
+                         ETAPA 1 — Seus dados
+                         Não estava na lista original de perguntas, mas é o que dá
+                         nome à aba de cada cliente na planilha e o que permite
+                         responder a pessoa depois.
+                         ========================================================= -->
+                    <section class="step" data-step="1" data-step-name="Seus dados">
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Primeiro, quem é você</h2>
+                        <p class="mt-2 text-slate-500">Só para eu saber com quem estou falando e como te retornar.</p>
+
+                        <div class="mt-10 grid gap-8 md:grid-cols-2">
+                            <div>
+                                <label for="nome" class="block text-sm font-semibold text-slate-900">Seu nome <span
+                                        class="text-red-600">*</span></label>
+                                <input type="text" id="nome" name="nome" autocomplete="name" data-req="1"
+                                    class="field-input mt-3" placeholder="Como você quer ser chamado">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="empresa" class="block text-sm font-semibold text-slate-900">Nome da empresa
+                                    ou marca <span class="text-red-600">*</span></label>
+                                <input type="text" id="empresa" name="empresa" autocomplete="organization"
+                                    data-req="1" class="field-input mt-3" placeholder="Como a marca se chama hoje">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-semibold text-slate-900">E-mail <span
+                                        class="text-red-600">*</span></label>
+                                <input type="email" id="email" name="email" autocomplete="email" data-req="1"
+                                    class="field-input mt-3" placeholder="voce@empresa.com.br">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="whatsapp" class="block text-sm font-semibold text-slate-900">WhatsApp</label>
+                                <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel"
+                                    class="field-input mt-3" placeholder="(00) 00000-0000">
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 2 — Sobre o negócio
+                         ========================================================= -->
+                    <section class="step" data-step="2" data-step-name="Sobre o negócio" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Sobre o negócio</h2>
+                        <p class="mt-2 text-slate-500">O que a empresa faz e para onde ela está indo.</p>
+
+                        <div class="mt-10 grid gap-8">
+                            <div>
+                                <label for="q_o_que_fazem" class="block text-sm font-semibold text-slate-900">O que
+                                    vocês fazem, em poucas palavras? <span class="text-red-600">*</span></label>
+                                <textarea id="q_o_que_fazem" name="q_o_que_fazem" rows="4" data-req="1"
+                                    class="field-input mt-3"
+                                    placeholder="Explique como explicaria para alguém que acabou de conhecer vocês."></textarea>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <div>
+                                <label for="q_onde_chegar" class="block text-sm font-semibold text-slate-900">Onde vocês
+                                    querem chegar nos próximos anos?</label>
+                                <textarea id="q_onde_chegar" name="q_onde_chegar" rows="4" class="field-input mt-3"
+                                    placeholder="Crescer em quê, para onde, com que tamanho."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="q_concorrentes" class="block text-sm font-semibold text-slate-900">Quem são
+                                    seus principais concorrentes?</label>
+                                <input type="text" id="q_concorrentes" name="q_concorrentes" class="field-input mt-3"
+                                    placeholder="Pode ser só o nome deles, separados por vírgula.">
+                            </div>
+
+                            <div>
+                                <label for="q_diferencial" class="block text-sm font-semibold text-slate-900">O que te
+                                    faz diferente deles?</label>
+                                <textarea id="q_diferencial" name="q_diferencial" rows="4" class="field-input mt-3"
+                                    placeholder="O motivo real pelo qual alguém escolhe vocês."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 3 — Sobre o cliente de vocês
+                         ========================================================= -->
+                    <section class="step" data-step="3" data-step-name="Sobre o cliente de vocês" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Sobre o cliente de vocês</h2>
+                        <p class="mt-2 text-slate-500">Para quem a marca precisa falar.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <div>
+                                <label for="q_quem_compra" class="block text-sm font-semibold text-slate-900">Quem
+                                    compra de vocês? Como é essa pessoa? <span class="text-red-600">*</span></label>
+                                <textarea id="q_quem_compra" name="q_quem_compra" rows="4" data-req="1"
+                                    class="field-input mt-3"
+                                    placeholder="Idade, o que faz, o que ela valoriza na hora de decidir."></textarea>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </div>
+
+                            <fieldset data-group="q_onde_ve">
+                                <legend class="block text-sm font-semibold text-slate-900">Onde ela costuma ver vocês
+                                    primeiro?</legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve"
+                                            value="Instagram / redes sociais"><span>Instagram / redes sociais</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve"
+                                            value="Google"><span>Google</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve"
+                                            value="Na rua / fachada"><span>Na rua / fachada</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve"
+                                            value="Indicação de outra pessoa"><span>Indicação de outra pessoa</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve"
+                                            value="Embalagem ou produto"><span>Embalagem ou produto</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_ve" value="Outro"
+                                            data-other="q_onde_ve_outro"><span>Outro</span></label>
+                                </div>
+                                <input type="text" id="q_onde_ve_outro" name="q_onde_ve_outro"
+                                    class="field-input mt-3 hidden" placeholder="Onde mais?" hidden>
+                            </fieldset>
+
+                            <fieldset data-group="q_sentir">
+                                <legend class="block text-sm font-semibold text-slate-900">O que você quer que ela sinta
+                                    ao ver a marca?</legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Confiança"><span>Confiança</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Sofisticação"><span>Sofisticação</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Proximidade"><span>Proximidade</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Energia"><span>Energia</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Segurança"><span>Segurança</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir"
+                                            value="Modernidade"><span>Modernidade</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_sentir" value="Outro"
+                                            data-other="q_sentir_outro"><span>Outro</span></label>
+                                </div>
+                                <input type="text" id="q_sentir_outro" name="q_sentir_outro"
+                                    class="field-input mt-3 hidden" placeholder="Que outra sensação?" hidden>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 4 — Sobre o estilo da marca
+                         ========================================================= -->
+                    <section class="step" data-step="4" data-step-name="Sobre o estilo da marca" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Sobre o estilo da marca</h2>
+                        <p class="mt-2 text-slate-500">A personalidade que a marca precisa transmitir.</p>
+
+                        <div class="mt-10 grid gap-8">
+                            <div>
+                                <label for="q_marca_pessoa" class="block text-sm font-semibold text-slate-900">Se a
+                                    marca fosse uma pessoa, como ela seria?</label>
+                                <textarea id="q_marca_pessoa" name="q_marca_pessoa" rows="4" class="field-input mt-3"
+                                    placeholder="Como ela fala, como se veste, como trata as pessoas."></textarea>
+                            </div>
+
+                            <div class="grid gap-8 md:grid-cols-2">
+                                <div>
+                                    <label for="q_tres_palavras"
+                                        class="block text-sm font-semibold text-slate-900">Me diz 3 palavras que
+                                        combinam com a marca.</label>
+                                    <input type="text" id="q_tres_palavras" name="q_tres_palavras"
+                                        class="field-input mt-3" placeholder="Ex.: robusta, direta, confiável">
+                                </div>
+                                <div>
+                                    <label for="q_tres_palavras_nao"
+                                        class="block text-sm font-semibold text-slate-900">E 3 palavras que não têm nada
+                                        a ver.</label>
+                                    <input type="text" id="q_tres_palavras_nao" name="q_tres_palavras_nao"
+                                        class="field-input mt-3" placeholder="Ex.: infantil, barata, exagerada">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="q_inspiracao" class="block text-sm font-semibold text-slate-900">Tem alguma
+                                    marca que você acha linda e se inspira?</label>
+                                <p class="mt-1 text-sm text-slate-500">Pode colar o link ou o @ dela.</p>
+                                <textarea id="q_inspiracao" name="q_inspiracao" rows="3" class="field-input mt-3"
+                                    placeholder="Cole aqui os links ou @ — pode ser de qualquer segmento."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="q_nao_parecer" class="block text-sm font-semibold text-slate-900">Tem alguma
+                                    marca que você não quer parecer de jeito nenhum?</label>
+                                <input type="text" id="q_nao_parecer" name="q_nao_parecer" class="field-input mt-3"
+                                    placeholder="Pode ser bem direto aqui.">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 5 — Onde o logo vai aparecer
+                         ========================================================= -->
+                    <section class="step" data-step="5" data-step-name="Onde o logo vai aparecer" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Onde o logo vai aparecer</h2>
+                        <p class="mt-2 text-slate-500">Isso muda o desenho: um logo de fachada e um de avatar não são a
+                            mesma coisa.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_onde_logo">
+                                <legend class="block text-sm font-semibold text-slate-900">Onde o logo vai ser
+                                    usado?</legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Uniforme"><span>Uniforme</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Carro / frota"><span>Carro / frota</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Fachada"><span>Fachada</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Site"><span>Site</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Redes sociais"><span>Redes sociais</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Adesivo / brinde"><span>Adesivo / brinde</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo"
+                                            value="Documento / proposta"><span>Documento / proposta</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_onde_logo" value="Outro"
+                                            data-other="q_onde_logo_outro"><span>Outro</span></label>
+                                </div>
+                                <input type="text" id="q_onde_logo_outro" name="q_onde_logo_outro"
+                                    class="field-input mt-3 hidden" placeholder="Onde mais?" hidden>
+                            </fieldset>
+
+                            <fieldset data-group="q_tem_logo">
+                                <legend class="block text-sm font-semibold text-slate-900">Vocês já têm um logo
+                                    hoje?</legend>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                    <label class="opt"><input type="radio" name="q_tem_logo"
+                                            value="Sim"><span>Sim</span></label>
+                                    <label class="opt"><input type="radio" name="q_tem_logo"
+                                            value="Não"><span>Não</span></label>
+                                </div>
+                            </fieldset>
+
+                            <!-- Só faz sentido se a resposta acima for "Sim" -->
+                            <div id="wrap_q_logo_opiniao" hidden>
+                                <label for="q_logo_opiniao" class="block text-sm font-semibold text-slate-900">Se sim, o
+                                    que você gosta e o que não gosta nele?</label>
+                                <textarea id="q_logo_opiniao" name="q_logo_opiniao" rows="4" class="field-input mt-3"
+                                    placeholder="O que pode ser aproveitado e o que precisa morrer."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 6 — Cores e visual
+                         ========================================================= -->
+                    <section class="step" data-step="6" data-step-name="Cores e visual" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Cores e visual</h2>
+                        <p class="mt-2 text-slate-500">Limites e material que já existe.</p>
+
+                        <div class="mt-10 grid gap-8">
+                            <div>
+                                <label for="q_cor_obrigatoria" class="block text-sm font-semibold text-slate-900">Tem
+                                    alguma cor que precisa entrar por obrigação?</label>
+                                <p class="mt-1 text-sm text-slate-500">Por exemplo, uma cor que já é da empresa.</p>
+                                <input type="text" id="q_cor_obrigatoria" name="q_cor_obrigatoria"
+                                    class="field-input mt-3" placeholder="Se souber o código da cor, melhor ainda.">
+                            </div>
+
+                            <div>
+                                <label for="q_cor_evitar" class="block text-sm font-semibold text-slate-900">Tem alguma
+                                    cor ou estilo que você não quer nem ver?</label>
+                                <input type="text" id="q_cor_evitar" name="q_cor_evitar" class="field-input mt-3"
+                                    placeholder="Ex.: nada de rosa, nada de degradê.">
+                            </div>
+
+                            <div>
+                                <label for="q_fotos" class="block text-sm font-semibold text-slate-900">Vocês têm foto
+                                    da equipe, do produto ou do serviço? Ou vamos criar tudo do zero?</label>
+                                <textarea id="q_fotos" name="q_fotos" rows="4" class="field-input mt-3"
+                                    placeholder="Conte o que já existe e em que estado está."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================================
+                         ETAPA 7 — Pra fechar o combinado
+                         ========================================================= -->
+                    <section class="step" data-step="7" data-step-name="Pra fechar o combinado" hidden>
+                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Pra fechar o combinado</h2>
+                        <p class="mt-2 text-slate-500">Entrega, aprovação e prazo.</p>
+
+                        <div class="mt-10 grid gap-10">
+                            <fieldset data-group="q_entregaveis">
+                                <legend class="block text-sm font-semibold text-slate-900">O que exatamente você precisa
+                                    receber no final? <span class="text-red-600">*</span></legend>
+                                <p class="mt-1 text-sm text-slate-500">Pode marcar mais de uma.</p>
+                                <div class="mt-4 grid gap-3 sm:grid-cols-2" data-req-group="1">
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Logo e suas variações"><span>Logo e suas variações</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Paleta de cores"><span>Paleta de cores</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Artes pra redes sociais"><span>Artes pra redes sociais</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Manual da marca"><span>Manual da marca</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Key visual pra campanha"><span>Key visual pra campanha</span></label>
+                                    <label class="opt"><input type="checkbox" name="q_entregaveis"
+                                            value="Ainda não sei, me ajuda a definir"><span>Ainda não sei, me ajuda a
+                                            definir</span></label>
+                                </div>
+                                <p class="field-error hidden mt-2 text-sm text-red-600"></p>
+                            </fieldset>
+
+                            <div class="grid gap-8 md:grid-cols-2">
+                                <div>
+                                    <label for="q_aprovador" class="block text-sm font-semibold text-slate-900">Quem vai
+                                        aprovar de dentro da empresa?</label>
+                                    <input type="text" id="q_aprovador" name="q_aprovador" class="field-input mt-3"
+                                        placeholder="Nome e cargo de quem dá a palavra final.">
+                                </div>
+                                <div>
+                                    <label for="q_prazo" class="block text-sm font-semibold text-slate-900">Pra quando
+                                        você precisa?</label>
+                                    <input type="text" id="q_prazo" name="q_prazo" class="field-input mt-3"
+                                        placeholder="Uma data ou um evento que manda no prazo.">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="q_recado" class="block text-sm font-semibold text-slate-900">Quer deixar
+                                    algum recado ou detalhe que não perguntei aqui?</label>
+                                <textarea id="q_recado" name="q_recado" rows="4" class="field-input mt-3"
+                                    placeholder="Fique à vontade."></textarea>
+                            </div>
+
+                            <div class="border-t border-slate-100 pt-10">
+                                <label class="opt" id="lgpdWrap">
+                                    <input type="checkbox" id="lgpd" name="lgpd" data-req="1">
+                                    <span>Autorizo o uso destas informações para a elaboração da proposta e do projeto
+                                        de identidade visual. Os dados não são compartilhados com terceiros.</span>
+                                </label>
+                                <p class="field-error hidden mt-2 text-sm text-red-600" data-for="lgpd"></p>
+
+                                <!-- O widget do Turnstile é renderizado aqui pelo JS só quando
+                                     a pessoa chega nesta etapa: o token vale poucos minutos e
+                                     expiraria durante o preenchimento se carregasse antes. -->
+                                <div id="turnstileBox" class="mt-6"></div>
+
+                                <!-- Armadilha: humano nunca vê, robô preenche -->
+                                <div class="hp-field" aria-hidden="true">
+                                    <label for="website">Não preencha este campo</label>
+                                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mensagem de erro do envio -->
+                    <div id="formError"
+                        class="hidden mt-10 border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700"></div>
+
+                    <!-- Navegação -->
+                    <div id="formNav"
+                        class="mt-12 pt-8 border-t border-slate-100 flex flex-col-reverse sm:flex-row sm:justify-between gap-4">
+                        <button type="button" id="btnPrev"
+                            class="inline-flex items-center justify-center gap-3 border border-slate-200 text-slate-600 px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:border-slate-400 hover:text-slate-900 transition-colors disabled:opacity-40 disabled:pointer-events-none">
+                            Voltar
+                        </button>
+
+                        <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                            <button type="button" id="btnNext"
+                                class="inline-flex items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
+                                Próximo
+                            </button>
+                            <button type="submit" id="btnSubmit"
+                                class="hidden items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors disabled:opacity-60 disabled:pointer-events-none">
+                                Enviar briefing
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tela de sucesso -->
+                <div id="successBox" class="hidden py-10 text-center max-w-xl mx-auto">
+                    <div class="mx-auto w-16 h-16 border-2 border-red-600 flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.5" class="w-8 h-8"
+                            aria-hidden="true">
+                            <path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h2 class="mt-8 text-3xl font-semibold tracking-tight text-slate-900">Briefing recebido.</h2>
+                    <p class="mt-4 text-lg text-slate-500 leading-relaxed">
+                        Obrigado pelo tempo. Vou ler com calma e te retornar em até dois dias úteis com as próximas
+                        etapas.
+                    </p>
+                    <a href="index.html"
+                        class="mt-10 inline-flex items-center gap-3 bg-slate-900 hover:bg-slate-700 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors">
+                        Voltar ao site
+                    </a>
+                </div>
+
+            </main>
+
+            <footer class="bg-slate-900 py-10 px-6 lg:px-16 text-center border-t-4 border-red-600">
+                <p class="text-sm text-slate-500 tracking-wide">&copy; 2026 Robson Moura. Todos os direitos
+                    reservados.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="js/briefing.js" defer></script>
+</body>
+
+</html>
