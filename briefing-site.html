@@ -88,6 +88,28 @@
             line-height: 1.6;
         }
 
+        /* Data: o campo vazio mostra "dd/mm/aaaa" em cinza, como o placeholder dos
+           outros campos, e o ícone do calendário fica clicável de verdade. */
+        input[type="date"].field-input {
+            appearance: none;
+            -webkit-appearance: none;
+            line-height: 1.5;
+        }
+
+        input[type="date"].field-input:not(.has-value) {
+            color: #94a3b8;                  /* slate-400 */
+        }
+
+        input[type="date"].field-input::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.55;
+            transition: opacity 0.2s ease;
+        }
+
+        input[type="date"].field-input::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
         /* Opções (checkbox e radio) como blocos clicáveis */
         .opt {
             display: flex;
@@ -126,6 +148,38 @@
         /* Opção escondida pela ramificação de página única */
         .opt[hidden] { display: none; }
 
+        /* Rodinha do botão enquanto o envio está em andamento */
+        .spinner {
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Confirmação: o quadro entra e o "check" é desenhado logo depois */
+        .success-mark {
+            animation: mark-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes mark-in {
+            from { opacity: 0; transform: scale(0.6); }
+            60%  { transform: scale(1.06); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* 26 é um pouco mais que o comprimento do traço: com o offset cheio ele
+           some por inteiro antes de ser desenhado. */
+        .success-check {
+            stroke-dasharray: 26;
+            stroke-dashoffset: 26;
+            animation: check-draw 0.45s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+        }
+
+        @keyframes check-draw {
+            to { stroke-dashoffset: 0; }
+        }
+
         /* Um passo por vez; o JS controla o hidden */
         .step[hidden] { display: none; }
 
@@ -139,7 +193,15 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .step { animation: none; }
+            .step,
+            .success-mark { animation: none; }
+
+            /* o traço aparece pronto, em vez de ser desenhado */
+            .success-check { animation: none; stroke-dashoffset: 0; }
+
+            /* a rodinha continua girando: é o que diz que o envio está em curso,
+               mas devagar o bastante para não incomodar */
+            .spinner { animation-duration: 2s; }
         }
 
         /* Campo-armadilha: invisível para gente, preenchido por robô de formulário.
@@ -173,8 +235,8 @@
 
             <main class="px-6 lg:px-16 py-12 lg:py-16">
 
-                <!-- Abertura -->
-                <div class="max-w-2xl">
+                <!-- Abertura — sai de cena junto com o formulário quando o envio dá certo -->
+                <div id="intro" class="max-w-2xl">
                     <p class="text-xs font-semibold tracking-[0.2em] text-red-600 uppercase">Briefing do site</p>
                     <h1 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 leading-tight">
                         Vamos entender o que o site precisa fazer por vocês.
@@ -620,8 +682,11 @@
                                 <div>
                                     <label for="q_prazo" class="block text-sm font-semibold text-slate-900">Pra quando
                                         você precisa do site no ar?</label>
-                                    <input type="text" id="q_prazo" name="q_prazo" class="field-input mt-3"
-                                        placeholder="Uma data ou um evento que manda no prazo.">
+                                    <p class="mt-1 text-sm text-slate-500">Escolha uma data. Se ainda não tem data
+                                        fechada, pode deixar em branco e contar no recado abaixo.</p>
+                                    <!-- O min é preenchido pelo JS com a data de hoje: prazo no passado
+                                         só entraria por engano. -->
+                                    <input type="date" id="q_prazo" name="q_prazo" class="field-input mt-3">
                                 </div>
                                 <div>
                                     <label for="q_aprovador" class="block text-sm font-semibold text-slate-900">Quem vai
@@ -679,7 +744,15 @@
                             </button>
                             <button type="submit" id="btnSubmit"
                                 class="hidden items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 text-xs font-semibold tracking-[0.15em] uppercase transition-colors disabled:opacity-60 disabled:pointer-events-none">
-                                Enviar briefing
+                                <!-- Só aparece durante o envio; o JS cuida do hidden -->
+                                <svg id="btnSpinner" class="spinner hidden w-4 h-4" viewBox="0 0 24 24" fill="none"
+                                    aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3"
+                                        opacity="0.35" />
+                                    <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" />
+                                </svg>
+                                <span id="btnSubmitLabel">Enviar briefing</span>
                             </button>
                         </div>
                     </div>
@@ -687,10 +760,11 @@
 
                 <!-- Tela de sucesso -->
                 <div id="successBox" class="hidden py-10 text-center max-w-xl mx-auto">
-                    <div class="mx-auto w-16 h-16 border-2 border-red-600 flex items-center justify-center">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.5" class="w-8 h-8"
+                    <div class="success-mark mx-auto w-16 h-16 border-2 border-green-600 bg-green-50 flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" class="w-8 h-8"
                             aria-hidden="true">
-                            <path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="success-check" d="M20 6 9 17l-5-5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </div>
                     <h2 class="mt-8 text-3xl font-semibold tracking-tight text-slate-900">Briefing recebido.</h2>

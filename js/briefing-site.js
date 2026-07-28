@@ -23,7 +23,10 @@ const steps = Array.from(form.querySelectorAll('.step'));
 const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 const btnSubmit = document.getElementById('btnSubmit');
+const btnSubmitLabel = document.getElementById('btnSubmitLabel');
+const btnSpinner = document.getElementById('btnSpinner');
 const formNav = document.getElementById('formNav');
+const intro = document.getElementById('intro');
 const formError = document.getElementById('formError');
 const progress = document.getElementById('progress');
 const progressFill = document.getElementById('progressFill');
@@ -199,6 +202,33 @@ function syncTipoProjeto() {
     });
 }
 
+/* ----------------------------------------------------------- data do prazo */
+
+/* Campo de data nativo: o calendário é o do próprio sistema, então funciona
+   igual no celular e no desktop, sem biblioteca. */
+const prazo = document.getElementById('q_prazo');
+
+// Prazo no passado só entraria por engano
+prazo.min = new Date().toISOString().slice(0, 10);
+
+// Sem valor, o campo mostra "dd/mm/aaaa"; a classe deixa esse texto na mesma cor
+// dos placeholders, em vez de parecer uma resposta já preenchida.
+function syncPrazo() {
+    prazo.classList.toggle('has-value', Boolean(prazo.value));
+}
+
+prazo.addEventListener('change', syncPrazo);
+
+// Clicar em qualquer ponto do campo abre o calendário, e não só no ícone
+prazo.addEventListener('click', () => {
+    if (typeof prazo.showPicker !== 'function') return;
+    try {
+        prazo.showPicker();
+    } catch (_) {
+        // navegador recusou (fora de gesto do usuário): o ícone continua valendo
+    }
+});
+
 /* ------------------------------------------------------------- rascunho */
 
 // O formulário é longo; perder tudo por um refresh acidental seria o pior
@@ -240,6 +270,7 @@ function restoreDraft() {
     form.querySelectorAll('input[data-other]').forEach(toggleOther);
     syncSiteAtual();
     syncTipoProjeto();
+    syncPrazo();
 }
 
 const clearDraft = () => {
@@ -322,6 +353,16 @@ function showFormError(message) {
 
 const hideFormError = () => formError.classList.add('hidden');
 
+/* O envio passa por Turnstile e Apps Script, então demora o suficiente para a
+   pessoa achar que o clique não pegou e clicar de novo. A rodinha e o botão
+   travado resolvem os dois. */
+function setSubmitting(on) {
+    btnSubmit.disabled = on;
+    btnSubmit.setAttribute('aria-busy', on ? 'true' : 'false');
+    btnSpinner.classList.toggle('hidden', !on);
+    btnSubmitLabel.textContent = on ? 'Enviando…' : 'Enviar briefing';
+}
+
 async function submitBriefing() {
     hideFormError();
 
@@ -345,8 +386,7 @@ async function submitBriefing() {
         return;
     }
 
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = 'Enviando…';
+    setSubmitting(true);
 
     try {
         const response = await fetch(ENDPOINT, {
@@ -365,16 +405,18 @@ async function submitBriefing() {
         if (!response.ok || !result.ok) throw new Error(result.error || 'Falha ao gravar o briefing.');
 
         clearDraft();
+        // fica só a confirmação na tela: a chamada para preencher o briefing e a
+        // barra de etapas não têm mais função nenhuma depois que ele foi enviado
+        intro.classList.add('hidden');
+        progress.classList.add('hidden');
         form.classList.add('hidden');
         formNav.classList.add('hidden');
-        progress.classList.add('hidden');
         successBox.classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
         showFormError('Não consegui enviar agora: ' + error.message +
             ' Suas respostas continuam salvas aqui — tente de novo em instantes.');
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = 'Enviar briefing';
+        setSubmitting(false);
         if (turnstileEnabled && window.turnstile) {
             // o token é de uso único: sem resetar, a segunda tentativa falha sempre
             window.turnstile.reset();

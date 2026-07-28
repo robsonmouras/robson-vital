@@ -292,7 +292,7 @@ function appendResumo(ss, clientSheet, fields) {
     fields.whatsapp,
     formatValue(fields.q_tipo_projeto),
     formatValue(fields.q_objetivo),
-    fields.q_prazo,
+    formatValue(fields.q_prazo),
     ''
   ]);
 
@@ -309,12 +309,23 @@ function appendResumo(ss, clientSheet, fields) {
 
 /* ---------------------------------------------------------------- apoio */
 
+/** O <input type="date"> manda a data como AAAA-MM-DD. */
+const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
+
 /** Caixas de seleção chegam como lista; o resto vira texto. */
 function formatValue(value) {
   if (Array.isArray(value)) return value.join('\n');
   if (value === true) return 'Sim';
   if (value === false) return 'Não';
-  return String(value == null ? '' : value).trim();
+
+  const text = String(value == null ? '' : value).trim();
+
+  // Quem lê a planilha lê data em português; gravar o formato do HTML seria
+  // trocar a legibilidade por nada, já que o valor entra como texto de qualquer jeito.
+  const iso = text.match(ISO_DATE);
+  if (iso) return iso[3] + '/' + iso[2] + '/' + iso[1];
+
+  return text;
 }
 
 function formatDate(date) {
