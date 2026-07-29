@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELMEK — Identidade Visual · v1.0 · Documento para aprovação</title>
+<meta name="description" content="Apresentação da nova identidade visual ELMEK — engenharia elétrica industrial e predial. Documento para aprovação.">
+<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 289 308"><path d="M0.6 121L256.9 120.9l0.2 64.4c-25.5 1.1-59.4 0.1-85.4 0.1L0.5 185.4Z" fill="%23D8691A"/><path d="M88.2 242.4l200.2 0 0.1 65.2-200.4-0.1Z" fill="%23D8691A"/><path d="M88.3 0h196.6l0.1 64.1-197-0.1Z" fill="%23D8691A"/><path d="M0.6 212.5l56.6 0 0 95.4c-0.8 0-1.7 0-2.5 0-62.4 0-54.6-50.2-54.1-95.4Z" fill="%23D8691A"/><path d="M43 1.9L57.2 1.6l0 94.1-42 0-14.6-0.1C0.7 54.1-8.5 13.4 43 1.9Z" fill="%23D8691A"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   ELMEK · Identidade visual · v1.0
+   Sistema: Grafite #22252B · Laranja #D8691A · Cinza Aço #70767D · Branco
+   Regra 85/15 — laranja somente como acento.
+   ================================================================ */
+:root{
+  --grafite:#22252B;
+  --laranja:#D8691A;
+  --aco:#70767D;
+  --branco:#FFFFFF;
+  --font-t:'Archivo',sans-serif;
+  --font-m:'IBM Plex Mono',monospace;
+  --pad:clamp(24px,6vw,96px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--branco);
+  color:var(--grafite);
+  font-family:var(--font-t);
+  font-weight:500;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--laranja);color:var(--branco)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
+
+/* ---------- tipografia base ---------- */
+h1,h2,h3{
+  font-family:var(--font-t);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.02em;
+  line-height:1.02;
+}
+.mono{font-family:var(--font-m);font-variant-numeric:tabular-nums}
+.sec-index{
+  font-family:var(--font-m);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.08em;
+  color:var(--aco);
+  display:block;
+  margin-bottom:14px;
+}
+.sec-title{font-size:clamp(28px,4.2vw,52px);margin-bottom:8px}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  border-bottom:1px solid var(--aco);
+  padding-bottom:20px;
+  margin-bottom:clamp(32px,5vw,64px);
+  flex-wrap:wrap;
+}
+.sec-head .ref{
+  font-family:var(--font-m);
+  font-size:11px;
+  color:var(--aco);
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+section{padding:clamp(64px,9vw,140px) var(--pad)}
+.wrap{max-width:1240px;margin:0 auto}
+
+/* ---------- skip link ---------- */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--grafite);color:var(--branco);
+  padding:10px 18px;font-family:var(--font-m);font-size:12px;
+}
+.skip:focus-visible{left:0}
+
+/* ---------- navegação fixa ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:var(--grafite);
+  border-bottom:1px solid rgba(112,118,125,.35);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;
+  padding:0 clamp(16px,3vw,40px);
+  height:52px;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:10px;
+  color:var(--branco);text-decoration:none;flex-shrink:0;
+}
+.nav-brand svg{height:14px;width:auto;display:block}
+.nav-brand span{
+  font-family:var(--font-m);font-size:10px;letter-spacing:.14em;
+  color:var(--aco);text-transform:uppercase;
+}
+.nav-links{
+  display:flex;gap:2px;list-style:none;
+  overflow-x:auto;scrollbar-width:none;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.05em;
+  color:rgba(255,255,255,.72);text-decoration:none;text-transform:uppercase;
+  padding:8px 10px;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--branco)}
+@media (max-width:860px){.nav-brand span{display:none}}
+
+/* ================================================================
+   01 · HERO
+   ================================================================ */
+.hero{
+  background:var(--grafite);
+  color:var(--branco);
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px var(--pad) 80px;
+}
+.hero-symbol{width:clamp(140px,22vw,240px);margin-bottom:clamp(36px,5vw,56px)}
+.hero-symbol svg{width:100%;height:auto;display:block;overflow:visible}
+
+/* grid de construção */
+.build-grid line{
+  stroke:var(--aco);
+  stroke-width:.6;
+  opacity:.28;
+}
+.build-grid{animation:gridout .8s ease 2.6s forwards}
+.build-part{opacity:0;animation:partin .45s ease forwards}
+.build-part:nth-child(1){animation-delay:.35s}
+.build-part:nth-child(2){animation-delay:.75s}
+.build-part:nth-child(3){animation-delay:1.15s}
+.build-part:nth-child(4){animation-delay:1.55s}
+.build-part:nth-child(5){animation-delay:1.95s}
+@keyframes partin{from{opacity:0}to{opacity:1}}
+@keyframes gridout{to{opacity:0}}
+.hero-wordmark{width:clamp(220px,34vw,420px);margin-bottom:clamp(40px,6vw,72px)}
+.hero-wordmark svg{width:100%;height:auto;display:block}
+.hero-wordmark,.hero-headline,.hero-meta{
+  opacity:0;animation:partin .7s ease 2.5s forwards;
+}
+.hero-headline h1{
+  font-size:clamp(30px,5.2vw,64px);
+  color:var(--branco);
+  max-width:20ch;margin:0 auto;
+}
+.hero-headline .sub{
+  display:block;
+  margin-top:14px;
+  font-size:clamp(16px,2vw,22px);
+  font-weight:600;
+  letter-spacing:.02em;
+  color:var(--aco);
+  text-transform:uppercase;
+}
+.hero-headline .sub b{color:var(--laranja);font-weight:600}
+.hero-meta{
+  margin-top:clamp(40px,7vh,80px);
+  font-family:var(--font-m);
+  font-size:11px;letter-spacing:.12em;
+  color:var(--aco);text-transform:uppercase;
+}
+@media (prefers-reduced-motion:reduce){
+  .build-grid{display:none}
+  .build-part,.hero-wordmark,.hero-headline,.hero-meta{animation:none;opacity:1}
+}
+
+/* ================================================================
+   02 · O NOME
+   ================================================================ */
+.nome-lead{
+  font-size:clamp(19px,2.6vw,28px);
+  font-weight:700;line-height:1.3;letter-spacing:-.01em;
+  max-width:30ch;
+  margin-bottom:clamp(36px,5vw,56px);
+}
+.nome-lead b{color:var(--laranja)}
+.decomp{
+  display:flex;align-items:stretch;gap:0;
+  border:1px solid var(--aco);
+  margin-bottom:clamp(40px,6vw,72px);
+  flex-wrap:wrap;
+}
+.d-cell{
+  flex:1 1 160px;
+  padding:clamp(18px,3vw,32px);
+  display:flex;flex-direction:column;gap:6px;
+  border-right:1px solid var(--aco);
+}
+.d-cell:last-child{border-right:0}
+.d-big{
+  font-family:var(--font-t);font-weight:900;text-transform:uppercase;
+  font-size:clamp(30px,5vw,56px);letter-spacing:-.02em;line-height:1;
+}
+.d-res .d-big{color:var(--laranja)}
+.d-sub{
+  font-family:var(--font-m);font-size:12px;color:var(--aco);
+  letter-spacing:.04em;
+}
+.d-op{
+  display:flex;align-items:center;
+  padding:0 clamp(10px,2vw,22px);
+  font-family:var(--font-m);font-size:clamp(20px,3vw,32px);
+  color:var(--aco);
+  border-right:1px solid var(--aco);
+}
+@media (max-width:680px){
+  .decomp{flex-direction:column}
+  .d-cell,.d-op{border-right:0;border-bottom:1px solid var(--aco)}
+  .d-cell:last-child{border-bottom:0}
+  .d-op{padding:8px clamp(18px,3vw,32px)}
+}
+.nome-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:clamp(24px,4vw,48px);
+  margin-bottom:clamp(40px,6vw,64px);
+}
+.nome-grid article{border-top:2px solid var(--grafite);padding-top:22px}
+.nome-grid article.acc{border-top-color:var(--laranja)}
+.nome-grid article:nth-child(-n+3){grid-column:span 2}
+.nome-grid article:nth-child(n+4){grid-column:span 3}
+.nome-grid .n{
+  font-family:var(--font-m);font-size:12px;color:var(--aco);
+  display:block;margin-bottom:16px;letter-spacing:.08em;
+}
+.nome-grid h3{font-size:17px;margin-bottom:12px;letter-spacing:0}
+.nome-grid p{font-size:15px;opacity:.82}
+@media (max-width:900px){
+  .nome-grid article:nth-child(-n+3),
+  .nome-grid article:nth-child(n+4){grid-column:span 6}
+}
+
+/* ================================================================
+   03 · RACIONAL
+   ================================================================ */
+.racional .cols{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(24px,4vw,56px);
+}
+.racional article{border-top:2px solid var(--grafite);padding-top:22px}
+.racional article.acc{border-top-color:var(--laranja)}
+.racional .n{
+  font-family:var(--font-m);font-size:12px;color:var(--aco);
+  display:block;margin-bottom:16px;letter-spacing:.08em;
+}
+.racional h3{font-size:17px;margin-bottom:12px;letter-spacing:0}
+.racional p{font-size:15px;color:var(--grafite);opacity:.82}
+@media (max-width:860px){.racional .cols{grid-template-columns:1fr}}
+
+/* ================================================================
+   03 · CONSTRUÇÃO — prancha técnica
+   ================================================================ */
+.construcao{background:var(--branco)}
+.prancha{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);
+  gap:clamp(32px,5vw,72px);
+  align-items:center;
+  border:1px solid var(--aco);
+  padding:clamp(24px,4vw,64px);
+}
+.prancha-svg svg{width:100%;height:auto;display:block}
+.prancha .cota-txt{font-family:var(--font-m);font-size:13px;fill:var(--grafite)}
+.prancha .cota-val{font-weight:600}
+.prancha .cota-line{stroke:var(--aco);stroke-width:1}
+.prancha .cota-tick{stroke:var(--grafite);stroke-width:1.4}
+.prancha .pgrid{stroke:var(--aco);stroke-width:.5;opacity:.3}
+.prancha-note h3{font-size:clamp(22px,2.6vw,32px);margin-bottom:18px}
+.prancha-note h3 em{font-style:normal;color:var(--laranja)}
+.prancha-note p{font-size:15px;opacity:.82;margin-bottom:24px}
+.prancha-specs{width:100%;border-collapse:collapse;font-family:var(--font-m);font-size:13px}
+.prancha-specs td{border-top:1px solid rgba(112,118,125,.4);padding:9px 0}
+.prancha-specs td:last-child{text-align:right;font-weight:600}
+.prancha-specs .lbl{color:var(--aco)}
+@media (max-width:960px){.prancha{grid-template-columns:1fr}}
+
+/* ================================================================
+   04 · VERSÕES
+   ================================================================ */
+.versoes{background:var(--grafite);color:var(--branco)}
+.versoes .sec-head{border-bottom-color:rgba(112,118,125,.5)}
+.v-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:16px;
+}
+.v-card{border:1px solid rgba(112,118,125,.45);display:flex;flex-direction:column}
+.v-card .art{
+  display:flex;align-items:center;justify-content:center;
+  min-height:190px;padding:32px;
+}
+.v-card .art.on-white{background:var(--branco)}
+.v-card .art.on-dark{background:var(--grafite)}
+.v-card .art svg{width:100%;max-width:220px;height:auto}
+.v-card .art .icon-only{max-width:72px}
+.v-card figcaption{
+  border-top:1px solid rgba(112,118,125,.45);
+  padding:16px 18px 18px;
+  flex:1;
+}
+.v-card .v-code{
+  font-family:var(--font-m);font-size:12px;font-weight:600;
+  letter-spacing:.06em;display:block;margin-bottom:6px;
+}
+.v-card .v-code i{font-style:normal;color:var(--laranja)}
+.v-card .v-use{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.72)}
+.v-a1{grid-column:span 3}
+.v-a2{grid-column:span 3}
+.v-b1{grid-column:span 2}
+.v-b2{grid-column:span 2}
+.v-c1{grid-column:span 2}
+.assinatura{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:240px}
+.assinatura .desc{
+  font-family:var(--font-t);font-weight:600;font-size:9px;
+  letter-spacing:.42em;text-indent:.42em;color:var(--aco);
+  text-transform:uppercase;white-space:nowrap;
+}
+.v-rule{
+  margin-top:28px;
+  border-left:3px solid var(--laranja);
+  padding:6px 0 6px 20px;
+  font-size:clamp(16px,2vw,20px);
+  font-weight:700;text-transform:uppercase;letter-spacing:-.01em;
+}
+.v-rule small{
+  display:block;margin-top:6px;
+  font-family:var(--font-m);font-size:12px;font-weight:400;
+  letter-spacing:.02em;text-transform:none;color:rgba(255,255,255,.65);
+}
+@media (max-width:960px){
+  .v-a1,.v-a2{grid-column:span 6}
+  .v-b1,.v-b2,.v-c1{grid-column:span 2}
+}
+@media (max-width:680px){
+  .v-b1,.v-b2,.v-c1{grid-column:span 6}
+}
+
+/* ================================================================
+   05 · TESTE DE FOGO — placa de inox
+   ================================================================ */
+.teste{background:var(--grafite);color:var(--branco)}
+.teste .sec-head{border-bottom-color:rgba(112,118,125,.5)}
+.placa-stage{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,480px));
+  gap:28px;justify-content:center;
+}
+.placa-col{display:flex;flex-direction:column;gap:14px}
+.placa-tag{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.12em;
+  color:var(--aco);text-transform:uppercase;text-align:center;
+}
+.placa{
+  width:100%;flex:1;
+  color:var(--grafite);
+  /* inox escovado — somente CSS, tons neutros */
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,.10) 0px, rgba(255,255,255,0) 1px,
+      rgba(34,37,43,.05) 2px, rgba(255,255,255,0) 3px,
+      rgba(255,255,255,.07) 5px, rgba(34,37,43,.04) 7px),
+    repeating-linear-gradient(90deg,
+      rgba(34,37,43,.03) 0px, rgba(255,255,255,.05) 13px,
+      rgba(34,37,43,.05) 26px, rgba(255,255,255,.04) 41px),
+    linear-gradient(90deg,#b9bcc0 0%,#cdd0d3 22%,#bfc2c6 47%,#d2d4d7 74%,#b6b9bd 100%);
+  border:1px solid #8a8f94;
+  padding:clamp(28px,5vw,56px) clamp(24px,5vw,52px);
+  position:relative;
+}
+.placa .furo{
+  position:absolute;width:10px;height:10px;border-radius:50%;
+  background:#96999d;border:1px solid #7d8186;
+  box-shadow:inset 0 1px 2px rgba(34,37,43,.45);
+}
+.placa .furo.tl{top:10px;left:10px}
+.placa .furo.tr{top:10px;right:10px}
+.placa .furo.bl{bottom:10px;left:10px}
+.placa .furo.br{bottom:10px;right:10px}
+.placa-e{width:clamp(56px,16vw,84px);margin:6px auto 30px}
+.placa-e svg{width:100%;height:auto;display:block}
+.placa-wm{width:min(250px,58%);margin:20px auto 34px}
+.placa-wm svg{width:100%;height:auto;display:block}
+.placa-dados{
+  width:100%;border-collapse:collapse;
+  font-family:var(--font-m);font-size:clamp(11px,1.6vw,13.5px);
+}
+.placa-dados td{
+  padding:7px 2px;
+  border-top:1px solid rgba(34,37,43,.35);
+}
+.placa-dados td:last-child{text-align:right;font-weight:600}
+.placa-foot{
+  margin-top:22px;padding-top:14px;
+  border-top:1px solid rgba(34,37,43,.35);
+  font-family:var(--font-m);font-size:11.5px;letter-spacing:.08em;
+  text-align:center;text-transform:uppercase;
+}
+.teste-legenda{
+  max-width:640px;margin:36px auto 0;text-align:center;
+  font-size:15.5px;color:rgba(255,255,255,.78);
+}
+.teste-legenda b{color:var(--branco);font-weight:700}
+
+/* ================================================================
+   06 · CORES
+   ================================================================ */
+.c-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  margin-bottom:clamp(36px,5vw,56px);
+}
+.c-card{border:1px solid var(--aco)}
+.c-swatch{height:150px}
+.c-card.is-branco .c-swatch{border-bottom:1px solid var(--aco)}
+.c-body{padding:16px 18px 20px}
+.c-name{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:12px}
+.c-spec{width:100%;border-collapse:collapse;font-family:var(--font-m);font-size:12px}
+.c-spec td{padding:5px 0;border-top:1px solid rgba(112,118,125,.35)}
+.c-spec td:first-child{color:var(--aco)}
+.c-spec td:last-child{text-align:right;font-weight:500;white-space:nowrap}
+.regra8515{
+  border-left:4px solid var(--laranja);
+  padding:10px 0 10px clamp(20px,3vw,36px);
+  max-width:900px;
+}
+.regra8515 p{
+  font-size:clamp(20px,2.8vw,30px);
+  font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.15;
+}
+.regra8515 p b{color:var(--laranja)}
+.regra8515 footer{
+  margin-top:12px;font-family:var(--font-m);
+  font-size:12.5px;color:var(--aco);
+}
+@media (max-width:960px){.c-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.c-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   07 · APLICAÇÕES
+   ================================================================ */
+.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mock{border:1px solid var(--aco);margin:0}
+.mock-frame{position:relative;aspect-ratio:4/3;background:#e9eaeb;overflow:hidden}
+.mock-frame img{width:100%;height:100%;object-fit:cover}
+.mock-ph{
+  display:none;
+  position:absolute;inset:0;
+  align-items:center;justify-content:center;flex-direction:column;gap:8px;
+  font-family:var(--font-m);font-size:12px;letter-spacing:.1em;
+  color:var(--aco);text-transform:uppercase;text-align:center;padding:12px;
+  background:
+    repeating-linear-gradient(45deg, rgba(112,118,125,.07) 0 12px, rgba(112,118,125,0) 12px 24px),
+    #e9eaeb;
+}
+.mock-ph small{font-size:10px;letter-spacing:.04em;text-transform:none;opacity:.7}
+.mock-frame.nope .mock-ph{display:flex}
+.mock figcaption{
+  padding:12px 16px;
+  font-family:var(--font-m);font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;
+  border-top:1px solid var(--aco);
+  display:flex;justify-content:space-between;gap:12px;
+}
+.mock figcaption span:last-child{color:var(--aco)}
+@media (max-width:960px){.m-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.m-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   08 · USOS PROIBIDOS
+   ================================================================ */
+.proibido{background:var(--branco)}
+.x-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:0 clamp(32px,6vw,88px);
+  list-style:none;
+}
+.x-grid li{
+  display:flex;gap:16px;align-items:baseline;
+  padding:18px 0;
+  border-top:1px solid rgba(112,118,125,.4);
+  font-size:15.5px;
+}
+.x-grid li .x{
+  font-family:var(--font-m);font-weight:600;font-size:14px;
+  color:var(--laranja);flex-shrink:0;line-height:1.6;
+}
+@media (max-width:760px){.x-grid{grid-template-columns:1fr}}
+
+/* ================================================================
+   09 · RODAPÉ
+   ================================================================ */
+footer.site{
+  background:var(--grafite);color:var(--branco);
+  padding:clamp(40px,6vw,72px) var(--pad);
+}
+.foot-inner{
+  max-width:1240px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;flex-wrap:wrap;
+  border-top:1px solid rgba(112,118,125,.5);
+  padding-top:32px;
+}
+.foot-inner .wm svg{height:20px;width:auto;display:block}
+.foot-inner p{
+  font-family:var(--font-m);font-size:11.5px;letter-spacing:.08em;
+  color:var(--aco);text-transform:uppercase;
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#racional">Pular para o conteúdo</a>
+
+<!-- ==============================================================
+     DEFS — vetores oficiais (SVG/), referenciados por <use>.
+     Wordmark: letras em currentColor; E modular em var(--e).
+     ============================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- E estilizado · 289×308 · vetor oficial -->
+    <symbol id="ico" viewBox="0 0 289 308">
+      <path style="fill:currentColor" d="M0.644219 121.05L256.893 120.938L257.104 185.29C231.579 186.411 197.711 185.404 171.658 185.409L0.52832 185.445L0.644219 121.05Z"/>
+      <path style="fill:currentColor" d="M88.2106 242.391L288.452 242.397L288.505 307.583L88.0586 307.522L88.2106 242.391Z"/>
+      <path style="fill:currentColor" d="M88.2789 0H284.861L285.045 64.0817L88.0547 64.0266L88.2789 0Z"/>
+      <path style="fill:currentColor" d="M0.573383 212.459L57.1545 212.474L57.1564 307.888C56.3223 307.911 55.4883 307.922 54.6543 307.922C-7.79541 307.951 0.0718254 257.723 0.573383 212.459Z"/>
+      <path style="fill:currentColor" d="M42.971 1.9147L57.1552 1.57657L57.1742 95.708L15.1915 95.7004L0.555155 95.6129C0.688144 54.1394 -8.49001 13.4486 42.971 1.9147Z"/>
+    </symbol>
+    <!-- Wordmark ELMEK · 901×163 · vetor oficial -->
+    <symbol id="wm" viewBox="0 0 901 163">
+      <!-- L · M · E · K -->
+      <path style="fill:currentColor" d="M176.471 0.162231L215.138 0.168243C215.643 42.3922 215.214 85.4672 215.183 127.743L314.211 127.767L314.212 162.032L176.458 162.047L176.471 0.162231Z"/>
+      <path style="fill:currentColor" d="M334.375 0.170197L371.738 0.148193C391.758 28.2892 412.094 57.2582 432.556 85.0122C450.488 57.7852 473.459 27.0362 492.635 0.186218L529.823 0.184204L529.81 162.045L491.748 162.025L491.741 116.103L491.714 60.4972C476.335 83.2652 458.383 108.199 442.15 130.434C435.411 130.346 428.524 130.433 421.772 130.445C405.073 107.387 388.551 84.2002 372.208 60.8872L372.228 162.051L334.329 162.019L334.375 0.170197Z"/>
+      <path style="fill:currentColor" d="M599.711 0.404224C611.046 -0.301775 626.633 0.131228 638.331 0.133228L707.541 0.164234L707.561 33.8922L642.953 33.8882C633.587 33.8822 624.1 33.7442 614.755 33.9502C601.391 34.2442 599.006 39.6462 598.771 51.7322C598.509 64.8712 598.986 79.0342 598.744 91.9562C598.052 129.021 598.791 127.827 633.728 127.818L674.128 127.76L709.187 127.748L709.314 162.039L635.435 162.09C623.509 162.095 608.076 163.097 596.433 161.307C554.81 154.909 558.216 116.894 558.969 84.9842C559.318 70.0982 557.41 50.7982 560.051 36.2982C561.253 29.3152 564.082 22.7122 568.301 17.0192C576.404 6.26821 586.946 2.28522 599.711 0.404224Z"/>
+      <path style="fill:currentColor" d="M619.727 64.0682C640.709 62.8242 672.086 63.8482 693.848 63.8682C693.881 68.7782 694.318 93.7843 693.472 97.2713L692.101 97.7593C682.802 97.7023 621.809 99.1353 618.584 96.2213C615.359 93.3093 616.481 78.5762 616.481 73.9982C616.481 69.8302 616.703 67.1212 619.727 64.0682Z"/>
+      <path style="fill:currentColor" d="M850.258 0.200226L899.278 0.167236L822.568 73.3782C834.978 87.7112 847.478 101.97 860.058 116.153L900.178 162.048L850.528 162.051L794.758 99.2432L773.098 119.791L773.158 162.04L733.67 162.014L733.69 0.171234L773.088 0.170227L773.138 72.3452C777.728 67.7302 782.448 63.0762 787.258 58.6872C808.338 39.4492 828.738 18.8812 850.258 0.200226Z"/>
+      <!-- E modular (símbolo como primeira letra) -->
+      <path style="fill:var(--e,currentColor)" d="M0.338837 63.8861L135.218 63.8271L135.329 97.6992C121.894 98.2892 104.067 97.7591 90.3538 97.7621L0.277832 97.7812L0.338837 63.8861Z"/>
+      <path style="fill:var(--e,currentColor)" d="M46.4306 127.755L151.83 127.758L151.858 162.069L46.3506 162.037L46.4306 127.755Z"/>
+      <path style="fill:var(--e,currentColor)" d="M46.4666 0.170166H149.94L150.037 33.9002L46.3486 33.8712L46.4666 0.170166Z"/>
+      <path style="fill:var(--e,currentColor)" d="M0.301806 111.855L30.0838 111.863L30.0848 162.085C29.6458 162.097 29.2068 162.103 28.7678 162.103C-4.10319 162.118 0.037806 135.68 0.301806 111.855Z"/>
+      <path style="fill:var(--e,currentColor)" d="M22.627 0.369141L30.093 0.191162L30.103 49.7382L8.00498 49.7342L0.301001 49.6881C0.371001 27.8581 -4.46001 6.44014 22.627 0.369141Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ==============================================================
+     NAVEGAÇÃO
+     ============================================================== -->
+<nav aria-label="Navegação do documento">
+  <a class="nav-brand" href="#topo" aria-label="ELMEK — voltar ao topo">
+    <svg viewBox="0 0 901 163" style="color:#FFFFFF;--e:#D8691A" role="img" aria-label="ELMEK"><use href="#wm"/></svg>
+    <span>Identidade visual · v1.0</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nome">01 Nome</a></li>
+    <li><a href="#racional">02 Racional</a></li>
+    <li><a href="#construcao">03 Construção</a></li>
+    <li><a href="#versoes">04 Versões</a></li>
+    <li><a href="#teste">05 Teste</a></li>
+    <li><a href="#cores">06 Cores</a></li>
+    <li><a href="#aplicacoes">07 Aplicações</a></li>
+    <li><a href="#proibido">08 Proibido</a></li>
+  </ul>
+</nav>
+
+<!-- ==============================================================
+     01 · HERO
+     ============================================================== -->
+<header class="hero" id="topo">
+  <div class="hero-symbol">
+    <!-- E estilizado montado peça a peça sobre o grid de construção -->
+    <svg viewBox="-6 -6 301 320" role="img" aria-label="E estilizado ELMEK em laranja, construído sobre grid">
+      <g class="build-grid" aria-hidden="true">
+        <!-- linhas do grid 32×33u (u≈9,03 × 9,33) -->
+        <line x1="0" y1="0" x2="289" y2="0"/><line x1="0" y1="38.5" x2="289" y2="38.5"/>
+        <line x1="0" y1="77" x2="289" y2="77"/><line x1="0" y1="115.5" x2="289" y2="115.5"/>
+        <line x1="0" y1="154" x2="289" y2="154"/><line x1="0" y1="192.5" x2="289" y2="192.5"/>
+        <line x1="0" y1="231" x2="289" y2="231"/><line x1="0" y1="269.5" x2="289" y2="269.5"/>
+        <line x1="0" y1="308" x2="289" y2="308"/>
+        <line x1="0" y1="0" x2="0" y2="308"/><line x1="36.1" y1="0" x2="36.1" y2="308"/>
+        <line x1="72.25" y1="0" x2="72.25" y2="308"/><line x1="108.4" y1="0" x2="108.4" y2="308"/>
+        <line x1="144.5" y1="0" x2="144.5" y2="308"/><line x1="180.6" y1="0" x2="180.6" y2="308"/>
+        <line x1="216.75" y1="0" x2="216.75" y2="308"/><line x1="252.9" y1="0" x2="252.9" y2="308"/>
+        <line x1="289" y1="0" x2="289" y2="308"/>
+      </g>
+      <g fill="#D8691A">
+        <!-- ordem de montagem: pé sup → barra sup → barra do meio → pé inf → barra inf -->
+        <path class="build-part" d="M42.971 1.9147L57.1552 1.57657L57.1742 95.708L15.1915 95.7004L0.555155 95.6129C0.688144 54.1394 -8.49001 13.4486 42.971 1.9147Z"/>
+        <path class="build-part" d="M88.2789 0H284.861L285.045 64.0817L88.0547 64.0266L88.2789 0Z"/>
+        <path class="build-part" d="M0.644219 121.05L256.893 120.938L257.104 185.29C231.579 186.411 197.711 185.404 171.658 185.409L0.52832 185.445L0.644219 121.05Z"/>
+        <path class="build-part" d="M0.573383 212.459L57.1545 212.474L57.1564 307.888C56.3223 307.911 55.4883 307.922 54.6543 307.922C-7.79541 307.951 0.0718254 257.723 0.573383 212.459Z"/>
+        <path class="build-part" d="M88.2106 242.391L288.452 242.397L288.505 307.583L88.0586 307.522L88.2106 242.391Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-wordmark">
+    <!-- Wordmark A2 — branco com E laranja -->
+    <svg viewBox="0 0 901 163" style="color:#FFFFFF;--e:#D8691A" role="img" aria-label="ELMEK"><use href="#wm"/></svg>
+  </div>
+
+  <div class="hero-headline">
+    <h1>Elétrica e mecânica. Uma palavra só.</h1>
+    <span class="sub">Projeto, painel e obra: um responsável <b>só</b>.</span>
+  </div>
+
+  <p class="hero-meta">ELMEK · Engenharia elétrica industrial e predial · Curitiba / RMC</p>
+</header>
+
+<main id="conteudo">
+
+<!-- ==============================================================
+     02 · O NOME
+     ============================================================== -->
+<section class="nome" id="nome">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">01 / O NOME</span>
+        <h2 class="sec-title">Nasceu pronto para o galpão</h2>
+      </div>
+      <span class="ref">EL + MEK · 5 LETRAS · 2 SÍLABAS</span>
+    </div>
+
+    <p class="nome-lead">Tem nome que se explica. Tem nome que se prova. <b>ELMEK é dos dois</b> — mas na ordem certa.</p>
+
+    <div class="decomp" role="img" aria-label="Decomposição do nome: EL, de elétrica, mais MEK, de mecânica, igual a ELMEK">
+      <div class="d-cell">
+        <span class="d-big">EL</span>
+        <span class="d-sub">elétrica · electric</span>
+      </div>
+      <span class="d-op" aria-hidden="true">+</span>
+      <div class="d-cell">
+        <span class="d-big">MEK</span>
+        <span class="d-sub">mecânica · mekanik</span>
+      </div>
+      <span class="d-op" aria-hidden="true">=</span>
+      <div class="d-cell d-res">
+        <span class="d-big">ELMEK</span>
+        <span class="d-sub">uma palavra construída como uma peça</span>
+      </div>
+    </div>
+
+    <div class="nome-grid">
+      <article>
+        <span class="n">§ 1.1 — ORIGEM</span>
+        <h3>Uma peça, não um sobrenome</h3>
+        <p>EL, de elétrica/electric. MEK, de mecânica/mekanik. Não é um sobrenome disfarçado de marca, não é um "Elétrica do fulano" com verniz. É uma palavra construída como se fosse uma peça — encaixada, sem sobra, sem enfeite. Quem ouve não pensa em prestador de serviço. Pensa em fabricante.</p>
+      </article>
+      <article>
+        <span class="n">§ 1.2 — SOM</span>
+        <h3>Termina em /k/. Não deixa eco</h3>
+        <p>Duas sílabas. Tônica na primeira. Termina numa consoante seca, que corta o ar — sem cauda, sem suavização, sem pedir desculpas. Soa a mesma coisa gritado do outro lado de um galpão ou lido baixinho numa proposta comercial.</p>
+      </article>
+      <article class="acc">
+        <span class="n">§ 1.3 — O K</span>
+        <h3>O alfabeto dos fabricantes</h3>
+        <p>No português, o K não é uma letra brasileira. É estrangeira, técnica, industrial — a letra da Weg, da Steck, da Schneider. Trocar esse K por um C seria trocar um ativo de milhões por educação formal de dicionário. O K não é estilo. É posicionamento cravado na própria grafia do nome.</p>
+      </article>
+      <article>
+        <span class="n">§ 1.4 — ESCALA</span>
+        <h3>De 40 mm à fachada</h3>
+        <p>Cinco letras. Curtas o bastante para caber numa placa de identificação de 40&nbsp;mm em aço inox, longas o bastante para preencher a fachada de um galpão com autoridade. O comprimento ideal para gravação a laser, bordado em uniforme, porta de veículo. Um nome que não perde força nem no menor nem no maior suporte — e isso não é sorte, é raro.</p>
+      </article>
+      <article>
+        <span class="n">§ 1.5 — GEOGRAFIA</span>
+        <h3>Um nome que viaja</h3>
+        <p>Não é "Elétrica Curitiba", não é "Instalações Paraná". Se amanhã a Elmek fechar contrato no interior do Paraná, em Santa Catarina ou em São Paulo, ninguém vai estranhar — porque o nome nunca prometeu ser local. Ele nasceu do tamanho da ambição da empresa, não do tamanho do bairro onde ela começou.</p>
+      </article>
+    </div>
+
+    <blockquote class="regra8515">
+      <p>O trabalho não é inventar uma marca. É parar de esconder a que <b>já existe</b>.</p>
+      <footer>ELMEK não precisa ser mudado, abreviado nem decorado com sufixo. O nome já entrega, sozinho, a percepção de indústria, rigor e origem técnica — resta deixá-lo aparecer do tamanho que ele merece.</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ==============================================================
+     03 · O RACIONAL
+     ============================================================== -->
+<section class="racional" id="racional">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">02 / RACIONAL</span>
+        <h2 class="sec-title">Por que a marca mudou</h2>
+      </div>
+      <span class="ref">ELMEK-ID-2026 · REV 1.0</span>
+    </div>
+    <div class="cols">
+      <article>
+        <span class="n">§ 2.1 — DE SERVIÇO A PRODUTO</span>
+        <h3>O logo virou placa de identificação</h3>
+        <p>A Elmek deixou de ser prestadora de serviço e virou fabricante. Isso muda a natureza da marca: ela deixou de ser adesivo de camisa e passou a ser placa de identificação de produto industrial — fixada no painel, ao lado dos dados de tensão e corrente, respondendo pelo que sai da fábrica.</p>
+      </article>
+      <article>
+        <span class="n">§ 2.2 — DESENHADA DE DENTRO PARA FORA</span>
+        <h3>O suporte mais hostil primeiro</h3>
+        <p>A identidade foi projetada a partir do pior caso, não do melhor: gravação a laser, uma cor, 8&nbsp;mm de altura, aço inox. Tudo o que a marca faz em tela grande é consequência do que ela precisa sobreviver em chapa pequena.</p>
+      </article>
+      <article class="acc">
+        <span class="n">§ 2.3 — GEOMETRIA DO PAINEL</span>
+        <h3>Um E de barramento, chapa e módulo</h3>
+        <p>O símbolo é um E construído com a geometria do próprio painel — barramento, chapa, módulo. Nenhuma metáfora de prateleira: nada de raio, tomada ou lâmpada. A marca não ilustra eletricidade; ela é construída como o produto que assina.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     03 · A CONSTRUÇÃO — prancha técnica
+     ============================================================== -->
+<section class="construcao" id="construcao">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">03 / CONSTRUÇÃO</span>
+        <h2 class="sec-title">Prancha técnica</h2>
+      </div>
+      <span class="ref">GRID 32u × 33u · u = altura ÷ 33</span>
+    </div>
+
+    <div class="prancha">
+      <div class="prancha-svg">
+        <svg viewBox="-130 -60 545 470" role="img" aria-label="Diagrama de construção do E estilizado: grid 32 por 33 unidades, barra 7u, vão 6u, corte 3,5u, raio 3,5u">
+          <!-- grid u=10 -->
+          <g class="pgrid" aria-hidden="true">
+            <line x1="0" y1="0" x2="0" y2="330"/><line x1="40" y1="0" x2="40" y2="330"/>
+            <line x1="80" y1="0" x2="80" y2="330"/><line x1="120" y1="0" x2="120" y2="330"/>
+            <line x1="160" y1="0" x2="160" y2="330"/><line x1="200" y1="0" x2="200" y2="330"/>
+            <line x1="240" y1="0" x2="240" y2="330"/><line x1="280" y1="0" x2="280" y2="330"/>
+            <line x1="320" y1="0" x2="320" y2="330"/>
+            <line x1="0" y1="0" x2="320" y2="0"/><line x1="0" y1="41.25" x2="320" y2="41.25"/>
+            <line x1="0" y1="82.5" x2="320" y2="82.5"/><line x1="0" y1="123.75" x2="320" y2="123.75"/>
+            <line x1="0" y1="165" x2="320" y2="165"/><line x1="0" y1="206.25" x2="320" y2="206.25"/>
+            <line x1="0" y1="247.5" x2="320" y2="247.5"/><line x1="0" y1="288.75" x2="320" y2="288.75"/>
+            <line x1="0" y1="330" x2="320" y2="330"/>
+          </g>
+
+          <!-- os 5 módulos · coordenadas exatas do sistema (u = 10) -->
+          <g fill="#22252B">
+            <path d="M0 100 L0 35 A35 35 0 0 1 35 0 L70 0 L70 100 Z"/>               <!-- pé superior · R3,5u no canto externo -->
+            <rect x="105" y="0" width="215" height="70"/>                             <!-- barra superior -->
+            <rect x="10" y="130" width="275" height="70"/>                            <!-- barra do meio -->
+            <path d="M0 230 L70 230 L70 330 L35 330 A35 35 0 0 1 0 295 Z"/>          <!-- pé inferior · R3,5u no canto externo -->
+            <rect x="105" y="260" width="215" height="70"/>                           <!-- barra inferior -->
+          </g>
+
+          <!-- cotas -->
+          <g aria-hidden="true">
+            <!-- caixa 32u (largura) -->
+            <line class="cota-line" x1="0" y1="352" x2="320" y2="352"/>
+            <line class="cota-tick" x1="0" y1="346" x2="0" y2="358"/>
+            <line class="cota-tick" x1="320" y1="346" x2="320" y2="358"/>
+            <text class="cota-txt cota-val" x="160" y="374" text-anchor="middle">32u</text>
+            <!-- caixa 33u (altura) -->
+            <line class="cota-line" x1="346" y1="0" x2="346" y2="330"/>
+            <line class="cota-tick" x1="340" y1="0" x2="352" y2="0"/>
+            <line class="cota-tick" x1="340" y1="330" x2="352" y2="330"/>
+            <text class="cota-txt cota-val" x="360" y="169" text-anchor="start">33u</text>
+            <!-- barra 7u -->
+            <line class="cota-line" x1="-28" y1="130" x2="-28" y2="200"/>
+            <line class="cota-tick" x1="-34" y1="130" x2="-22" y2="130"/>
+            <line class="cota-tick" x1="-34" y1="200" x2="-22" y2="200"/>
+            <line class="cota-line" x1="-28" y1="130" x2="8" y2="130"/>
+            <line class="cota-line" x1="-28" y1="200" x2="8" y2="200"/>
+            <text class="cota-txt" x="-38" y="158" text-anchor="end">BARRA</text>
+            <text class="cota-txt cota-val" x="-38" y="176" text-anchor="end">7u</text>
+            <!-- vão 6u -->
+            <line class="cota-line" x1="270" y1="70" x2="270" y2="130"/>
+            <line class="cota-tick" x1="264" y1="70" x2="276" y2="70"/>
+            <line class="cota-tick" x1="264" y1="130" x2="276" y2="130"/>
+            <text class="cota-txt" x="284" y="96" text-anchor="start">VÃO</text>
+            <text class="cota-txt cota-val" x="284" y="114" text-anchor="start">6u</text>
+            <!-- corte 3,5u -->
+            <line class="cota-line" x1="70" y1="-24" x2="105" y2="-24"/>
+            <line class="cota-tick" x1="70" y1="-30" x2="70" y2="-18"/>
+            <line class="cota-tick" x1="105" y1="-30" x2="105" y2="-18"/>
+            <line class="cota-line" x1="70" y1="-24" x2="70" y2="-6"/>
+            <line class="cota-line" x1="105" y1="-24" x2="105" y2="-6"/>
+            <text class="cota-txt" x="118" y="-32" text-anchor="start">CORTE</text>
+            <text class="cota-txt cota-val" x="182" y="-32" text-anchor="start">3,5u</text>
+            <!-- raio 3,5u -->
+            <line class="cota-line" x1="-60" y1="16" x2="10" y2="10"/>
+            <text class="cota-txt" x="-66" y="6" text-anchor="end">RAIO</text>
+            <text class="cota-txt cota-val" x="-66" y="24" text-anchor="end">R 3,5u</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="prancha-note">
+        <h3>O sistema fecha em três valores: <em>7u</em>, <em>6u</em> e <em>3,5u</em>. Não existe nenhuma outra medida na marca.</h3>
+        <p>Razão-mestra barra:vão = 7:6. O corte entre pé e barra é meia barra (3,5u). O raio de 3,5u existe apenas nos cantos externos dos pés — nada mais é arredondado.</p>
+        <table class="prancha-specs">
+          <tbody>
+            <tr><td class="lbl">Caixa de construção</td><td>32u × 33u</td></tr>
+            <tr><td class="lbl">Espessura de barra</td><td>7u</td></tr>
+            <tr><td class="lbl">Vão entre barras</td><td>6u</td></tr>
+            <tr><td class="lbl">Corte pé / barra</td><td>3,5u</td></tr>
+            <tr><td class="lbl">Raio (cantos externos dos pés)</td><td>3,5u</td></tr>
+            <tr><td class="lbl">Razão-mestra barra : vão</td><td>7 : 6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     04 · AS VERSÕES
+     ============================================================== -->
+<section class="versoes" id="versoes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">04 / VERSÕES</span>
+        <h2 class="sec-title">Versões liberadas</h2>
+      </div>
+      <span class="ref">5 VERSÕES · NENHUMA OUTRA</span>
+    </div>
+
+    <div class="v-grid">
+      <figure class="v-card v-a1">
+        <div class="art on-white">
+          <svg viewBox="0 0 901 163" style="color:#22252B" role="img" aria-label="Wordmark ELMEK monocromático em grafite"><use href="#wm"/></svg>
+        </div>
+        <figcaption>
+          <span class="v-code">A1 · WORDMARK MONOCROMÁTICO</span>
+          <span class="v-use">Documento técnico, proposta, papelaria. A versão de trabalho: uma cor, qualquer processo.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="v-card v-a2">
+        <div class="art on-dark">
+          <svg viewBox="0 0 901 163" style="color:#FFFFFF;--e:#D8691A" role="img" aria-label="Wordmark ELMEK branco com E laranja"><use href="#wm"/></svg>
+        </div>
+        <figcaption>
+          <span class="v-code">A2 · WORDMARK COM E <i>LARANJA</i></span>
+          <span class="v-use">Site, uniforme, veículo, fachada. A versão de apresentação — o acento fica no E, e só no E.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="v-card v-b1">
+        <div class="art on-white">
+          <svg viewBox="0 0 289 308" class="icon-only" style="color:#22252B" role="img" aria-label="E estilizado monocromático em grafite"><use href="#ico"/></svg>
+        </div>
+        <figcaption>
+          <span class="v-code">B1 · E ESTILIZADO MONOCROMÁTICO</span>
+          <span class="v-use">Bordado pequeno, gravação abaixo de 15&nbsp;mm, <strong>placa de painel</strong>.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="v-card v-b2">
+        <div class="art on-dark">
+          <svg viewBox="0 0 289 308" class="icon-only" style="color:#D8691A" role="img" aria-label="E estilizado laranja"><use href="#ico"/></svg>
+        </div>
+        <figcaption>
+          <span class="v-code">B2 · E ESTILIZADO <i>LARANJA</i></span>
+          <span class="v-use">Favicon, avatar.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="v-card v-c1">
+        <div class="art on-white">
+          <span class="assinatura">
+            <svg viewBox="0 0 901 163" style="color:#22252B;--e:#D8691A" role="img" aria-label="Assinatura ELMEK com descritor Infraestrutura Elétrica"><use href="#wm"/></svg>
+            <span class="desc" style="color:#70767D">Infraestrutura elétrica</span>
+          </span>
+        </div>
+        <figcaption>
+          <span class="v-code">C1 · ASSINATURA COM DESCRITOR</span>
+          <span class="v-use">Quando o contexto não diz o que a Elmek faz: proposta a cliente novo, feira, mídia.</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="v-rule">O E isolado é permissão, não preferência.
+      <small>Na dúvida, use o wordmark. B1/B2 existem para os espaços onde ELMEK inteiro não cabe.</small>
+    </p>
+  </div>
+</section>
+
+<!-- ==============================================================
+     05 · TESTE DE FOGO
+     ============================================================== -->
+<section class="teste" id="teste">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">05 / TESTE DE FOGO</span>
+        <h2 class="sec-title">A placa de identificação</h2>
+      </div>
+      <span class="ref">GRAVAÇÃO LASER · 1 COR · AÇO INOX</span>
+    </div>
+
+    <div class="placa-stage">
+      <div class="placa-col">
+        <p class="placa-tag">Opção 1 · Apenas o E</p>
+        <div class="placa" role="img" aria-label="Placa de identificação em aço inox escovado com o E estilizado gravado e dados técnicos">
+          <span class="furo tl" aria-hidden="true"></span><span class="furo tr" aria-hidden="true"></span>
+          <span class="furo bl" aria-hidden="true"></span><span class="furo br" aria-hidden="true"></span>
+          <div class="placa-e">
+            <svg viewBox="0 0 289 308" style="color:#22252B" aria-hidden="true"><use href="#ico"/></svg>
+          </div>
+          <table class="placa-dados">
+            <tbody>
+              <tr><td>TENSÃO NOMINAL</td><td>380 V</td></tr>
+              <tr><td>CORRENTE NOMINAL</td><td>250 A</td></tr>
+              <tr><td>FREQUÊNCIA</td><td>60 Hz</td></tr>
+              <tr><td>GRAU DE PROTEÇÃO</td><td>IP54</td></tr>
+              <tr><td>NORMA</td><td>NBR IEC 61439-1</td></tr>
+            </tbody>
+          </table>
+          <p class="placa-foot">Curitiba · elmek.com.br</p>
+        </div>
+      </div>
+      <div class="placa-col">
+        <p class="placa-tag">Opção 2 · Logo completo</p>
+        <div class="placa" role="img" aria-label="Placa de identificação em aço inox escovado com o wordmark ELMEK gravado e dados técnicos">
+          <span class="furo tl" aria-hidden="true"></span><span class="furo tr" aria-hidden="true"></span>
+          <span class="furo bl" aria-hidden="true"></span><span class="furo br" aria-hidden="true"></span>
+          <div class="placa-wm">
+            <svg viewBox="0 0 901 163" style="color:#22252B" aria-hidden="true"><use href="#wm"/></svg>
+          </div>
+          <table class="placa-dados">
+            <tbody>
+              <tr><td>TENSÃO NOMINAL</td><td>380 V</td></tr>
+              <tr><td>CORRENTE NOMINAL</td><td>250 A</td></tr>
+              <tr><td>FREQUÊNCIA</td><td>60 Hz</td></tr>
+              <tr><td>GRAU DE PROTEÇÃO</td><td>IP54</td></tr>
+              <tr><td>NORMA</td><td>NBR IEC 61439-1</td></tr>
+            </tbody>
+          </table>
+          <p class="placa-foot">Curitiba · elmek.com.br</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="teste-legenda">Se a marca funciona aqui — <b>8&nbsp;mm, uma cor, inox riscado, lida por lanterna às 3h da manhã</b> — ela funciona em qualquer lugar.</p>
+  </div>
+</section>
+
+<!-- ==============================================================
+     06 · CORES
+     ============================================================== -->
+<section class="cores" id="cores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">06 / CORES</span>
+        <h2 class="sec-title">Paleta</h2>
+      </div>
+      <span class="ref">4 CORES · ESPECIFICAÇÃO CRUZADA HEX / RGB / PANTONE / RAL</span>
+    </div>
+
+    <div class="c-grid">
+      <div class="c-card">
+        <div class="c-swatch" style="background:#22252B"></div>
+        <div class="c-body">
+          <p class="c-name">Grafite Elmek</p>
+          <table class="c-spec"><tbody>
+            <tr><td>HEX</td><td>#22252B</td></tr>
+            <tr><td>RGB</td><td>34 · 37 · 43</td></tr>
+            <tr><td>PANTONE</td><td>433 C</td></tr>
+            <tr><td>RAL</td><td>7021</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="c-card">
+        <div class="c-swatch" style="background:#D8691A"></div>
+        <div class="c-body">
+          <p class="c-name">Laranja Industrial</p>
+          <table class="c-spec"><tbody>
+            <tr><td>HEX</td><td>#D8691A</td></tr>
+            <tr><td>RGB</td><td>216 · 105 · 26</td></tr>
+            <tr><td>PANTONE</td><td>1595 C</td></tr>
+            <tr><td>RAL</td><td>2000</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="c-card">
+        <div class="c-swatch" style="background:#70767D"></div>
+        <div class="c-body">
+          <p class="c-name">Cinza Aço</p>
+          <table class="c-spec"><tbody>
+            <tr><td>HEX</td><td>#70767D</td></tr>
+            <tr><td>RGB</td><td>112 · 118 · 125</td></tr>
+            <tr><td>PANTONE</td><td>Cool Gray 9 C</td></tr>
+            <tr><td>RAL</td><td>7046</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="c-card is-branco">
+        <div class="c-swatch" style="background:#FFFFFF"></div>
+        <div class="c-body">
+          <p class="c-name">Branco</p>
+          <table class="c-spec"><tbody>
+            <tr><td>HEX</td><td>#FFFFFF</td></tr>
+            <tr><td>RGB</td><td>255 · 255 · 255</td></tr>
+            <tr><td>PANTONE</td><td>—</td></tr>
+            <tr><td>RAL</td><td>9003</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="regra8515">
+      <p>Grafite e neutros: mínimo <b>85%</b> de qualquer superfície. Laranja: máximo <b>15%</b>, sempre como acento.</p>
+      <footer>Uma barra, um destaque, o E do logo. Nunca como fundo, nunca como superfície. Sem degradês, sem sombras coloridas, sem 3D.</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ==============================================================
+     07 · APLICAÇÕES
+     ============================================================== -->
+<section class="aplicacoes" id="aplicacoes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">07 / APLICAÇÕES</span>
+        <h2 class="sec-title">A marca em campo</h2>
+      </div>
+      <span class="ref">MOCKUPS · /mockups/*.jpeg</span>
+    </div>
+
+    <div class="m-grid">
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/uniforme.jpeg" alt="Mockup — uniforme com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Uniforme<small>mockups/uniforme.jpeg</small></span>
+        </div>
+        <figcaption><span>Uniforme</span><span>A2 / B1</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/veiculo.png" alt="Mockup — veículo com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Veículo<small>mockups/veiculo.jpeg</small></span>
+        </div>
+        <figcaption><span>Veículo</span><span>A2</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/placa.jpeg" alt="Mockup — placa de identificação com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Placa<small>mockups/placa.jpeg</small></span>
+        </div>
+        <figcaption><span>Placa de identificação</span><span>B1</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/capacete.jpeg" alt="Mockup — capacete com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Capacete<small>mockups/capacete.jpeg</small></span>
+        </div>
+        <figcaption><span>Capacete</span><span>B1</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/painel.jpeg" alt="Mockup — painel elétrico com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Painel<small>mockups/painel.jpeg</small></span>
+        </div>
+        <figcaption><span>Painel</span><span>A1</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/papelaria.jpeg" alt="Mockup — papelaria com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Papelaria<small>mockups/papelaria.jpeg</small></span>
+        </div>
+        <figcaption><span>Papelaria</span><span>A1 / C1</span></figcaption>
+      </figure>
+      <figure class="mock">
+        <div class="mock-frame">
+          <img src="mockups/fachada.jpeg" alt="Mockup — fachada com a marca ELMEK" loading="lazy"
+               onerror="this.parentElement.classList.add('nope');this.remove()">
+          <span class="mock-ph" aria-hidden="true">Fachada<small>mockups/fachada.jpeg</small></span>
+        </div>
+        <figcaption><span>Fachada</span><span>A2</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     08 · USOS PROIBIDOS
+     ============================================================== -->
+<section class="proibido" id="proibido">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="sec-index">08 / USOS PROIBIDOS</span>
+        <h2 class="sec-title">O que não se faz</h2>
+      </div>
+      <span class="ref">SEM EXCEÇÃO</span>
+    </div>
+    <ul class="x-grid">
+      <li><span class="x" aria-hidden="true">✕</span>Não redesenhar o E — os vetores oficiais são os únicos válidos.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não esticar, comprimir, inclinar ou rotacionar.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não aplicar sombra, degradê ou efeito 3D.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não colocar a marca em moldura, selo ou caixa decorativa.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não usar raio, tomada ou lâmpada junto à marca.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não usar laranja sobre laranja.</li>
+      <li><span class="x" aria-hidden="true">✕</span>Não usar o E como bullet, marcador ou ornamento de texto.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- ==============================================================
+     09 · RODAPÉ
+     ============================================================== -->
+<footer class="site">
+  <div class="foot-inner">
+    <p>ELMEK · Identidade visual · v1.0 · Julho 2026 · Documento para aprovação</p>
+    <div class="wm">
+      <svg viewBox="0 0 901 163" style="color:#FFFFFF" role="img" aria-label="ELMEK — wordmark A1"><use href="#wm"/></svg>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
