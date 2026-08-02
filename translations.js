@@ -134,6 +134,23 @@ const translations = {
     'project_6_desc': 'Site institucional para grupo de facilities e segurança, com cards animados por scroll, arquitetura multimarca e versão bilíngue PT/EN.',
     'project_6_context': 'Site institucional para grupo com mais de 25 anos no setor de facilities e segurança. O projeto organiza uma operação multimarca em uma única navegação: além dos serviços do grupo, apresenta as unidades Odin Segurança e High Clean com seções dedicadas. A home combina hero de alto impacto com prova social em números, seis cards de serviços com animação acionada pelo scroll e CTAs de orçamento distribuídos pela jornada. Estrutura bilíngue PT/EN e design responsivo orientado a conversão.',
 
+    'project_7_title': 'Garage Facilite - Rebranding e Identidade Visual',
+    'project_7_desc': 'Nova identidade visual para empresa do setor automotivo: símbolo a partir da fusão das iniciais G e F, paleta amarelo e grafite, e sistema de aplicações para fachada, uniformes, veículos e redes sociais.',
+    'project_7_challenge_title': 'O desafio',
+    'project_7_challenge_text': 'A identidade anterior não transmitia mais a qualidade dos serviços oferecidos. O objetivo era criar uma marca moderna, memorável e preparada para crescer, fortalecendo a percepção de confiança e profissionalismo no mercado automotivo — com um símbolo capaz de funcionar de forma independente em redes sociais, fachada, uniformes, veículos, adesivos e materiais promocionais.',
+    'project_7_approach_title': 'Minha abordagem',
+    'project_7_approach_text': 'A partir da análise do posicionamento da empresa e do público-alvo, defini três pilares para a nova identidade e propus uma marca limpa, forte e facilmente reconhecida, evitando os elementos genéricos comuns ao segmento automotivo.',
+    'project_7_pillar_1': 'Modernidade',
+    'project_7_pillar_2': 'Performance',
+    'project_7_pillar_3': 'Confiança',
+    'project_7_concept_title': 'Conceito',
+    'project_7_concept_text': 'O símbolo nasce da fusão das iniciais G e F, formando um ícone único e de fácil reconhecimento. As linhas inclinadas remetem a movimento e velocidade, enquanto os cantos arredondados equilibram a identidade, transmitindo proximidade e confiança — resultando em uma marca versátil, capaz de funcionar tanto como assinatura completa quanto como símbolo independente. A tipografia reforça o universo automotivo com linhas inclinadas que comunicam velocidade e precisão sem comprometer a legibilidade.',
+    'project_7_palette_title': 'Paleta de cores',
+    'project_7_color_yellow': 'Amarelo',
+    'project_7_color_graphite': 'Grafite',
+    'project_7_result_title': 'Resultado',
+    'project_7_result_text': 'A nova identidade entrega uma marca muito mais sólida e preparada para crescer. Além do logotipo principal, o projeto criou um sistema visual consistente para aplicações digitais e físicas, fortalecendo o reconhecimento da Garage Facilite em todos os pontos de contato com seus clientes.',
+
     'zalieza_client_credit': 'Projeto desenvolvido para cliente da',
     'website_institucional': 'Website Institucional',
 
@@ -145,7 +162,10 @@ const translations = {
     'website': 'Website',
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
-    
+    'branding': 'Branding',
+    'visual_identity': 'Identidade Visual',
+    'rebranding': 'Rebranding',
+
     // Technologies Section
     'tech_title': 'Tecnologias',
     'tech_description': 'Cada ferramenta tem um papel dentro do processo. Abaixo, o que utilizo em cada etapa, da concepção do design à operação do produto no ar.',
@@ -349,6 +369,23 @@ const translations = {
     'project_6_desc': 'Corporate website for a facilities and security group, featuring scroll-driven service cards, multi-brand architecture and PT/EN bilingual structure.',
     'project_6_context': 'Corporate website for a group with over 25 years in facilities and security. The project organizes a multi-brand operation into a single navigation: beyond the group\'s services, it presents the Odin Segurança and High Clean units with dedicated sections. The homepage combines a high-impact hero with social proof metrics, six scroll-animated service cards and quote CTAs placed throughout the journey. Bilingual PT/EN structure and conversion-oriented responsive design.',
 
+    'project_7_title': 'Garage Facilite - Rebranding & Visual Identity',
+    'project_7_desc': 'New visual identity for an automotive company: a symbol built from the fusion of the initials G and F, a yellow and graphite palette, and an application system for storefront, uniforms, vehicles and social media.',
+    'project_7_challenge_title': 'The challenge',
+    'project_7_challenge_text': "The previous identity no longer conveyed the quality of the services offered. The goal was to create a modern, memorable brand ready to grow, strengthening the perception of trust and professionalism in the automotive market — with a symbol able to work independently across social media, storefront, uniforms, vehicles, stickers and promotional materials.",
+    'project_7_approach_title': 'My approach',
+    'project_7_approach_text': "Starting from an analysis of the company's positioning and target audience, I defined three pillars for the new identity and proposed a clean, strong and easily recognizable brand, avoiding the generic elements commonly used in the automotive segment.",
+    'project_7_pillar_1': 'Modernity',
+    'project_7_pillar_2': 'Performance',
+    'project_7_pillar_3': 'Trust',
+    'project_7_concept_title': 'Concept',
+    'project_7_concept_text': "The symbol is born from the fusion of the initials G and F, forming a unique and easily recognizable icon. The slanted lines evoke movement and speed, while the rounded corners balance the identity, conveying closeness and trust — resulting in a versatile brand that works both as a full signature and as a standalone symbol. The typography reinforces the automotive universe with slanted lines that communicate speed and precision without compromising legibility.",
+    'project_7_palette_title': 'Color palette',
+    'project_7_color_yellow': 'Yellow',
+    'project_7_color_graphite': 'Graphite',
+    'project_7_result_title': 'Result',
+    'project_7_result_text': "The new identity delivers a far more solid brand, ready to grow. Beyond the main logo, the project created a consistent visual system for digital and physical applications, strengthening Garage Facilite's recognition across every touchpoint with its customers.",
+
     'zalieza_client_credit': 'Project developed for a client of',
     'website_institucional': 'Corporate Website',
 
@@ -360,7 +397,10 @@ const translations = {
     'website': 'Website',
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
-    
+    'branding': 'Branding',
+    'visual_identity': 'Visual Identity',
+    'rebranding': 'Rebranding',
+
     // Technologies Section
     'tech_title': 'Technologies',
     'tech_description': 'Every tool has a role within the process. Below is what I use at each stage, from design conception to running the product in production.',

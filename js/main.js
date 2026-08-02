@@ -147,6 +147,29 @@ if (typeof gsap !== 'undefined') {
                         <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
                     </div>
                 `;
+            } else if (data.title.includes('Garage Facilite')) {
+                extraContainer.innerHTML = `
+                    <div>
+                        <h3 class="font-semibold">${t('project_7_challenge_title')}</h3>
+                        <p>${t('project_7_challenge_text')}</p>
+                        <h3 class="font-semibold mt-4">${t('project_7_approach_title')}</h3>
+                        <p>${t('project_7_approach_text')}</p>
+                        <ul class="flex flex-wrap gap-2 my-3 pl-0 list-none">
+                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_1')}</li>
+                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_2')}</li>
+                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_3')}</li>
+                        </ul>
+                        <h3 class="font-semibold mt-4">${t('project_7_concept_title')}</h3>
+                        <p>${t('project_7_concept_text')}</p>
+                        <h3 class="font-semibold mt-4">${t('project_7_palette_title')}</h3>
+                        <div class="flex gap-4 my-2">
+                            <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#F5A400"></span><span class="text-xs">${t('project_7_color_yellow')} — #F5A400</span></div>
+                            <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#242424"></span><span class="text-xs">${t('project_7_color_graphite')} — #242424</span></div>
+                        </div>
+                        <h3 class="font-semibold mt-4">${t('project_7_result_title')}</h3>
+                        <p>${t('project_7_result_text')}</p>
+                    </div>
+                `;
             } else {
                 extraContainer.innerHTML = '';
             }
@@ -311,6 +334,29 @@ if (typeof gsap !== 'undefined') {
                             <h3 class="font-semibold">${t('context')}</h3>
                             <p>${t('project_6_context')}</p>
                             <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
+                        </div>
+                    `;
+                    } else if (data.title.includes('Garage Facilite')) {
+                        extraContainer.innerHTML = `
+                        <div>
+                            <h3 class="font-semibold">${t('project_7_challenge_title')}</h3>
+                            <p>${t('project_7_challenge_text')}</p>
+                            <h3 class="font-semibold mt-4">${t('project_7_approach_title')}</h3>
+                            <p>${t('project_7_approach_text')}</p>
+                            <ul class="flex flex-wrap gap-2 my-3 pl-0 list-none">
+                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_1')}</li>
+                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_2')}</li>
+                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_3')}</li>
+                            </ul>
+                            <h3 class="font-semibold mt-4">${t('project_7_concept_title')}</h3>
+                            <p>${t('project_7_concept_text')}</p>
+                            <h3 class="font-semibold mt-4">${t('project_7_palette_title')}</h3>
+                            <div class="flex gap-4 my-2">
+                                <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#F5A400"></span><span class="text-xs">${t('project_7_color_yellow')} — #F5A400</span></div>
+                                <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#242424"></span><span class="text-xs">${t('project_7_color_graphite')} — #242424</span></div>
+                            </div>
+                            <h3 class="font-semibold mt-4">${t('project_7_result_title')}</h3>
+                            <p>${t('project_7_result_text')}</p>
                         </div>
                     `;
                     } else {
