@@ -53,8 +53,8 @@ if (typeof gsap !== 'undefined') {
             <button id="modalNext" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full p-2 shadow hover:bg-slate-100">
                 <i data-lucide="chevron-right" class="w-6 h-6 text-slate-600"></i>
             </button>
-            <div id="modalImageContainer" class="md:w-1/2 flex items-center justify-center mb-6 md:mb-0">
-                <img id="modalImage" src="" class="w-full h-auto object-cover rounded" alt="Preview">
+            <div id="modalImageContainer" class="md:w-1/2 flex items-center justify-center mb-6 md:mb-0 overflow-hidden cursor-zoom-in rounded">
+                <img id="modalImage" src="" class="w-full h-auto object-cover rounded transition-transform duration-200 ease-out" alt="Preview">
             </div>
             <div class="md:w-1/2 md:pl-8 flex flex-col justify-between">
                 <div>
@@ -73,6 +73,21 @@ if (typeof gsap !== 'undefined') {
     `;
     document.body.appendChild(modal);
     lucide.createIcons();
+
+    // magnifier-style zoom on the modal image so the user can inspect details on hover
+    const modalImageContainer = document.getElementById('modalImageContainer');
+    const modalImageEl = document.getElementById('modalImage');
+    modalImageContainer.addEventListener('mousemove', e => {
+        const rect = modalImageContainer.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        modalImageEl.style.transformOrigin = `${x}% ${y}%`;
+        modalImageEl.style.transform = 'scale(2.2)';
+    });
+    modalImageContainer.addEventListener('mouseleave', () => {
+        modalImageEl.style.transform = 'scale(1)';
+        modalImageEl.style.transformOrigin = 'center';
+    });
 
     function openModal(data) {
         document.getElementById('modalTitle').textContent = data.title;
@@ -200,7 +215,11 @@ if (typeof gsap !== 'undefined') {
     }
 
     function closeModal() {
-        gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden') });
+        gsap.to(modal, {
+            opacity: 0, duration: 0.3, onComplete: () => {
+                modal.classList.add('hidden');
+            }
+        });
     }
 
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
