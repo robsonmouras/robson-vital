@@ -37,74 +37,70 @@ if (typeof gsap !== 'undefined') {
         });
     });
 
-    // project modal handling
+    // project detail view: a full-page overlay (not a boxed modal) that sits
+    // above everything, including the header and footer
     const modal = document.createElement('div');
     modal.id = 'projectModal';
-    // make overlay flex so children can center, and ensure full viewport coverage
-    modal.className = 'fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50';
+    modal.className = 'fixed inset-0 bg-white hidden overflow-y-auto z-50';
     modal.innerHTML = `
-        <div class="bg-white w-[90vw] h-[90vh] max-w-none max-h-none overflow-y-auto p-8 relative rounded-lg flex flex-col md:flex-row">
-            <button id="closeModal" class="absolute top-4 right-4 text-slate-500 hover:text-slate-900">
-                <i data-lucide="x" class="w-6 h-6"></i>
+        <div id="modalPage" class="max-w-4xl mx-auto px-6 lg:px-16 py-16">
+            <button id="closeModal" class="inline-flex items-center gap-2 text-sm font-medium tracking-wide text-slate-500 hover:text-slate-900 transition-colors mb-10">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span data-i18n="back_to_projects">Voltar</span>
             </button>
-            <button id="modalPrev" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full p-2 shadow hover:bg-slate-100">
-                <i data-lucide="chevron-left" class="w-6 h-6 text-slate-600"></i>
-            </button>
-            <button id="modalNext" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full p-2 shadow hover:bg-slate-100">
-                <i data-lucide="chevron-right" class="w-6 h-6 text-slate-600"></i>
-            </button>
-            <div id="modalImageContainer" class="md:w-1/2 flex items-center justify-center mb-6 md:mb-0 overflow-hidden cursor-zoom-in rounded">
-                <img id="modalImage" src="" class="w-full h-auto object-cover rounded transition-transform duration-200 ease-out" alt="Preview">
-            </div>
-            <div class="md:w-1/2 md:pl-8 flex flex-col justify-between">
-                <div>
-                    <h2 id="modalTitle" class="text-2xl font-semibold mb-4"><i data-lucide="file-text" class="w-6 h-6 inline-block mr-2"></i></h2>
-                    <p id="modalDescription" class="text-lg text-slate-700 mb-4"></p>
-                    <div id="modalTools" class="text-sm text-slate-500 mb-6"></div>
-                    <!-- additional details for select projects -->
-                    <div id="modalExtra" class="text-sm text-slate-500 mb-6"></div>
-                    <div id="modalLinkContainer" class="mb-6"></div>
-                </div>
+
+            <h2 id="modalTitle" class="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900 mb-4"></h2>
+            <div id="modalTools" class="text-sm text-slate-500 mb-8"></div>
+            <p id="modalDescription" class="text-lg text-slate-600 leading-relaxed mb-8"></p>
+
+            <!-- additional details for select projects -->
+            <div id="modalExtra" class="text-sm text-slate-500 leading-relaxed mb-10"></div>
+
+            <div class="flex flex-wrap items-center gap-4 mb-16">
+                <div id="modalLinkContainer"></div>
                 <a href="https://wa.link/hs0fpr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-red-600 hover:bg-red-500 text-white px-6 py-3 text-sm font-semibold tracking-[0.15em] uppercase transition-colors">
                     <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Vamos Conversar
                 </a>
+            </div>
+
+            <!-- screenshots gallery: reserved space for the project's prints -->
+            <div id="modalGallerySection" class="border-t border-slate-100 pt-10 pb-16">
+                <h3 class="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-6" data-i18n="project_screenshots">Veja com detalhes</h3>
+                <div id="modalGallery" class="grid grid-cols-1 gap-6"></div>
             </div>
         </div>
     `;
     document.body.appendChild(modal);
     lucide.createIcons();
 
-    // magnifier-style zoom on the modal image so the user can inspect details on hover
-    const modalImageContainer = document.getElementById('modalImageContainer');
-    const modalImageEl = document.getElementById('modalImage');
-    modalImageContainer.addEventListener('mousemove', e => {
-        const rect = modalImageContainer.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        modalImageEl.style.transformOrigin = `${x}% ${y}%`;
-        modalImageEl.style.transform = 'scale(2.2)';
-    });
-    modalImageContainer.addEventListener('mouseleave', () => {
-        modalImageEl.style.transform = 'scale(1)';
-        modalImageEl.style.transformOrigin = 'center';
-    });
+    // renders the comma-separated data-images list into the screenshots grid
+    function renderGallery(images) {
+        const section = document.getElementById('modalGallerySection');
+        const gallery = document.getElementById('modalGallery');
+        if (!images || !images.length) {
+            section.classList.add('hidden');
+            gallery.innerHTML = '';
+            return;
+        }
+        section.classList.remove('hidden');
+        gallery.innerHTML = images.map(src => `
+            <div class="group overflow-hidden rounded-sm border border-slate-100 bg-slate-50">
+                <img src="${src}" loading="lazy" decoding="async" alt="Print do projeto"
+                    class="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+            </div>
+        `).join('');
+    }
 
     function openModal(data) {
         document.getElementById('modalTitle').textContent = data.title;
-        // use only first image for new layout
-        const imgEl = document.getElementById('modalImage');
-        if (data.images && data.images.length) {
-            imgEl.src = data.images[0];
-        } else {
-            imgEl.src = '';
-        }
         document.getElementById('modalDescription').textContent = data.description;
+        renderGallery(data.images);
         document.getElementById('modalTools').textContent = t('tools_techniques') + data.tools;
 
         // special extra info for specific projects
         const extraContainer = document.getElementById('modalExtra');
-        if (data.title) {
-            if (data.title.includes('Plataforma Global')) {
+        if (data.dataKey) {
+            if (data.dataKey === 'project_1_title') {
                 extraContainer.innerHTML = `
                     <div>
                         <h3 class="font-semibold">Contexto</h3>
@@ -119,7 +115,7 @@ if (typeof gsap !== 'undefined') {
                         </ul>
                     </div>
                 `;
-            } else if (data.title.includes('Site Instituciona')) {
+            } else if (data.dataKey === 'project_2_title') {
                 extraContainer.innerHTML = `
                     <div>
                         <h3 class="font-semibold">Contexto</h3>
@@ -146,7 +142,7 @@ if (typeof gsap !== 'undefined') {
                         </div>
                     </div>
                 `;
-            } else if (data.title.includes('Jumper')) {
+            } else if (data.dataKey === 'project_5_title') {
                 extraContainer.innerHTML = `
                     <div>
                         <h3 class="font-semibold">${t('context')}</h3>
@@ -154,7 +150,7 @@ if (typeof gsap !== 'undefined') {
                         <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
                     </div>
                 `;
-            } else if (data.title.includes('Vikings')) {
+            } else if (data.dataKey === 'project_6_title') {
                 extraContainer.innerHTML = `
                     <div>
                         <h3 class="font-semibold">${t('context')}</h3>
@@ -162,7 +158,7 @@ if (typeof gsap !== 'undefined') {
                         <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
                     </div>
                 `;
-            } else if (data.title.includes('Garage Facilite')) {
+            } else if (data.dataKey === 'project_7_title') {
                 extraContainer.innerHTML = `
                     <div>
                         <h3 class="font-semibold">${t('project_7_challenge_title')}</h3>
@@ -170,17 +166,12 @@ if (typeof gsap !== 'undefined') {
                         <h3 class="font-semibold mt-4">${t('project_7_approach_title')}</h3>
                         <p>${t('project_7_approach_text')}</p>
                         <ul class="flex flex-wrap gap-2 my-3 pl-0 list-none">
-                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_1')}</li>
-                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_2')}</li>
-                            <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_3')}</li>
+                            <li class="flex items-center gap-2 px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i>${t('project_7_pillar_1')}</li>
+                            <li class="flex items-center gap-2 px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide"><i data-lucide="gauge" class="w-3.5 h-3.5"></i>${t('project_7_pillar_2')}</li>
+                            <li class="flex items-center gap-2 px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i>${t('project_7_pillar_3')}</li>
                         </ul>
                         <h3 class="font-semibold mt-4">${t('project_7_concept_title')}</h3>
                         <p>${t('project_7_concept_text')}</p>
-                        <h3 class="font-semibold mt-4">${t('project_7_palette_title')}</h3>
-                        <div class="flex gap-4 my-2">
-                            <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#F5A400"></span><span class="text-xs">${t('project_7_color_yellow')} — #F5A400</span></div>
-                            <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#242424"></span><span class="text-xs">${t('project_7_color_graphite')} — #242424</span></div>
-                        </div>
                         <h3 class="font-semibold mt-4">${t('project_7_result_title')}</h3>
                         <p>${t('project_7_result_text')}</p>
                     </div>
@@ -207,10 +198,13 @@ if (typeof gsap !== 'undefined') {
         }
 
         modal.classList.remove('hidden');
-        // fade overlay and scale content
-        gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.5 });
-        const modalContent = modal.firstElementChild;
-        gsap.fromTo(modalContent, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
+        modal.scrollTop = 0;
+        // lock the page behind the overlay so only the project page scrolls
+        document.body.style.overflow = 'hidden';
+        // fade overlay and slide the page content up into place
+        gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+        const modalContent = document.getElementById('modalPage');
+        gsap.fromTo(modalContent, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
         lucide.createIcons();
     }
 
@@ -218,15 +212,19 @@ if (typeof gsap !== 'undefined') {
         gsap.to(modal, {
             opacity: 0, duration: 0.3, onComplete: () => {
                 modal.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         });
     }
 
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.getElementById('closeModal').addEventListener('click', closeModal);
 
+    // Esc closes the project page, same as the back button
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
     const projectCards = Array.from(document.querySelectorAll('.project-card'));
-    let currentIndex = null;
 
     function buildDataFromCard(card) {
         return {
@@ -247,9 +245,7 @@ if (typeof gsap !== 'undefined') {
     projectCards.forEach((card, idx) => {
         card.addEventListener('click', () => {
             window.currentProjectIndex = idx;
-            currentIndex = idx;
             openModal(buildDataFromCard(card));
-            updateModalNav();
         });
     });
 
@@ -257,173 +253,6 @@ if (typeof gsap !== 'undefined') {
     // so it must not also trigger the card's modal
     document.querySelectorAll('.project-link').forEach(link => {
         link.addEventListener('click', e => e.stopPropagation());
-    });
-
-    // enable/disable modal prev/next buttons
-    function updateModalNav() {
-        const prev = document.getElementById('modalPrev');
-        const next = document.getElementById('modalNext');
-        if (!prev || !next) return;
-        if (currentIndex <= 0) {
-            prev.disabled = true;
-            prev.classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            prev.disabled = false;
-            prev.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        if (currentIndex >= projectCards.length - 1) {
-            next.disabled = true;
-            next.classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            next.disabled = false;
-            next.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-    }
-
-    function updateModalContent(data, direction) {
-        const container = modal.firstElementChild;
-        // animate out
-        gsap.to(container, {
-            x: direction === 'right' ? 100 : -100, opacity: 0, duration: 0.18, ease: 'power2.in', onComplete: () => {
-                // update fields
-                updateModalNav();
-                document.getElementById('modalTitle').textContent = data.title;
-                const imgEl = document.getElementById('modalImage');
-                imgEl.src = data.images && data.images.length ? data.images[0] : '';
-                document.getElementById('modalDescription').textContent = data.description;
-                document.getElementById('modalTools').textContent = t('tools_techniques') + data.tools;
-
-                // reuse existing extra-generation logic by calling openModal's extra section code
-                // but avoid re-animating the entire modal overlay
-                const extraContainer = document.getElementById('modalExtra');
-                if (data.title) {
-                    if (data.title.includes('Plataforma Global')) {
-                        extraContainer.innerHTML = `
-                        <div>
-                            <h3 class="font-semibold">Contexto</h3>
-                            <p>Portal de contabilidade para empresas externas, enfrentava dúvidas constantes em relatórios, onboarding confuso e dashboard pouco explorado.</p>
-                            <h3 class="font-semibold mt-4">Resultados-chave</h3>
-                            <ul class="list-disc pl-5">
-                                <li class="mb-1">Churn 30 dias ↓ 10 %</li>
-                                <li class="mb-1">Chamados sobre relatórios ↓ 18 %</li>
-                                <li class="mb-1">Tempo de busca documentos ↓ 25 % (<small>2 m40 → 1 m50</small>)</li>
-                                <li class="mb-1">Uso recorrente do dashboard ↑ 20 %</li>
-                                <li class="mb-1">NPS +12 pontos</li>
-                            </ul>
-                        </div>
-                    `;
-                    } else if (data.title.includes('Site Instituciona')) {
-                        extraContainer.innerHTML = `
-                        <div>
-                            <h3 class="font-semibold">Contexto</h3>
-                            <p>Site com forte valor, mas faltava clareza, foco no usuário e fluidez de conversão.</p>
-                            <h3 class="font-semibold mt-4">Objetivos</h3>
-                            <ul class="list-disc pl-5">
-                                <li class="mb-1">Proposta de valor clara</li>
-                                <li class="mb-1">Aumentar conversão visitantes→leads</li>
-                                <li class="mb-1">Melhor navegação e hierarquia</li>
-                                <li class="mb-1">Otimizar mobile e reduzir fricção</li>
-                            </ul>
-                            <h3 class="font-semibold mt-4">Resultados estimados</h3>
-                            <table class="w-full text-sm">
-                                <tr><th class="text-left">Métrica</th><th class="text-left">Antes</th><th class="text-left">Depois</th></tr>
-                                <tr><td>Taxa conversão</td><td>3,5%</td><td>5,7%</td></tr>
-                                <tr><td>Bounce rate</td><td>58%</td><td>42%</td></tr>
-                                <tr><td>Clique em CTA</td><td>8%</td><td>14%</td></tr>
-                            </table>
-                            <div class="mt-3">
-                                <div class="text-xs mb-1">Taxa conversão</div>
-                                <div class="w-full bg-slate-200 rounded h-2">
-                                    <div class="bg-red-600 h-2 rounded" style="width:62%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    } else if (data.title.includes('Jumper')) {
-                        extraContainer.innerHTML = `
-                        <div>
-                            <h3 class="font-semibold">${t('context')}</h3>
-                            <p>${t('project_5_context')}</p>
-                            <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
-                        </div>
-                    `;
-                    } else if (data.title.includes('Vikings')) {
-                        extraContainer.innerHTML = `
-                        <div>
-                            <h3 class="font-semibold">${t('context')}</h3>
-                            <p>${t('project_6_context')}</p>
-                            <p class="mt-3">${t('zalieza_client_credit')} <a href="https://zalieza.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-semibold">Zalieza Marketing</a>.</p>
-                        </div>
-                    `;
-                    } else if (data.title.includes('Garage Facilite')) {
-                        extraContainer.innerHTML = `
-                        <div>
-                            <h3 class="font-semibold">${t('project_7_challenge_title')}</h3>
-                            <p>${t('project_7_challenge_text')}</p>
-                            <h3 class="font-semibold mt-4">${t('project_7_approach_title')}</h3>
-                            <p>${t('project_7_approach_text')}</p>
-                            <ul class="flex flex-wrap gap-2 my-3 pl-0 list-none">
-                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_1')}</li>
-                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_2')}</li>
-                                <li class="px-3 py-1 border border-slate-200 text-xs uppercase tracking-wide">${t('project_7_pillar_3')}</li>
-                            </ul>
-                            <h3 class="font-semibold mt-4">${t('project_7_concept_title')}</h3>
-                            <p>${t('project_7_concept_text')}</p>
-                            <h3 class="font-semibold mt-4">${t('project_7_palette_title')}</h3>
-                            <div class="flex gap-4 my-2">
-                                <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#F5A400"></span><span class="text-xs">${t('project_7_color_yellow')} — #F5A400</span></div>
-                                <div class="flex items-center gap-2"><span class="w-5 h-5 inline-block border border-slate-200" style="background:#242424"></span><span class="text-xs">${t('project_7_color_graphite')} — #242424</span></div>
-                            </div>
-                            <h3 class="font-semibold mt-4">${t('project_7_result_title')}</h3>
-                            <p>${t('project_7_result_text')}</p>
-                        </div>
-                    `;
-                    } else {
-                        extraContainer.innerHTML = '';
-                    }
-                } else {
-                    extraContainer.innerHTML = '';
-                }
-
-                const linkContainer = document.getElementById('modalLinkContainer');
-                if (data.url) {
-                    linkContainer.innerHTML = `
-                    <a href="${data.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-red-600 hover:underline font-semibold">
-                        Veja esse projeto <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                `;
-                    lucide.createIcons();
-                } else {
-                    linkContainer.innerHTML = '';
-                }
-
-                // animate in from opposite side
-                gsap.fromTo(container, { x: direction === 'right' ? -100 : 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.28, ease: 'power3.out', onComplete: updateModalNav });
-                lucide.createIcons();
-            }
-        });
-    }
-
-    // handle modal prev/next clicks using event delegation (buttons are inside modal)
-    document.addEventListener('click', (e) => {
-        currentIndex = window.currentProjectIndex;
-        if (!currentIndex && currentIndex !== 0) return;
-        const prevBtn = e.target.closest('#modalPrev');
-        const nextBtn = e.target.closest('#modalNext');
-        if (prevBtn) {
-            if (currentIndex > 0) {
-                currentIndex -= 1;
-                window.currentProjectIndex = currentIndex;
-                updateModalContent(buildDataFromCard(projectCards[currentIndex]), 'left');
-            }
-        }
-        if (nextBtn) {
-            if (currentIndex < projectCards.length - 1) {
-                currentIndex += 1;
-                window.currentProjectIndex = currentIndex;
-                updateModalContent(buildDataFromCard(projectCards[currentIndex]), 'right');
-            }
-        }
     });
 
     // Easter Egg: Konami Code (Up, Up, Down, Down, Left, Right, Left)

@@ -123,9 +123,6 @@ const translations = {
     'project_2_title': 'Site Institucional - KwikLedgers',
     'project_2_desc': 'Projeto de criação de uma nova proposta de site institucional conforme especificações em anexo.',
     
-    'project_3_title': 'Totem Interativo - Feira de Negócios',
-    'project_3_desc': 'Interface otimizada para totem em ponto de venda. Layout completo desenvolvido com IA para eficiência e inovação visual.',
-    
     'project_5_title': 'Jumper Segurança - Site Institucional',
     'project_5_desc': 'Landing page com animação 3D controlada pelo scroll. Direção visual, geração de cenas com IA e desenvolvimento em Vite, Tailwind e GSAP.',
     'project_5_context': 'Site institucional para empresa de segurança e facilities, com hero em animação 3D scroll-driven. Conduzi o projeto de ponta a ponta: direção visual do diorama 3D (torre corporativa com entorno urbano), geração das 5 cenas de vídeo com IA, extração e otimização de frames em WebP via ffmpeg, e desenvolvimento front-end com Vite, Tailwind, GSAP e Lenis, sincronizando cada seção de conteúdo com o progresso da animação.',
@@ -145,9 +142,6 @@ const translations = {
     'project_7_pillar_3': 'Confiança',
     'project_7_concept_title': 'Conceito',
     'project_7_concept_text': 'O símbolo nasce da fusão das iniciais G e F, formando um ícone único e de fácil reconhecimento. As linhas inclinadas remetem a movimento e velocidade, enquanto os cantos arredondados equilibram a identidade, transmitindo proximidade e confiança — resultando em uma marca versátil, capaz de funcionar tanto como assinatura completa quanto como símbolo independente. A tipografia reforça o universo automotivo com linhas inclinadas que comunicam velocidade e precisão sem comprometer a legibilidade.',
-    'project_7_palette_title': 'Paleta de cores',
-    'project_7_color_yellow': 'Amarelo',
-    'project_7_color_graphite': 'Grafite',
     'project_7_result_title': 'Resultado',
     'project_7_result_text': 'A nova identidade entrega uma marca muito mais sólida e preparada para crescer. Além do logotipo principal, o projeto criou um sistema visual consistente para aplicações digitais e físicas, fortalecendo o reconhecimento da Garage Facilite em todos os pontos de contato com seus clientes.',
 
@@ -157,8 +151,6 @@ const translations = {
     'saas_b2b': 'SaaS B2B',
     'redesign': 'Redesign',
     'ab_test': 'Estudo A/B',
-    'interactive': 'Interativo',
-    'ia_design': 'IA & Design',
     'website': 'Website',
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
@@ -211,6 +203,8 @@ const translations = {
     // Modal
     'tools_techniques': 'Ferramentas & técnicas: ',
     'see_project': 'Veja esse projeto',
+    'back_to_projects': 'Voltar',
+    'project_screenshots': 'Veja com detalhes',
     'churn_30': 'Churn 30 dias ↓ 10 %',
     'report_calls': 'Chamados sobre relatórios ↓ 18 %',
     'search_time': 'Tempo de busca documentos ↓ 25 % (2 m40 → 1 m50)',
@@ -358,9 +352,6 @@ const translations = {
     'project_2_title': 'Institutional Website - KwikLedgers',
     'project_2_desc': 'Creation of a new institutional website proposal according to attached specifications.',
     
-    'project_3_title': 'Interactive Kiosk - Business Fair',
-    'project_3_desc': 'Optimized interface for point-of-sale kiosk. Complete layout developed with AI for efficiency and visual innovation.',
-    
     'project_5_title': 'Jumper Security - Institutional Website',
     'project_5_desc': 'Landing page with scroll-driven 3D animation. Visual direction, AI-generated scenes and development with Vite, Tailwind and GSAP.',
     'project_5_context': 'Institutional website for a security and facilities company, featuring a scroll-driven 3D hero animation. I led the project end-to-end: visual direction of the 3D diorama (corporate tower with urban surroundings), AI generation of the 5 video scenes, frame extraction and WebP optimization via ffmpeg, and front-end development with Vite, Tailwind, GSAP and Lenis, syncing each content section to the animation\'s scroll progress.',
@@ -380,9 +371,6 @@ const translations = {
     'project_7_pillar_3': 'Trust',
     'project_7_concept_title': 'Concept',
     'project_7_concept_text': "The symbol is born from the fusion of the initials G and F, forming a unique and easily recognizable icon. The slanted lines evoke movement and speed, while the rounded corners balance the identity, conveying closeness and trust — resulting in a versatile brand that works both as a full signature and as a standalone symbol. The typography reinforces the automotive universe with slanted lines that communicate speed and precision without compromising legibility.",
-    'project_7_palette_title': 'Color palette',
-    'project_7_color_yellow': 'Yellow',
-    'project_7_color_graphite': 'Graphite',
     'project_7_result_title': 'Result',
     'project_7_result_text': "The new identity delivers a far more solid brand, ready to grow. Beyond the main logo, the project created a consistent visual system for digital and physical applications, strengthening Garage Facilite's recognition across every touchpoint with its customers.",
 
@@ -392,8 +380,6 @@ const translations = {
     'saas_b2b': 'SaaS B2B',
     'redesign': 'Redesign',
     'ab_test': 'A/B Test',
-    'interactive': 'Interactive',
-    'ia_design': 'AI & Design',
     'website': 'Website',
     'wordpress': 'WordPress',
     'frontend': 'Front-end',
@@ -446,6 +432,8 @@ const translations = {
     // Modal
     'tools_techniques': 'Tools & techniques: ',
     'see_project': 'See this project',
+    'back_to_projects': 'Back',
+    'project_screenshots': 'See It in Detail',
     'churn_30': '30-day churn ↓ 10%',
     'report_calls': 'Report calls ↓ 18%',
     'search_time': 'Document search time ↓ 25% (2m40 → 1m50)',
