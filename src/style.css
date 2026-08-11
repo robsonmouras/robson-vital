@@ -1137,6 +1137,13 @@ main > section {
   height: 1.3rem;
 }
 
+.contact__copyright {
+  margin: 1.75rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--c-ink-400);
+}
+
 /* ==========================================================================
    Overlay de projeto (tela cheia) — ver index.html (estrutura em duas
    camadas: raiz fixa + `__scroll` interno, pro botão fechar não rolar
