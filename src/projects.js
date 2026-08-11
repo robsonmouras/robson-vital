@@ -122,6 +122,73 @@ const PROJECT_CONTENT = {
       },
     ],
   },
+  'Kwik Ledgers': {
+    media: {
+      // Mockup em laptop gerado a partir da tela de cadastro, redimensionado
+      // pra 2000px de largura via sharp-cli — ver public/images/projects.
+      src: `${BASE_URL}images/projects/kwik-ledgers-showcase.webp`,
+      fallback: `${BASE_URL}images/projects/kwik-ledgers-showcase.jpg`,
+      width: 2000,
+      height: 1116,
+      alt: 'Tela de cadastro do Kwik Ledgers aberta em um laptop, com seleção de tipo de pessoa, endereço e contatos.',
+    },
+    tags: ['UX/UI', 'Product Design', 'Design System'],
+    // Sequência intercalada: imagem, texto, imagem, citação de cliente,
+    // texto, imagem, texto — cada item cai num tipo diferente dentro de
+    // renderProjectBody (default 'text', mais 'image' e 'quote').
+    sections: [
+      {
+        type: 'image',
+        // Era a imagem de capa original — trocada pelo mockup em laptop
+        // acima (`content.media`) e reaproveitada aqui, logo na abertura
+        // do conteúdo.
+        src: `${BASE_URL}images/projects/kwik-ledgers-overview.webp`,
+        fallback: `${BASE_URL}images/projects/kwik-ledgers-overview.jpg`,
+        width: 1374,
+        height: 996,
+        alt: 'Painel "Overview" do Kwik Ledgers, com status da contabilidade, contas bancárias, lucro e despesas.',
+      },
+      {
+        heading: 'Problema',
+        text: 'O desafio era estruturar uma experiência digital para um produto de contabilidade internacional que envolvia diferentes informações, processos e perfis de usuário. A complexidade do serviço precisava ser traduzida em uma interface mais clara, organizada e fácil de utilizar, sem perder de vista as necessidades do negócio.',
+      },
+      {
+        type: 'image',
+        src: `${BASE_URL}images/projects/kwik-ledgers-profile.webp`,
+        fallback: `${BASE_URL}images/projects/kwik-ledgers-profile.jpg`,
+        width: 1280,
+        height: 996,
+        alt: 'Formulário de cadastro do Kwik Ledgers, com seleção de tipo (pessoa física/jurídica), endereço e contatos.',
+      },
+      {
+        type: 'quote',
+        text: '"Recomendando a contratação do Robson, ele conduziu pesquisas e redesenhou a interface com base em testes de usabilidade, o que resultou em uma experiência mais fluida e em uma base de usuários mais satisfeita e engajada."',
+        author: 'Israel Zeferino',
+        role: 'Sênior Product Owner / Product Manager',
+        avatar: {
+          src: `${BASE_URL}images/projects/kwik-ledgers-israel-zeferino.webp`,
+          fallback: `${BASE_URL}images/projects/kwik-ledgers-israel-zeferino.jpg`,
+          alt: 'Retrato de Israel Zeferino',
+        },
+      },
+      {
+        heading: 'Solução',
+        text: 'Atuei no projeto como Product Designer, com foco em UX/UI, trabalhando na estruturação dos fluxos, arquitetura das informações e criação das interfaces do produto. Transformei necessidades do negócio em soluções digitais, criando e refinando layouts, componentes e padrões visuais. Também trabalhei em conjunto com o desenvolvimento para aproximar design e implementação, garantindo que as soluções fossem não apenas visualmente consistentes, mas também viáveis tecnicamente.',
+      },
+      {
+        type: 'image',
+        src: `${BASE_URL}images/projects/kwik-ledgers-documents.webp`,
+        fallback: `${BASE_URL}images/projects/kwik-ledgers-documents.jpg`,
+        width: 1280,
+        height: 886,
+        alt: 'Tela de gestão de documentos do Kwik Ledgers, com status de envio de EIN, contrato social e comprovante de endereço.',
+      },
+      {
+        heading: 'Resultado',
+        text: 'O trabalho ajudou a transformar um serviço complexo em uma experiência digital mais estruturada e consistente, estabelecendo uma base de interface e experiência para a evolução do produto. Além da criação das interfaces, minha atuação contribuiu para aproximar produto, design e desenvolvimento, tornando o processo de evolução da plataforma mais organizado e orientado à experiência do usuário.',
+      },
+    ],
+  },
 };
 
 /**
@@ -307,6 +374,19 @@ function initOverlay({ lenis }) {
     }
 
     content.sections?.forEach((section) => {
+      // Imagem intercalada no meio do texto (não confundir com
+      // `content.media`, a única imagem "de capa" no topo do overlay).
+      if (section.type === 'image') {
+        bodyField.appendChild(buildInlineImage(section));
+        return;
+      }
+
+      // Citação de cliente/stakeholder sobre o trabalho.
+      if (section.type === 'quote') {
+        bodyField.appendChild(buildQuote(section));
+        return;
+      }
+
       const wrap = document.createElement('div');
       wrap.className = 'project-overlay__section';
 
@@ -321,6 +401,98 @@ function initOverlay({ lenis }) {
       wrap.append(heading, text);
       bodyField.appendChild(wrap);
     });
+  }
+
+  /**
+   * Imagem intercalada entre seções de texto (ver PROJECT_CONTENT,
+   * `sections` com `type: 'image'`). Mesma montagem picture/webp+fallback
+   * de `content.media`, só que presa à largura do texto (.project-overlay__inner)
+   * em vez de tela cheia — ver .project-overlay__inline-image no CSS.
+   */
+  function buildInlineImage(section) {
+    const figure = document.createElement('figure');
+    figure.className = 'project-overlay__inline-image';
+
+    const picture = document.createElement('picture');
+    if (section.src?.endsWith('.webp') && section.fallback) {
+      const source = document.createElement('source');
+      source.srcset = section.src;
+      source.type = 'image/webp';
+      picture.appendChild(source);
+    }
+
+    const img = document.createElement('img');
+    img.src = section.fallback || section.src;
+    img.alt = section.alt || '';
+    if (section.width) img.width = section.width;
+    if (section.height) img.height = section.height;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    picture.appendChild(img);
+
+    figure.appendChild(picture);
+    return figure;
+  }
+
+  /**
+   * Citação de cliente/stakeholder (ver PROJECT_CONTENT, `sections` com
+   * `type: 'quote'`). `author`/`role` são opcionais — sem eles, mostra só
+   * o texto da citação.
+   */
+  function buildQuote(section) {
+    const quote = document.createElement('blockquote');
+    quote.className = 'project-overlay__quote';
+
+    const text = document.createElement('p');
+    text.className = 'project-overlay__quote-text';
+    text.textContent = section.text;
+    quote.appendChild(text);
+
+    if (section.author) {
+      const footer = document.createElement('footer');
+      footer.className = 'project-overlay__quote-author';
+
+      // Avatar pequeno e redondo ao lado do nome — opcional, só entra
+      // quando a citação tem `avatar` no PROJECT_CONTENT.
+      if (section.avatar) {
+        const picture = document.createElement('picture');
+        if (section.avatar.src?.endsWith('.webp') && section.avatar.fallback) {
+          const source = document.createElement('source');
+          source.srcset = section.avatar.src;
+          source.type = 'image/webp';
+          picture.appendChild(source);
+        }
+
+        const avatarImg = document.createElement('img');
+        avatarImg.className = 'project-overlay__quote-avatar';
+        avatarImg.src = section.avatar.fallback || section.avatar.src;
+        avatarImg.alt = section.avatar.alt || '';
+        avatarImg.loading = 'lazy';
+        avatarImg.decoding = 'async';
+        picture.appendChild(avatarImg);
+
+        footer.appendChild(picture);
+      }
+
+      const info = document.createElement('div');
+      info.className = 'project-overlay__quote-author-info';
+
+      const cite = document.createElement('cite');
+      cite.textContent = section.author;
+      info.appendChild(cite);
+
+      if (section.role) {
+        const role = document.createElement('span');
+        role.className = 'project-overlay__quote-role';
+        role.textContent = section.role;
+        info.appendChild(role);
+      }
+
+      footer.appendChild(info);
+      quote.appendChild(footer);
+    }
+
+    return quote;
   }
 
   function close() {

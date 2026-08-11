@@ -1402,6 +1402,83 @@ main > section {
   color: var(--c-ink-700);
 }
 
+/* Imagem intercalada entre seções de texto (ver PROJECT_CONTENT/
+   buildInlineImage em projects.js). Diferente de `.project-overlay__media`
+   (capa em tela cheia, fora de `__inner`): esta fica DENTRO de `__inner`,
+   então respeita o max-width de 54rem do texto em vez de ir de ponta a
+   ponta — por isso a borda arredondada, pra marcar que é conteúdo, não capa. */
+.project-overlay__inline-image {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.project-overlay__inline-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.75rem;
+}
+
+/* Citação de cliente/stakeholder (ver PROJECT_CONTENT/buildQuote em
+   projects.js). Borda à esquerda pra diferenciar do texto corrido das
+   demais seções sem depender só do itálico. */
+.project-overlay__quote {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-left: 3px solid var(--c-accent);
+  text-align: left;
+}
+
+.project-overlay__quote-text {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--c-ink-800);
+}
+
+/* Linha avatar + nome/cargo. Sem avatar (citação sem `avatar` no
+   PROJECT_CONTENT), só sobra `__quote-author-info`, que já funciona
+   sozinho como coluna. */
+.project-overlay__quote-author {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-style: normal;
+}
+
+/* Pequeno de propósito — é uma assinatura ao lado do nome, não um
+   retrato em destaque (esse papel é da imagem de capa/inline acima). */
+.project-overlay__quote-avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.project-overlay__quote-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.project-overlay__quote-author-info cite {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--c-ink-900);
+}
+
+.project-overlay__quote-role {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--c-ink-500);
+}
+
 /* CTA "Fale comigo" — fica FORA de `.project-overlay__scroll` de propósito,
    igual `.project-overlay__close`, pra continuar visível independente da
    rolagem do case study. Abre `.contact-overlay` por cima (ver contact.js). */
