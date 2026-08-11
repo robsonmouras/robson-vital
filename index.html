@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Google Tag Manager -->
+  
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-K7RJPKD');</script>
-  <!-- End Google Tag Manager -->
+  
 
   <script>
     document.documentElement.classList.replace('no-js', 'js');
@@ -20,7 +20,7 @@
   <title>Robson Vital, design e código</title>
   <meta name="description" content="Portfólio de Robson Vital. Design e código trabalhando juntos." />
 
-  <!-- Open Graph / Twitter Card -->
+  
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://robsonmouras.github.io/robson-vital/" />
   <meta property="og:title" content="Robson Vital, design e código" />
@@ -40,56 +40,36 @@
   <link rel="icon" type="image/png" href="/robson-vital/images/favicon/favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/robson-vital/images/favicon/apple-touch-icon.png" />
 
-  <!-- Preload critical assets: fonts + hero image (provável LCP) -->
+  
   <link rel="preload" as="font" type="font/woff2" href="/robson-vital/fonts/foun-pro-regular.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/robson-vital/fonts/hanken-grotesk-regular.woff2" crossorigin />
   <link rel="preload" as="image" href="/robson-vital/images/rosto-no-bg.webp" fetchpriority="high" />
 
-  <script type="module" crossorigin src="/robson-vital/assets/index-ChGQXSQc.js"></script>
-  <link rel="stylesheet" crossorigin href="/robson-vital/assets/index-h_IIBufR.css">
+  <script type="module" crossorigin src="/robson-vital/assets/index-CoMhm_v1.js"></script>
+  <link rel="stylesheet" crossorigin href="/robson-vital/assets/index-DcAQJ8NP.css">
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
+  
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7RJPKD"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  
 
-  <!--
-      As 3 camadas do efeito overlap (nome-atrás, cabeça, nome-frente)
-      vivem como irmãs soltas aqui em cima, fora do <main>, de propósito:
-
-      1) `position:fixed` (cabeça) dentro de um ancestral que o GSAP pina
-         (via transform/fixed) para de ser fixo à viewport e passa a ser
-         fixo relativo a esse ancestral — quebraria o dock permanente na
-         lateral esquerda depois que o pin termina.
-
-      2) Pinar via GSAP SEMPRE cria um novo stacking context. Se nome-atrás
-         e nome-frente estivessem dentro do MESMO elemento pinado, esse
-         elemento ocuparia uma única posição na ordem de empilhamento
-         global — nunca conseguiríamos intercalar a cabeça (z-index 2)
-         ENTRE as duas cópias do nome (1 e 3). Por isso cada camada é
-         pinada individualmente (ver src/hero.js), como irmã direta da
-         cabeça, e assim o z-index de cada uma é comparado corretamente.
-
-      #heroAnchor não é pinado — só existe para dar às camadas a mesma
-      posição/tamanho (~100vh) em repouso e servir de referência de
-      scroll (trigger) para o GSAP.
-    -->
+  
   <div class="hero-anchor" id="heroAnchor">
-    <!-- Pinada sozinha (z-index 1, abaixo da cabeça). -->
+    
     <div class="hero__name hero__name--back" id="heroNameBack" aria-hidden="true">
       <span class="hero__name-line" data-line="0">Robson</span>
       <span class="hero__name-line" data-line="1">Vital</span>
     </div>
 
-    <!-- Pinada sozinha (z-index 3, acima da cabeça). -->
+    
     <div class="hero__name hero__name--front" id="heroNameFront" aria-hidden="true">
       <span class="hero__name-line" data-line="0">Robson</span>
       <span class="hero__name-line" data-line="1">Vital</span>
     </div>
 
-    <!-- Tagline/redes/scroll cue: pinadas juntas, sempre acima da cabeça (z-index 5). -->
+    
     <div class="hero__ui-group" id="heroUiGroup">
       <div class="hero__content">
         <p class="hero__tagline">Design e código trabalhando juntos.</p>
@@ -112,12 +92,7 @@
     </picture>
   </div>
 
-  <!--
-      Marcador lateral de seção (linhas horizontais). Fixo à viewport,
-      independente do pin do Hero — por isso vive aqui fora, junto das
-      outras camadas fixas. section-nav.js liga/desliga `.is-active` via
-      ScrollTrigger, e cuida do scroll suave (Lenis) ao clicar.
-    -->
+  
   <nav class="section-nav" aria-label="Seções da página">
     <a class="section-nav__item" href="#heroAnchor" data-target="heroAnchor">
       <span class="section-nav__visual">
@@ -146,12 +121,7 @@
   </nav>
 
   <main>
-    <!--
-        Seção Projetos. O padding-left segue o mesmo valor usado pelo
-        antigo placeholder temp-next: dá respiro pra cabeça docada na
-        lateral esquerda (ver hero.js) — a cabeça permanece inteira
-        (sem corte) em todas as seções.
-      -->
+    
     <section class="projects" id="projects">
       <header class="projects__header">
         <p class="projects__eyebrow">Projetos</p>
@@ -228,61 +198,20 @@
         </li>
       </ul>
 
-      <!-- Vazio de propósito: só engorda a altura de `.projects` (ver
-           `.projects__scroll-hold` no style.css) pra dar uma folga extra
-           de scroll ANTES da seção Trajetória começar a cobrir esta,
-           sem mexer na centralização do header+grid acima — ver
-           comentário longo junto da regra CSS. -->
+      
       <div class="projects__scroll-hold" aria-hidden="true"></div>
     </section>
 
-    <!--
-        Seção Trajetória. Duas camadas, de propósito (ver style.css):
-
-        1) `.trajectory` (esta <section>) é ALTA (100svh + orçamento de
-           scroll das 3 fases, aplicado via inline style por
-           trajectory.js) mas NÃO é ela mesma que gruda — herdaria
-           `position:sticky` da regra genérica `main > section`, só que
-           aqui isso não funcionaria: sticky só fica "grudado" enquanto
-           sobra espaço DEPOIS do elemento dentro do containing block
-           compartilhado (`<main>`), e como esta é a última seção, essa
-           folga é zero — ela deslizaria por baixo do scroll normal, sem
-           nunca grudar (foi exatamente o bug visto no rodar visual).
-
-        2) `.trajectory__stage`, o filho direto logo abaixo, é quem
-           recebe `position:sticky` de verdade — sua folga vem da altura
-           do PRÓPRIO pai (`.trajectory`, alto de propósito), não de
-           quem vem depois na página. Todo o conteúdo visível mora
-           dentro dela: como fica grudada em `top:0` durante toda a
-           rolagem interna, um filho `position:absolute` relativo a ela
-           sempre cai na mesma posição de tela — sem precisar do toggle
-           fixed/absolute que o hero.js usa (lá o ancestral não é
-           sticky/alto, aqui o pai é).
-
-        (A seção Contato logo abaixo desta usa o MESMO padrão de duas
-        camadas, pelo mesmo motivo: por ser a última agora, sofreria do
-        mesmo bug de folga zero com a regra genérica `main > section`
-        sozinha.)
-      -->
+    
     <section class="trajectory" id="trajectory">
       <div class="trajectory__stage">
         <header class="trajectory__header">
-          <!-- "O" maiúsculo e sem acento: o subset da Foun Pro (ver
-                 @font-face em style.css) não inclui o glifo "ó", o que
-                 forçava um fallback de fonte só nessa letra e quebrava o
-                 desenho da palavra. -->
+          
           <p class="trajectory__eyebrow">Trajetoria</p>
         </header>
 
         <div class="trajectory__viewport">
-          <!--
-            Track horizontal: 5 itens, cada um ocupando 100% da largura do
-            viewport da seção (20% da largura do próprio track, que mede
-            500% = 5 × 100%). trajectory.js desloca o track em xPercent
-            conforme o scroll — os valores 500%/20% no CSS (.trajectory__track
-            / .trajectory__item) precisam ficar em sincronia com o número
-            de <li> aqui embaixo.
-          -->
+          
           <ul class="trajectory__track" id="trajectoryTrack">
             <li class="trajectory__item">
               <h3 class="trajectory__title"><span class="trajectory__company"
@@ -352,32 +281,12 @@
           </ul>
         </div>
 
-        <!--
-            Placeholder da transição pra próxima etapa (CTA, conteúdo final
-            ainda não definido): marcador na altura aproximada da boca da
-            cabeça docada, revelado só no fim da rolagem interna.
-          -->
+        
         <div class="trajectory__exit-marker" id="trajectoryExitMarker" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!--
-        Seção Contato — última da página. Mesmo card usado no modal
-        "Fale comigo" (ver .contact-overlay em #contactOverlay abaixo),
-        só que embutido direto no fluxo da página em vez de atrás de um
-        overlay; por isso os nomes de classe são próprios (`.contact__*`),
-        não reaproveitam `.contact-overlay__*` — aquele continua servindo
-        só o modal, sem qualquer acoplamento com esta seção.
-
-        Duas camadas (`.contact` + `.contact__stage`), mesmo padrão do
-        `.trajectory`/`.trajectory__stage` logo acima, pelo mesmo motivo:
-        por ser a última seção, a regra genérica `main > section` sozinha
-        sofreria de folga zero pra grudar (ver comentário longo lá em
-        cima). Sem padding-left reservado pra cabeça docada (diferente de
-        `.projects`/`.trajectory`): a cabeça (`#heroHead`) é escondida
-        (fade) exatamente ao entrar nesta seção — ver dockHeadOnScroll em
-        hero.js — então o conteúdo fica livre pra centralizar.
-      -->
+    
     <section class="contact" id="contact">
       <div class="contact__stage">
         <div class="contact__inner">
@@ -444,28 +353,7 @@
     </section>
   </main>
 
-  <!--
-      Overlay de projeto (tela cheia). Nome/serviço vêm do tile clicado;
-      o conteúdo detalhado (imagem + texto) é montado por projects.js a
-      partir de PROJECT_CONTENT — projetos sem entrada ali caem no aviso
-      placeholder (ver .project-overlay__placeholder-note).
-
-      Estrutura em duas camadas pelo mesmo motivo do dock do Hero: o
-      botão fechar precisa ficar fixo no canto mesmo quando o conteúdo
-      é mais alto que a tela, então só `.project-overlay__scroll` rola
-      (overflow-y) — se o scroll estivesse no elemento raiz, o botão
-      (posicionado absolute em relação a ele) rolaria junto e sumiria.
-
-      `data-lenis-prevent`: o Lenis (smooth scroll da página) escuta
-      wheel/touch no documento inteiro; enquanto parado (lenis.stop(),
-      ver projects.js) ele faz preventDefault em QUALQUER wheel event
-      fora de elementos com esse atributo — sem ele, o scroll nativo
-      aqui dentro simplesmente não acontecia.
-
-      A mídia (imagem) fica FORA de `.project-overlay__inner` de
-      propósito: `__inner` tem max-width pro texto, a mídia precisa
-      ocupar a largura cheia do overlay (ver .project-overlay__media).
-    -->
+  
   <div class="project-overlay" id="projectOverlay" role="dialog" aria-modal="true" aria-hidden="true"
     aria-labelledby="projectOverlayName">
     <button class="project-overlay__close" id="projectOverlayClose" type="button" aria-label="Fechar">
@@ -475,10 +363,7 @@
       </svg>
     </button>
 
-    <!-- Abre a tela de contato (#contactOverlay, ver contact.js) por cima
-         deste overlay. Fica fora de `__scroll` de propósito, igual o botão
-         fechar acima, pra continuar visível independente da rolagem do
-         case study. -->
+    
     <button class="project-overlay__contact-cta" type="button" data-open-contact>
       <span class="project-overlay__contact-cta-label">Fale comigo</span>
       <span class="project-overlay__contact-cta-icon" aria-hidden="true">
@@ -491,33 +376,24 @@
     </button>
 
     <div class="project-overlay__scroll" id="projectOverlayScroll" data-lenis-prevent>
-      <!-- Montada dinamicamente por projects.js (ver PROJECT_CONTENT). -->
+      
       <div class="project-overlay__media" data-project-media></div>
 
       <div class="project-overlay__inner">
         <p class="project-overlay__service" id="projectOverlayService" data-field="service"></p>
-        <!-- O link "abrir site" (se o projeto tiver `url` em PROJECT_CONTENT)
-             é inserido aqui do lado do h2 por projects.js, alinhado ao topo
-             do título — ver .project-overlay__name-row. -->
+        
         <div class="project-overlay__name-row" data-name-row>
           <h2 class="project-overlay__name" id="projectOverlayName" data-field="name"></h2>
         </div>
         <p class="project-overlay__placeholder-note" data-placeholder-note>Conteúdo detalhado em breve.</p>
 
-        <!-- Montado dinamicamente por projects.js (ver PROJECT_CONTENT). -->
+        
         <div class="project-overlay__body" data-project-body></div>
       </div>
     </div>
   </div>
 
-  <!--
-      Tela de contato ("Fale comigo"), aberta por cima do overlay de
-      projeto (ver .project-overlay__contact-cta acima e contact.js) —
-      z-index maior que .project-overlay, mesma estrutura de duas camadas
-      (raiz fixa + `__scroll` interno) e o mesmo padrão de foco/Escape.
-      Também pode abrir sozinha, sem overlay de projeto por baixo, então
-      não depende dele pra funcionar.
-    -->
+  
   <div class="contact-overlay" id="contactOverlay" role="dialog" aria-modal="true" aria-hidden="true"
     aria-labelledby="contactOverlayName">
     <button class="contact-overlay__close" id="contactOverlayClose" type="button" aria-label="Fechar">
@@ -589,15 +465,7 @@
     </div>
   </div>
 
-  <!--
-      Logo flutuante que acompanha o cursor ao passar sobre o nome de
-      cada empresa em Trajetória (ver .trajectory__company/trajectory.js).
-      Fica FORA de `.trajectory__stage` (que tem `overflow:hidden`) de
-      propósito: sendo `position:fixed`, um ancestral com overflow
-      recortaria a pintura mesmo o elemento sendo posicionado relativo à
-      viewport — mesmo motivo pelo qual o overlay de projeto acima também
-      mora solto aqui, no fim do body.
-    -->
+  
   <div class="trajectory-logo-float" id="trajectoryLogoFloat" aria-hidden="true">
     <img class="trajectory-logo-float__img" src="" alt="" />
   </div>
