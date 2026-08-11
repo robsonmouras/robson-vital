@@ -1,5 +1,11 @@
 import { gsap } from 'gsap';
 
+// Caminhos de public/ montados em string (não passam pelo pipeline de
+// assets do Vite, que só reescreve o que reconhece em index.html/CSS —
+// ver comentário longo em vite.config.js sobre o base "/robson-vital/").
+// Sem esse prefixo, essas imagens quebrariam publicadas em subpasta.
+const BASE_URL = import.meta.env.BASE_URL;
+
 /**
  * Conteúdo detalhado (case study) de cada projeto, mostrado no overlay
  * em tela cheia ao clicar num tile — ver initOverlay/renderProjectBody
@@ -12,8 +18,8 @@ const PROJECT_CONTENT = {
     media: {
       // Gerado a partir do print original (~1.7MB) via sharp-cli,
       // redimensionado pra 2000px de largura — ver public/images/projects.
-      src: '/images/projects/jumper-showcase.webp',
-      fallback: '/images/projects/jumper-showcase.jpg',
+      src: `${BASE_URL}images/projects/jumper-showcase.webp`,
+      fallback: `${BASE_URL}images/projects/jumper-showcase.jpg`,
       width: 2000,
       height: 1116,
       alt: 'Home do novo site da Jumper aberta em um notebook, com o título "Cuidamos da sua operação para que você cuide do seu negócio."',
@@ -39,8 +45,8 @@ const PROJECT_CONTENT = {
     media: {
       // Gerado a partir do print original (~1.4MB) via sharp-cli,
       // redimensionado pra 2000px de largura — ver public/images/projects.
-      src: '/images/projects/rcr-showcase.webp',
-      fallback: '/images/projects/rcr-showcase.jpg',
+      src: `${BASE_URL}images/projects/rcr-showcase.webp`,
+      fallback: `${BASE_URL}images/projects/rcr-showcase.jpg`,
       width: 2000,
       height: 1116,
       alt: 'Home do novo site do Grupo RCR aberta em um notebook, com o título "Cuidar de pessoas, Proteger patrimônios, Servir com excelência".',
@@ -66,8 +72,8 @@ const PROJECT_CONTENT = {
     media: {
       // Gerado a partir do print original via sharp-cli, redimensionado
       // pra 2000px de largura — ver public/images/projects.
-      src: '/images/projects/inov9-showcase.webp',
-      fallback: '/images/projects/inov9-showcase.jpg',
+      src: `${BASE_URL}images/projects/inov9-showcase.webp`,
+      fallback: `${BASE_URL}images/projects/inov9-showcase.jpg`,
       width: 2000,
       height: 1116,
       alt: 'Home do novo site do Grupo Inov9 aberta em um notebook, com o título "Segurança e facilities que garantem a continuidade do seu negócio."',

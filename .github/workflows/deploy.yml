@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+# A cada push em main: builda o site (Vite) e publica o conteúdo de dist/
+# na branch gh-pages (criada/atualizada automaticamente pela action, não
+# precisa existir de antemão). No GitHub, em Settings > Pages, configurar
+# Source = "Deploy from a branch", Branch = gh-pages / (root).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
