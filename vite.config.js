@@ -1,5 +1,19 @@
 import { defineConfig } from 'vite';
 
+// Remove os comentários HTML (<!-- ... -->) do index.html só no build de
+// produção. Vite minifica JS/CSS por padrão (esbuild), mas não toca no
+// HTML — sem isso, os comentários explicativos do src/index.html (docs de
+// layout, GTM, etc.) iriam parar no dist/ e, portanto, no site publicado.
+function stripHtmlComments() {
+  return {
+    name: 'strip-html-comments',
+    apply: 'build',
+    transformIndexHtml(html) {
+      return html.replace(/<!--[\s\S]*?-->/g, '');
+    },
+  };
+}
+
 // Publicado em https://robsonmouras.github.io/robson-vital/ (GitHub Pages de
 // projeto, não de usuário) — o site fica numa subpasta, não na raiz do
 // domínio, então todo asset precisa desse prefixo pra resolver certo (ver
@@ -10,4 +24,5 @@ import { defineConfig } from 'vite';
 // precisar digitar /robson-vital/ toda hora.
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/robson-vital/' : '/',
+  plugins: [stripHtmlComments()],
 }));

@@ -685,6 +685,16 @@ main > section {
   opacity: 1;
 }
 
+/* Kwik Ledgers: arquivo do logo é pequeno (216x60px), então sem isso
+   ele renderiza no tamanho intrínseco em vez de esticar até o limite
+   de max-width/max-height como os outros (que partem de imagens
+   maiores). Forçando width/height 100% ele cresce até esse limite,
+   com object-fit:contain mantendo a proporção. */
+.project-tile[data-name="Kwik Ledgers"] .project-tile__logo {
+  width: 100%;
+  height: 100%;
+}
+
 /* Fallback caso o arquivo do logo não carregue (ver projects.js): some
    com a tag <img> quebrada e mostra o nome da empresa no lugar. */
 .project-tile--broken .project-tile__logo {
