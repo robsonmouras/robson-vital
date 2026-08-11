@@ -1,0 +1,1893 @@
+/* ==========================================================================
+   Fontes locais (self-hosted, subsetadas para woff2 — leves e sem requests
+   externos). Foun Pro = display (nome). Hanken Grotesk = texto corrido.
+   ========================================================================== */
+@font-face {
+  font-family: 'Foun Pro';
+  src: url('/fonts/foun-pro-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('/fonts/hanken-grotesk-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Reset mínimo
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Travar o scroll de fundo enquanto o overlay de projeto está aberto —
+   ver projects.js (que também pausa o Lenis via lenis.stop()). */
+body.has-overlay {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Design tokens — paleta 60/30/10
+   ========================================================================== */
+:root {
+  /* 60% — branco / cinza claro */
+  --c-white: #ffffff;
+  --c-gray-50: #f8fafc;
+  --c-gray-100: #f1f5f9;
+  --c-gray-150: #eeeeee;
+  --c-gray-200: #e5e7eb;
+  --c-gray-250: #e2e8f0;
+  --c-gray-300: #cbd5e1;
+  /* --c-gray-50 escurecido ~10% (RGB × 0.9) — só pro título da seção
+     Projetos (ver .projects__eyebrow). Era ×0.8 (~20%), recuado a
+     pedido do cliente pra um cinza mais sutil. */
+  --c-gray-400: #dfe1e3;
+
+  /* 30% — preto azulado */
+  --c-ink-950: #0f172a;
+  --c-ink-900: #0d0d0d;
+  --c-ink-800: #1e293b;
+  --c-ink-700: #334155;
+  --c-ink-600: #475569;
+  --c-ink-500: #64748b;
+  --c-ink-400: #94a3b8;
+  --c-ink-blue: #0f2340;
+
+  /* 10% — vermelho, cor de destaque (CTA + nome do Hero) */
+  --c-accent: #dc2626;
+
+  /* transparências */
+  --c-ink-950-a08: #0f172a0d;
+  --c-white-a08: #ffffff14;
+  --c-white-a85: #ffffffd9;
+  --c-white-a70: #ffffffb3;
+  --c-white-a60: #ffffff99;
+
+  --font-display: 'Foun Pro', 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  color-scheme: light;
+}
+
+body {
+  background: var(--c-white);
+  color: var(--c-ink-950);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+/* Não é pinada: só dá às 3 camadas do overlap (nome-atrás, nome-frente,
+   ui-group) a mesma posição/tamanho em repouso e serve de referência de
+   scroll (trigger) pro GSAP. Ver comentário no index.html. */
+.hero-anchor {
+  position: relative;
+  height: 100svh;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--c-white);
+}
+
+/* Nome — Robson / Vital, camada dupla para o efeito de overlap.
+   As duas cópias ocupam exatamente a mesma posição/tamanho; a diferença
+   está no z-index e no clip-path da cópia "front". Cada uma é pinada
+   INDIVIDUALMENTE (não dentro de um wrapper comum) para que o z-index
+   de cada uma seja comparado diretamente com o da cabeça — ver hero.js. */
+.hero__name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  line-height: 0.86;
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* `25vw` sozinho só escala com a LARGURA — numa janela larga-e-baixa
+     (barra de tarefas + navegador não maximizado, comum em notebook)
+     as duas linhas do nome (2 × 0.86 line-height) ficam mais altas que
+     a própria viewport e saem cortadas por cima/baixo (bug real visto
+     em 1490×740: o topo do "ROBSON" ficava ilegível). `min(25vw, 48svh)`
+     também trava o tamanho pela altura — 48svh garante que as duas
+     linhas (≈1.72 × font-size) nunca passem de ~83% de 100svh, sobrando
+     respiro em cima/embaixo em qualquer proporção de tela. Em janelas
+     "normais" (mais altas que largas) o 25vw continua sendo o menor
+     valor e nada muda visualmente. */
+  font-size: clamp(4.5rem, min(25vw, 48svh), 27rem);
+  letter-spacing: -0.02em;
+  color: var(--c-accent);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* "Vital" pisa mais à direita que "Robson", criando a composição em
+   degrau (ver pedido do cliente). O deslocamento é em `em` — escala
+   junto com o clamp do font-size acima, então o degrau fica
+   proporcional em qualquer largura de tela. Esse valor é só o estado
+   de repouso: durante o scroll o hero.js anima esse mesmo
+   `margin-left` até 0.036em (não 0 — ajuste óptico pro "V" bater
+   com o traço do "R", ver comentário no hero.js), alinhando as duas
+   palavras uma embaixo da outra assim que a cabeça começa a docar
+   na lateral. */
+.hero__name-line[data-line='1'] {
+  margin-left: 0.85em;
+}
+
+.hero__name--back {
+  z-index: 1;
+}
+
+.hero__name--front {
+  z-index: 3;
+  /* Antes só revelava a faixa inferior (Vital) e escondia "Robson"
+     inteiro atrás da cabeça. Agora revela o nome inteiro: as duas
+     palavras ficam na frente da foto — é a cópia "back" (sempre
+     vermelha, z-index 1, atrás da cabeça) que virou redundante/inerte,
+     mantida só pela mecânica de pin do hero.js. */
+  clip-path: inset(0);
+}
+
+/* "Robson" branco, "Vital" vermelho — cores fixas da cópia da frente. */
+.hero__name--front [data-line='0'] {
+  color: var(--c-white);
+}
+
+.hero__name--front [data-line='1'] {
+  color: var(--c-accent);
+}
+
+.js .hero__name-line {
+  opacity: 0;
+  transform: translateX(-4rem);
+}
+
+/* Enquanto a seção está na "janela" de transição do scroll (classe
+   aplicada via JS, ver hero.js), essas camadas passam a ser fixas à
+   viewport — é isso que faz o nome "ficar na tela" enquanto a cabeça
+   desliza. #heroAnchor ocupa 0,0/100vw/100svh, então absolute (relativo
+   a ele) e fixed (relativo à viewport) coincidem pixel a pixel. */
+.is-pinned .hero__name--back,
+.is-pinned .hero__name--front,
+.is-pinned .hero__ui-group {
+  position: fixed;
+}
+
+/* Cabeça: fixa ao viewport desde o início. Em repouso fica centralizada
+   (via transform) ocupando 100svh de altura, sempre — o rosto tem que
+   preencher a tela inteira em pé (100vh), sem sobra de branco em cima/
+   embaixo. O scroll anima essa mesma transform até a lateral esquerda,
+   docando com metade da caixa deslocada pra fora do viewport: é o
+   lado esquerdo do rosto que some por trás da borda da tela, não um
+   clip-path cortando a foto ao meio. O lado direito, que permanece
+   visível, mantém o contorno natural do rosto — a imagem já é um
+   recorte de fundo transparente, sem linha reta artificial (isso
+   importa pra abertura de cada seção mais adiante).
+
+   A largura é DERIVADA da altura via `aspect-ratio: 0.78/1` (não é
+   estética — é o mínimo pra manter as duas orelhas inteiras dentro do
+   recorte: a foto-fonte é quadrada de 1800x1800px, as orelhas vão de
+   x≈237 a x≈1564, ou seja, ocupam ≈73.8% da largura total; 0.78 dá uma
+   margem de segurança). Em telas bem estreitas isso faz a largura
+   resultante (0.78 * 100svh) passar da largura da própria viewport —
+   e sobra pra fora dos dois lados igualmente (a viewport corta o
+   excesso, já que a cabeça é `position:fixed`); é a foto "sangrando"
+   pra fora da tela, não um esticamento nem um corte vertical. É a
+   troca certa aqui: entre (a) altura 100vh sempre e (b) "Robson"
+   sobrando ao lado da cabeça em telas de celular muito estreitas, (a)
+   ganha — em celulares estreitos a cabeça cobre a largura toda e
+   "Robson" volta a ficar majoritariamente escondido atrás dela, igual
+   já acontece com a metade de cima de "Vital". */
+/* `pointer-events: none` incondicional: é só uma imagem decorativa, sem
+   handler de clique/hover próprio, e o conteúdo de cada seção reserva
+   respiro lateral pra nunca ficar por baixo dela enquanto visível (ver
+   padding-left de `.projects`/`.trajectory`) — então nunca há nada pra
+   ela precisar "deixar passar" o clique, exceto quando ela é invisível
+   (fade no mobile, ver `@media max-width:720px` mais abaixo; fade ao
+   entrar na seção Contato, ver dockHeadOnScroll em hero.js): aí sim
+   importa não bloquear o conteúdo por baixo dela. Mais simples deixar
+   sempre `none` do que alternar via JS. */
+.hero__head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100svh;
+  aspect-ratio: 0.78 / 1;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateX(50vw) translateX(-50%);
+  will-change: transform;
+}
+
+.hero__head picture,
+.hero__head img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+/* Wrapper pinado junto (tagline + redes + scroll cue), sempre acima da
+   cabeça — z-index explícito na própria camada, então não importa o que
+   tem dentro dela nem em que ordem. */
+.hero__ui-group {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.hero__ui-group > * {
+  pointer-events: auto;
+}
+
+.hero__content {
+  position: absolute;
+  left: clamp(1.5rem, 5vw, 4rem);
+  bottom: clamp(2rem, 7vh, 4.5rem);
+  max-width: 26rem;
+  text-align: left;
+}
+
+.js .hero__content {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.hero__tagline {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: var(--c-ink-500);
+  /* Em telas estreitas a cabeça ocupa quase toda a largura e pode cair
+     atrás da tagline; o halo claro mantém a leitura mesmo sobre a foto.
+     Invisível sobre o fundo branco do desktop, então fica sempre ligado. */
+  text-shadow: 0 1px 12px var(--c-white), 0 1px 2px var(--c-white);
+}
+
+.hero__social {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.hero__social-link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--c-ink-500);
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 12px var(--c-white), 0 1px 2px var(--c-white);
+  transition: color 0.2s ease;
+}
+
+.hero__social-link:hover,
+.hero__social-link:focus-visible {
+  color: var(--c-ink-950);
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  right: clamp(1.5rem, 5vw, 4rem);
+  bottom: clamp(2rem, 7vh, 4.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--c-ink-400);
+}
+
+.js .hero__scroll-cue {
+  opacity: 0;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 2.25rem;
+  background: var(--c-ink-300, var(--c-gray-300));
+  transform-origin: top center;
+  animation: scroll-cue 2.2s ease-in-out infinite;
+}
+
+.hero__scroll-text {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.4;
+  }
+}
+
+/* ==========================================================================
+   Marcador lateral de seção (linhas horizontais)
+   ========================================================================== */
+.section-nav {
+  position: fixed;
+  top: 50%;
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* `.section-nav__item` é a área de clique/hover: bem maior que a linha
+   visível (padding generoso, sobretudo à esquerda) para não ficar com um
+   alvo de 1px de altura por 20px de largura. `.section-nav__visual` é a
+   âncora "justa" (do tamanho exato da linha) que define o alinhamento —
+   fica flush à direita dentro do item, então o padding do item não desloca
+   a linha nem o cálculo de posição do label. */
+.section-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.6rem 0 0.6rem 3rem;
+  margin: -0.6rem 0;
+}
+
+.section-nav__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Posicionado fora do fluxo: o texto (com largura variável, ex. "Trajetória"
+   vs "Home") não pode empurrar a linha — senão cada linha nasce numa posição
+   horizontal diferente. Assim a linha fica sempre alinhada em repouso e só
+   "corre" (cresce) no hover/active. */
+.section-nav__label {
+  position: absolute;
+  right: calc(100% + 0.6rem);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-ink-500);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+}
+
+.section-nav__line {
+  width: 20px;
+  height: 1px;
+  background: var(--c-gray-300);
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.section-nav__item:hover .section-nav__label,
+.section-nav__item:focus-visible .section-nav__label,
+.section-nav__item.is-active .section-nav__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.section-nav__item:hover .section-nav__line,
+.section-nav__item:focus-visible .section-nav__line,
+.section-nav__item.is-active .section-nav__line {
+  width: 32px;
+}
+
+.section-nav__item.is-active .section-nav__line {
+  background: var(--c-accent);
+}
+
+/* ==========================================================================
+   Empilhamento de seções (main > section)
+   ========================================================================== */
+
+/* Toda seção dentro de <main> gruda no topo da viewport (`sticky`) e,
+   assim que a seção seguinte alcança o topo, ela desliza por cima e cobre
+   a anterior por completo — mesmo sendo de fundo branco (var(--c-white)),
+   que é o caso de quase todas aqui. Regra genérica em vez de repetir em
+   cada seção: qualquer `<section>` nova adicionada dentro de <main> já
+   nasce com esse comportamento, sem precisar lembrar de configurar de
+   novo.
+
+   Dois ingredientes fazem esse empilhamento funcionar:
+
+   1) `position: sticky; top: 0` — cada seção gruda no topo enquanto o
+      usuário rola por dentro dela; a seção de baixo continua no fluxo
+      normal por trás.
+
+   2) MESMO z-index em todas (em vez de deixar `auto`) — z-index explícito
+      + sticky cria um stacking context próprio em CADA seção; como o
+      valor é igual em todas, o desempate cai na ordem do DOM (quem vem
+      depois pinta por cima). Sem isso, bastaria uma seção futura usar
+      transform/opacity/filter internamente (comum em animação de
+      entrada) pra criar um stacking context "acidental" e quebrar essa
+      ordem. Com z-index explícito aqui, a ordem de empilhamento nunca
+      depende do que a seção faz por dentro.
+
+   Fundo opaco em cada seção continua obrigatório — sem ele a seção de
+   cima fica sticky mas transparente, e a de baixo aparece por baixo do
+   texto mesmo com essa regra. */
+main > section {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Seção Projetos
+   ========================================================================== */
+
+/* Mesmo padding-left do antigo placeholder temp-next: dá respiro pra
+   cabeça docada na lateral esquerda (ver hero.js) — a cabeça permanece
+   inteira (sem corte) em todas as seções, então essa folga lateral é
+   constante do início ao fim da seção.
+
+   `display:flex` + `justify-content:center` centraliza o bloco
+   header+grid dentro do min-height: com poucos projetos no grid, o
+   conteúdo real pode ser mais baixo que 100vh, e a folga vira respiro
+   distribuído em cima/embaixo em vez de sobra "morta" só no final da
+   seção.
+
+   Sem `position` aqui — `main > section` acima já dá `sticky` (que
+   também serve de containing block pros filhos absolutos desta seção,
+   igual `relative` fazia antes). */
+.projects {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: clamp(7rem, 18vh, 10rem) clamp(1.5rem, 5vw, 4rem) clamp(4rem, 10vh, 6rem)
+    clamp(6rem, 32vw, 24rem);
+  background: var(--c-white);
+}
+
+.projects__header {
+  max-width: 34rem;
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+/* Título grande da seção, sem legenda embaixo (removida a pedido do
+   cliente). Cor num branco levemente acinzentado — funciona tanto por
+   cima do trecho escuro da cabeça docada (ver abaixo) quanto sobre o
+   fundo branco da seção, sem virar um branco "estourado" idêntico ao
+   fundo.
+
+   `transform: translateX(-5%)` desloca o texto 5% da PRÓPRIA largura
+   pra esquerda — não é margin (que seria relativo ao container) — de
+   propósito, pra que o começo do título entre por baixo da cabeça
+   docada. A cabeça (`.hero__head`, z-index 2, fixa) sempre pinta por
+   cima do conteúdo de qualquer seção (`main > section` fica em z-index
+   1, ver comentário acima), então esse trecho inicial some atrás dela
+   sem precisar de nenhum ajuste de z-index aqui. */
+.projects__eyebrow {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* +40% sobre o clamp original (3.5rem/8vw/7rem), depois mais +30%
+     em cima disso, a pedido do cliente. */
+  font-size: clamp(6.4rem, 14.6vw, 12.7rem);
+  letter-spacing: -0.02em;
+  color: var(--c-gray-400);
+  transform: translateX(-5%);
+}
+
+/* Janela curta (altura pequena, largura de desktop/tablet) — bug real
+   visto em 1490×740: o padding vertical + o título grande sozinhos já
+   somavam ~410px, sem sobrar espaço pro grid (2 linhas, ~440px) caber
+   nos 740px de altura — a segunda linha de projetos ficava cortada na
+   dobra. `min-width` exclui celular em pé de propósito: lá a largura já
+   é pequena (o `vw` do título já fica no piso do clamp acima) e a altura
+   costuma sobrar, então essa situação não se repete — sem essa exclusão,
+   este bloco encolheria o título também em telas de celular normais,
+   onde não há problema nenhum pra resolver. */
+@media (max-height: 760px) and (min-width: 600px) {
+  .projects {
+    padding-top: clamp(3.5rem, 10svh, 7rem);
+    padding-bottom: clamp(2.5rem, 6svh, 4rem);
+  }
+
+  .projects__header {
+    margin-bottom: clamp(1.5rem, 3.5svh, 2.5rem);
+  }
+
+  .projects__eyebrow {
+    font-size: clamp(4rem, 13svh, 9rem);
+  }
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tile — retângulo do logo. `overflow:hidden` garante que o popover
+   (que segue o cursor via JS) nunca escape da área do próprio tile,
+   mesmo se o clamping em projects.js for imperfeito. */
+.project-tile {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 1.5rem;
+  background: var(--c-gray-50);
+  border: 1px solid var(--c-gray-200);
+  border-radius: 8px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+/* Duas logos (Jumper, Elmek) são versões "negativas" — claras, pensadas
+   pra fundo escuro. Em vez de forçar todo o grid pra um único esquema,
+   cada tile usa o fundo que dá contraste pro seu próprio logo (padrão
+   comum em "logo walls" reais). */
+.project-tile--dark {
+  background: var(--c-ink-950);
+  border-color: var(--c-ink-800);
+}
+
+.project-tile:hover,
+.project-tile:focus-visible {
+  border-color: var(--c-accent);
+  background: var(--c-white);
+  transform: translateY(-2px);
+}
+
+.project-tile--dark:hover,
+.project-tile--dark:focus-visible {
+  background: var(--c-ink-900);
+}
+
+/* Tiles "em andamento" não abrem overlay (ver projects.js) — cursor e
+   hover neutros pra não parecer clicável; o popover com "Em andamento"
+   continua funcionando normalmente. */
+.project-tile:has(.project-tile__wip) {
+  cursor: default;
+}
+
+.project-tile:has(.project-tile__wip):hover,
+.project-tile:has(.project-tile__wip):focus-visible {
+  border-color: var(--c-gray-200);
+  background: var(--c-gray-50);
+  transform: none;
+}
+
+.project-tile--dark:has(.project-tile__wip):hover,
+.project-tile--dark:has(.project-tile__wip):focus-visible {
+  border-color: var(--c-ink-800);
+  background: var(--c-ink-950);
+}
+
+.project-tile:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+.project-tile__logo {
+  max-width: 78%;
+  max-height: 62%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.project-tile:hover .project-tile__logo,
+.project-tile:focus-visible .project-tile__logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Fallback caso o arquivo do logo não carregue (ver projects.js): some
+   com a tag <img> quebrada e mostra o nome da empresa no lugar. */
+.project-tile--broken .project-tile__logo {
+  display: none;
+}
+
+.project-tile--broken::after {
+  content: attr(data-name);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--c-ink-700);
+  text-align: center;
+}
+
+.project-tile--dark.project-tile--broken::after {
+  color: var(--c-white);
+}
+
+.project-tile__wip {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--c-ink-950-a08);
+  color: var(--c-ink-600);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Em tile escuro (Elmek), o badge claro-sobre-claro do padrão acima some:
+   inverte pro mesmo esquema do popover (.project-tile--dark .project-tile__popover). */
+.project-tile--dark .project-tile__wip {
+  background: var(--c-white-a08);
+  color: var(--c-gray-300);
+}
+
+/* Popover que acompanha o cursor — posicionado em (0,0) e movido via
+   GSAP (x/y) em projects.js; xPercent/yPercent (fixados uma vez, ver
+   JS) centralizam o balão sobre o ponteiro sem brigar com o x/y
+   animado, igual à técnica já usada pro nome no hero.js. */
+.project-tile__popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--c-ink-950);
+  color: var(--c-white);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.project-tile--dark .project-tile__popover {
+  background: var(--c-white);
+  color: var(--c-ink-950);
+}
+
+.project-tile__popover-name {
+  font-weight: 600;
+}
+
+.project-tile__popover-service {
+  color: var(--c-gray-300);
+}
+
+.project-tile--dark .project-tile__popover-service {
+  color: var(--c-ink-500);
+}
+
+/* ==========================================================================
+   Seção Trajetória
+   ========================================================================== */
+
+/* A altura real (100svh + orçamento de scroll das 3 fases) é aplicada via
+   inline style por trajectory.js — fica tudo em sincronia com o número de
+   itens ali. `position:relative` CANCELA o `position:sticky` genérico de
+   `main > section`: aqui é `.trajectory__stage` (abaixo) quem gruda de
+   verdade — ver comentário longo no index.html sobre por que a seção
+   inteira não pode ser a sticky (folga zero por ser a última da página). */
+.trajectory {
+  position: relative;
+}
+
+/* Quem realmente fica "grudado" em top:0 durante toda a rolagem interna.
+   `overflow:hidden` garante que só essa fatia de 100svh fique visível —
+   o resto da altura de `.trajectory` (o pai) é só orçamento de scroll
+   consumido por baixo da dobra, nunca precisa aparecer. z-index aqui (não
+   em `.trajectory`) porque é esta camada que precisa vencer o empate de
+   pintura contra `.projects` — `.trajectory` continua `position:relative`
+   sem z-index próprio, então não cria um stacking context que atrapalhe
+   essa comparação (ver comentário em "Empilhamento de seções" acima). */
+.trajectory__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 1;
+  background: var(--c-white);
+}
+
+.trajectory__header {
+  position: absolute;
+  top: clamp(7rem, 18vh, 10rem);
+  left: clamp(6rem, 32vw, 24rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+}
+
+/* Mesmo tratamento do título grande de Projetos (ver .projects__eyebrow):
+   Foun Pro, cinza sutil, deslocado 5% da própria largura pra a esquerda
+   pra que o começo entre por baixo da cabeça docada (z-index 2, sempre
+   acima do conteúdo de seção — ver comentário em .projects__eyebrow). */
+.trajectory__eyebrow {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(6.4rem, 14.6vw, 12.7rem);
+  letter-spacing: -0.02em;
+  color: var(--c-gray-400);
+  transform: translateX(-5%);
+}
+
+/* `top:58%` resolve contra a altura do containing block mais próximo — o
+   `.trajectory__stage` (100svh), não `.trajectory` (que é bem mais alto,
+   é só orçamento de scroll). Por isso este elemento precisa continuar
+   sendo descendente do stage, não de `.trajectory` diretamente — mover
+   pra fora dele faria essa porcentagem virar uma posição minúscula lá
+   embaixo, fora da fatia visível. */
+.trajectory__viewport {
+  position: absolute;
+  top: 58%;
+  left: clamp(6rem, 32vw, 24rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+/* Track horizontal: 500% = 5 itens × 100%. Deslocado em xPercent por
+   trajectory.js conforme o scroll — ver comentário no index.html sobre
+   manter esse número em sincronia com a quantidade de <li>. */
+.trajectory__track {
+  display: flex;
+  width: 500%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada item ocupa a largura inteira do viewport da seção (20% da largura
+   do track) — só uma experiência por vez fica visível, a próxima entra
+   inteiramente de fora antes de a atual sair de vista. `min-width:0`
+   cancela o `min-width:auto` implícito dos itens flex: sem isso, um
+   título comprido ("Ambra — UI/UX Designer / Product Designer") recusa
+   a quebrar linha e força o item a ficar mais largo que os 20%
+   pretendidos — derruba o alinhamento de todos os itens seguintes
+   (era o bug por trás do texto cortado/sobreposto no rodar visual). */
+.trajectory__item {
+  width: 20%;
+  min-width: 0;
+  flex: none;
+  padding-right: clamp(2rem, 6vw, 5rem);
+}
+
+.trajectory__title {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  letter-spacing: -0.01em;
+  color: var(--c-ink-950);
+}
+
+.trajectory__title-role {
+  color: var(--c-ink-500);
+}
+
+/* Nome da empresa: hover revela o logo seguindo o cursor (ver
+   #trajectoryLogoFloat, posicionado/animado em trajectory.js — mesma
+   técnica de gsap.quickTo do popover dos tiles em Projetos). O próprio
+   texto só ganha um feedback discreto (cor), o logo é quem carrega o
+   efeito visual. */
+.trajectory__company {
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.trajectory__company:hover,
+.trajectory__company:focus-visible {
+  color: var(--c-accent);
+}
+
+.trajectory__period {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-ink-500);
+}
+
+.trajectory__desc {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--c-ink-700);
+}
+
+/* Placeholder da transição pra próxima etapa (CTA) — `#trajectoryExitMarker`
+   existe no DOM (index.html) e ganha `opacity: 1` via trajectory.js no fim
+   da rolagem interna, mas ainda não tem regra de posicionamento/visual
+   própria aqui: é só um placeholder até o conteúdo do CTA ser definido. */
+
+
+/* Logo que segue o cursor ao passar sobre `.trajectory__company` — vive
+   solto no fim do body (ver index.html) de propósito: fixed dentro de um
+   ancestral com overflow:hidden (`.trajectory__stage`) seria recortado na
+   pintura mesmo sendo posicionado relativo à viewport. x/y são animados
+   via gsap.quickTo em trajectory.js; aqui só o visual e o estado padrão
+   (invisível, sem interceptar clique/hover do próprio cursor).
+
+   O cartão branco embaixo existe pra dar contraste às logos com traço
+   escuro/transparente (a maioria é SVG sem fundo próprio) — sem ele, a
+   logo "sumia" um pouco sobre o fundo já claro da seção. A sombra reforça
+   a sensação de flutuar por cima do conteúdo, não de fazer parte dele. */
+.trajectory-logo-float {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(120px, 10vw, 170px);
+  height: clamp(80px, 6.6vw, 112px);
+  padding: 1rem 1.25rem;
+  background: var(--c-white);
+  border-radius: 10px;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 12px 28px var(--c-ink-950-a08), 0 2px 8px var(--c-ink-950-a08);
+  will-change: transform, opacity;
+}
+
+.trajectory-logo-float__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   Seção Contato — última da página. Mesmo card visual do modal "Fale
+   comigo" (ver .contact-overlay__* mais abaixo), embutido direto no
+   fluxo em vez de atrás de um overlay — ver comentário no index.html.
+   ========================================================================== */
+
+/* `position:relative` cancela o `sticky` genérico de `main > section`
+   pelo MESMO motivo do `.trajectory` acima: quem gruda de verdade é
+   `.contact__stage` (filho direto, abaixo).
+
+   SEM padding/altura extra aqui — de propósito, ao contrário do
+   orçamento de scroll do `.trajectory` (que existe pra alimentar o
+   scroll-jack horizontal por baixo do sticky). Uma folga "morta" (sem
+   nada consumindo esse espaço) quebra: por `.contact` ser a ÚLTIMA
+   seção da página (nada depois dela em `<main>`), o scroll máximo do
+   documento SEMPRE consome a folga inteira até o fim — e como o sticky
+   só fica preso enquanto sobra folga no próprio pai, ao chegar no fim
+   do documento ele já gastou toda ela e desgruda, arrastando o card
+   pra cima do centro exatamente na quantidade da folga (bug visto no
+   rodar visual: 20svh de folga = 20svh de conteúdo descentralizado
+   aparecendo embaixo do card). Sem folga nenhuma aqui, `.contact` (auto,
+   igual à altura do `.contact__stage`) faz o sticky "grudar" bem na
+   última página de scroll — na prática indistinguível de continuar
+   preso, já que não existe scroll sobrando depois dele pra desgrudar. */
+.contact {
+  position: relative;
+}
+
+/* Quem realmente fica "grudado" em top:0 — mesmo papel do
+   `.trajectory__stage`. `overflow:hidden` aqui é seguro (diferente de um
+   recorte arriscado): o conteúdo é curto e sempre cabe dentro de 100svh;
+   nada fica inacessível. */
+.contact__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  background: var(--c-white);
+}
+
+/* Sem padding-left reservado pra cabeça docada (diferente de
+   `.projects`/`.trajectory`): `#heroHead` some (fade) exatamente ao
+   entrar nesta seção — ver dockHeadOnScroll em hero.js — então o card
+   fica livre pra centralizar na tela toda. */
+.contact__inner {
+  max-width: 28rem;
+  width: 100%;
+  text-align: center;
+}
+
+.contact__avatar-wrap {
+  position: relative;
+  width: clamp(8rem, 20vw, 11rem);
+  margin: 0 auto 1.75rem;
+}
+
+.contact__avatar {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--c-gray-100);
+}
+
+.contact__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge "disponível" — mesmo tratamento do `.contact-overlay__availability`
+   (flutua sobre a borda superior da foto, não centrado dentro dela).
+   Reaproveita a MESMA animação `availability-pulse` (definida junto do
+   modal, mais abaixo) — não precisa redeclarar o `@keyframes`. */
+.contact__availability {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -55%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--c-white);
+  border: 1px solid var(--c-gray-200);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px var(--c-ink-950-a08);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  color: var(--c-ink-700);
+  white-space: nowrap;
+}
+
+.contact__availability-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px #22c55e33;
+  animation: availability-pulse 2.2s ease-in-out infinite;
+}
+
+.contact__name {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--c-ink-950);
+}
+
+.contact__bio {
+  margin: 0 auto 2rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--c-ink-600);
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.75rem;
+}
+
+.contact__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact__button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Email e WhatsApp com o MESMO peso visual (pedido do cliente) — nenhum
+   dos dois é a ação "primária" preenchida, os dois usam o mesmo
+   tratamento outline do WhatsApp abaixo. */
+.contact__button--email,
+.contact__button--whatsapp {
+  background: var(--c-white);
+  color: var(--c-ink-950);
+  border: 1px solid var(--c-gray-250);
+}
+
+.contact__button--email:hover,
+.contact__button--email:focus-visible,
+.contact__button--whatsapp:hover,
+.contact__button--whatsapp:focus-visible {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  transform: translateY(-2px);
+}
+
+/* Wrapper do LinkedIn + Baixar CV — mesmo tratamento discreto (ícone
+   circular), lado a lado; CV não precisa do destaque de um botão-pílula
+   como Email/WhatsApp (pedido do cliente). */
+.contact__socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.contact__social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--c-gray-250);
+  color: var(--c-ink-600);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact__social:hover,
+.contact__social:focus-visible {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+  transform: translateY(-2px);
+}
+
+.contact__social svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+/* ==========================================================================
+   Overlay de projeto (tela cheia) — ver index.html (estrutura em duas
+   camadas: raiz fixa + `__scroll` interno, pro botão fechar não rolar
+   junto quando o conteúdo do projeto é mais alto que a viewport).
+   ========================================================================== */
+.project-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--c-white);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.project-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fica por cima da imagem (que agora encosta no topo do overlay, ver
+   `.project-overlay__scroll`) — o fundo translúcido garante contraste
+   do ícone em cima de qualquer mídia, não só do branco do overlay. */
+.project-overlay__close {
+  position: absolute;
+  top: clamp(1.25rem, 4vh, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: var(--c-white-a85);
+  border: none;
+  border-radius: 50%;
+  color: var(--c-ink-700);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-overlay__close:hover,
+.project-overlay__close:focus-visible {
+  color: var(--c-ink-950);
+  transform: rotate(90deg);
+}
+
+.project-overlay__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Único elemento que rola dentro do overlay — ver comentário no
+   index.html sobre por que o botão fechar mora fora dele, e sobre o
+   `data-lenis-prevent` (sem ele o scroll nativo aqui não funciona). Sem
+   padding aqui: a mídia precisa encostar no topo/largura cheia do
+   overlay (o botão fechar flutua por cima dela, ver __close acima);
+   quem precisa de respiro é `.project-overlay__inner` — ver a regra
+   condicional de padding-top logo abaixo. */
+.project-overlay__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 4rem;
+}
+
+.project-overlay__inner {
+  max-width: 54rem;
+  width: 100%;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+/* Sem mídia (projeto ainda sem case study), `__inner` é o primeiro
+   conteúdo visível — precisa do respiro que a imagem deixaria de fora
+   pro botão fechar não cobrir nome/serviço. Com mídia, esse respiro
+   não entra (a imagem já ocupa esse espaço, colada no topo). */
+.project-overlay__media:empty + .project-overlay__inner {
+  padding-top: clamp(5rem, 14vh, 7.5rem);
+}
+
+.project-overlay__service {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+/* Título + link "abrir site" lado a lado, centralizados como grupo —
+   `align-items: flex-start` alinha o ícone ao topo da palavra em vez do
+   centro vertical do título (bem maior que o ícone). */
+.project-overlay__name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 0 1.25rem;
+}
+
+.project-overlay__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--c-ink-950);
+}
+
+.project-overlay__placeholder-note {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--c-ink-500);
+}
+
+.project-overlay__placeholder-note[hidden] {
+  display: none;
+}
+
+/* Corpo do case study (tags + texto), montado por projects.js a partir
+   de PROJECT_CONTENT. Vazio (sem filhos) pra quem ainda não tem
+   conteúdo — só o placeholder acima aparece nesse caso. */
+.project-overlay__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  margin-top: 2.25rem;
+}
+
+.project-overlay__body:empty {
+  display: none;
+  margin-top: 0;
+}
+
+/* Slot da imagem — fica FORA de `.project-overlay__inner` de propósito,
+   pra ocupar a largura cheia do overlay (100vw) em vez de ficar presa
+   ao max-width do texto. Vazio pra quem não tem mídia ainda. */
+.project-overlay__media:not(:empty) {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.project-overlay__media:empty {
+  display: none;
+}
+
+.project-overlay__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Ícone "abrir site", ao lado do título (ver .project-overlay__name-row).
+   Sem fundo/círculo — é uma marca discreta ao lado do nome, não um botão
+   de ação flutuante como o fechar. `margin-top` aproxima o topo do ícone
+   da altura de caixa (cap-height) da letra maiúscula, não da linha toda. */
+.project-overlay__visit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.5em;
+  color: var(--c-ink-500);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-overlay__visit:hover,
+.project-overlay__visit:focus-visible {
+  color: var(--c-accent);
+  transform: translate(2px, -2px);
+}
+
+.project-overlay__visit svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.project-overlay__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.project-overlay__tag {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--c-gray-250);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-ink-600);
+}
+
+/* Coluna centralizada, texto alinhado à esquerda dentro dela — mesmo
+   padrão de leitura usado em .trajectory__desc. */
+.project-overlay__section {
+  max-width: 38rem;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.project-overlay__section-heading {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.project-overlay__section-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--c-ink-700);
+}
+
+/* CTA "Fale comigo" — fica FORA de `.project-overlay__scroll` de propósito,
+   igual `.project-overlay__close`, pra continuar visível independente da
+   rolagem do case study. Abre `.contact-overlay` por cima (ver contact.js). */
+.project-overlay__contact-cta {
+  position: absolute;
+  bottom: clamp(1.25rem, 4vh, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.4rem 0.4rem 1.35rem;
+  background: var(--c-ink-950);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px var(--c-ink-950-a08);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.project-overlay__contact-cta:hover,
+.project-overlay__contact-cta:focus-visible {
+  background: var(--c-ink-900);
+  transform: translateY(-2px);
+}
+
+.project-overlay__contact-cta-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--c-white);
+  white-space: nowrap;
+}
+
+.project-overlay__contact-cta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--c-white-a08);
+  color: var(--c-white);
+  transition: transform 0.25s ease;
+}
+
+.project-overlay__contact-cta:hover .project-overlay__contact-cta-icon,
+.project-overlay__contact-cta:focus-visible .project-overlay__contact-cta-icon {
+  transform: rotate(45deg);
+}
+
+.project-overlay__contact-cta-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ==========================================================================
+   Tela de contato ("Fale comigo") — mesma estrutura de duas camadas do
+   overlay de projeto (raiz fixa + `__scroll` interno), ver index.html.
+   z-index maior que `.project-overlay` pra abrir POR CIMA dele sem
+   fechá-lo por baixo (ver contact.js).
+   ========================================================================== */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--c-white);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.contact-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact-overlay__close {
+  position: absolute;
+  top: clamp(1.25rem, 4vh, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: var(--c-white-a85);
+  border: none;
+  border-radius: 50%;
+  color: var(--c-ink-700);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-overlay__close:hover,
+.contact-overlay__close:focus-visible {
+  color: var(--c-ink-950);
+  transform: rotate(90deg);
+}
+
+.contact-overlay__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.contact-overlay__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(5rem, 14vh, 7.5rem) clamp(1.5rem, 5vw, 4rem) 4rem;
+}
+
+.contact-overlay__inner {
+  max-width: 28rem;
+  width: 100%;
+  text-align: center;
+}
+
+.contact-overlay__avatar-wrap {
+  position: relative;
+  width: clamp(8rem, 20vw, 11rem);
+  margin: 0 auto 1.75rem;
+}
+
+.contact-overlay__avatar {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--c-gray-100);
+}
+
+.contact-overlay__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge "disponível" — flutua sobre a borda superior da foto, de
+   propósito (não centrado dentro dela), pra ler como um aviso de status,
+   não como parte do retrato. */
+.contact-overlay__availability {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -55%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--c-white);
+  border: 1px solid var(--c-gray-200);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px var(--c-ink-950-a08);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  color: var(--c-ink-700);
+  white-space: nowrap;
+}
+
+.contact-overlay__availability-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px #22c55e33;
+  animation: availability-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes availability-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px #22c55e33;
+  }
+  50% {
+    box-shadow: 0 0 0 5px #22c55e1a;
+  }
+}
+
+/* Tooltip do ponto de disponibilidade ("Disponível"/"Indisponível").
+   `[data-tooltip]` é genérico de propósito: cobre tanto
+   `.contact__availability-dot` quanto `.contact-overlay__availability-dot`
+   sem duplicar a regra. O ponto vira o único portador do status (o texto
+   ao lado virou só "Freelancer"), por isso ganhou `tabindex`/`aria-label`
+   no HTML — o tooltip aparece no hover E no foco por teclado. */
+[data-tooltip] {
+  position: relative;
+  cursor: default;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.55rem);
+  left: 50%;
+  z-index: 3;
+  transform: translate(-50%, 4px);
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  background: var(--c-white);
+  border: 1px solid var(--c-gray-200);
+  box-shadow: 0 8px 20px var(--c-ink-950-a08);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  color: var(--c-ink-700);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.contact-overlay__name {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--c-ink-950);
+}
+
+.contact-overlay__bio {
+  margin: 0 auto 2rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--c-ink-600);
+}
+
+.contact-overlay__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.75rem;
+}
+
+.contact-overlay__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-overlay__button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}
+
+.contact-overlay__button--email {
+  background: var(--c-ink-950);
+  color: var(--c-white);
+  border: 1px solid var(--c-ink-950);
+}
+
+.contact-overlay__button--email:hover,
+.contact-overlay__button--email:focus-visible {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  transform: translateY(-2px);
+}
+
+.contact-overlay__button--whatsapp {
+  background: var(--c-white);
+  color: var(--c-ink-950);
+  border: 1px solid var(--c-gray-250);
+}
+
+.contact-overlay__button--whatsapp:hover,
+.contact-overlay__button--whatsapp:focus-visible {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  transform: translateY(-2px);
+}
+
+/* Wrapper do LinkedIn + Baixar CV — mesmo motivo do .contact__socials
+   acima: CV como ícone discreto ao lado do LinkedIn, sem o destaque de
+   um botão-pílula como Email/WhatsApp. */
+.contact-overlay__socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.contact-overlay__social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--c-gray-250);
+  color: var(--c-ink-600);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-overlay__social:hover,
+.contact-overlay__social:focus-visible {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+  transform: translateY(-2px);
+}
+
+.contact-overlay__social svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+@media (max-width: 720px) {
+  /* No desktop o nome cresce em função da largura da viewport, e a
+     cabeça em função da altura (ver .hero__head) — em telas de celular
+     essas duas bases de escala colapsam (altura e largura ficam perto
+     uma da outra) e o clamp calibrado pro desktop gera um nome pequeno
+     demais pra manter o mesmo peso visual da cabeça. Esse clamp
+     específico é só pra manter o nome grande/bold nas larguras de
+     celular mais comuns. */
+  .hero__name {
+    font-size: clamp(6.5rem, 52vw, 13rem);
+  }
+
+  /* Degrau menor que no desktop: com o nome tão largo relativo à tela,
+     o deslocamento de 0.85em jogaria o "L" de Vital pra fora da
+     viewport (a marca principal ficaria ilegível). */
+  .hero__name-line[data-line='1'] {
+    margin-left: 0.4em;
+  }
+
+  .hero__scroll-cue {
+    display: none;
+  }
+
+  /* Nessa largura a cabeça cobre quase 100% da tela, então a
+     tagline/redes quase sempre caem em cima da foto — um scrim reforça
+     a leitura além do text-shadow. */
+  .hero__content {
+    right: clamp(1.5rem, 5vw, 4rem);
+    padding: 1.25rem 1rem 0.25rem;
+    margin: 0 -1rem;
+    background: linear-gradient(to top, var(--c-white-a85) 40%, transparent);
+  }
+
+  /* Some só no mobile — pedido do cliente: nessa largura o nome já
+     ocupa quase toda a tela, e a tagline some cedo no scroll de
+     qualquer forma (ver hero.js), então o texto vive muito pouco tempo
+     pra justificar o espaço. As redes sociais continuam. */
+  .hero__tagline {
+    display: none;
+  }
+
+  /* Só as linhas ficam, sem o label — não há espaço lateral sobrando
+     pra revelar o texto em telas estreitas. */
+  .section-nav__label {
+    display: none;
+  }
+
+  .projects__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Nessa largura a cabeça cobre quase toda a tela (ver .hero__head) —
+     o conector de entrada perde o sentido de "apontar pra fora da cabeça"
+     com tão pouco respiro lateral, então some; o marcador de saída some
+     pelo mesmo motivo. */
+  .trajectory__exit-marker {
+    display: none;
+  }
+
+  .trajectory__viewport {
+    top: 62%;
+    left: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  /* Sem cabeça docada pra abrir espaço (ver hero.js), o respiro lateral
+     esquerdo grande (reservado nas larguras maiores pra ela) vira
+     espaço morto — volta a ser simétrico com o padding direito. */
+  .projects {
+    padding-left: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .trajectory__header {
+    left: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  /* Mesmo motivo do padding-left de .projects acima: sem cabeça pra
+     tucar o começo do título por baixo, o deslocamento perde o sentido
+     e só cortava o texto contra a borda da tela à toa. */
+  .projects__eyebrow,
+  .trajectory__eyebrow {
+    transform: none;
+  }
+
+  /* Pill mais compacta — no celular sobra menos largura pro rótulo ao
+     lado do ícone circular. */
+  .project-overlay__contact-cta {
+    padding: 0.35rem 0.35rem 0.35rem 1.1rem;
+  }
+
+  .project-overlay__contact-cta-label {
+    font-size: 0.85rem;
+  }
+
+  .contact-overlay__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-overlay__button {
+    justify-content: center;
+  }
+
+  /* Mesma pilha vertical do modal (ver .contact-overlay__actions acima)
+     — nessa largura os dois botões lado a lado não cabem confortavelmente. */
+  .contact__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact__button {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Acessibilidade — prefers-reduced-motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .js .hero__name-line,
+  .js .hero__content,
+  .js .hero__scroll-cue {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__scroll-line {
+    animation: none;
+  }
+
+  .project-overlay,
+  .project-tile,
+  .project-tile__logo,
+  .project-overlay__close,
+  .project-overlay__visit,
+  .project-overlay__contact-cta,
+  .project-overlay__contact-cta-icon,
+  .contact-overlay,
+  .contact-overlay__close,
+  .contact-overlay__button,
+  .contact-overlay__social,
+  .contact__button,
+  .contact__social {
+    transition: none;
+  }
+
+  .contact-overlay__availability-dot,
+  .contact__availability-dot {
+    animation: none;
+  }
+
+  /* trajectory.js não roda (ver initTrajectory) — sem ele, `.trajectory`
+     (o pai) nunca ganha a altura extra via inline style, então fica com
+     `height:auto` = a altura do próprio `.trajectory__stage` (100svh) —
+     ou seja, sem folga nenhuma pra grudar, e é isso que já queremos aqui:
+     sem o scroll-jack horizontal, a seção precisa virar um fluxo vertical
+     normal e comum, não ficar presa atrás da fatia de 100svh. Só falta
+     cancelar o sticky/overflow do stage pra esse fluxo normal valer. */
+  .trajectory__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .trajectory__exit-marker {
+    display: none;
+  }
+
+  .trajectory__header {
+    position: static;
+    margin-bottom: 2.5rem;
+  }
+
+  .trajectory__viewport {
+    position: static;
+    top: auto;
+    transform: none;
+    overflow: visible;
+    padding: 0 clamp(1.5rem, 5vw, 4rem) 4rem clamp(6rem, 32vw, 24rem);
+  }
+
+  .trajectory__track {
+    display: block;
+    width: auto;
+  }
+
+  .trajectory__item {
+    width: auto;
+    padding: 0 0 3rem;
+  }
+}
