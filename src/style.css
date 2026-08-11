@@ -522,6 +522,25 @@ main > section {
   margin-bottom: clamp(2.5rem, 6vh, 4rem);
 }
 
+/* Folga de scroll extra ANTES da seção Trajetória começar a deslizar por
+   cima desta (empilhamento sticky, ver "Empilhamento de seções" acima) —
+   sem isso, `.projects` tem exatamente 100svh (nem 1px de sobra), então
+   a seção seguinte já começa a cobri-la assim que o scroll ultrapassa uma
+   tela, uma transição percebida como "rápida demais".
+
+   Funciona porque é um FILHO do flex column de `.projects` (mesmo
+   `justify-content: center`), não uma altura extra direto em `.projects`:
+   como o centro do bloco header+grid é calculado por
+   `(altura do container − altura de TODOS os filhos) / 2`, e este spacer
+   soma a MESMA altura extra nos dois lados dessa conta, o header+grid
+   continua exatamente onde estava (centralizado nos 100svh visíveis) —
+   o vazio extra só empurra a altura do container pra baixo da dobra,
+   consumido pelo scroll sem nada mudar na tela até a seção realmente
+   começar a desgrudar. */
+.projects__scroll-hold {
+  height: 35svh;
+}
+
 /* Título grande da seção, sem legenda embaixo (removida a pedido do
    cliente). Cor num branco levemente acinzentado — funciona tanto por
    cima do trecho escuro da cabeça docada (ver abaixo) quanto sobre o
@@ -1731,21 +1750,16 @@ main > section {
     display: none;
   }
 
-  /* Nessa largura a cabeça cobre quase 100% da tela, então a
-     tagline/redes quase sempre caem em cima da foto — um scrim reforça
-     a leitura além do text-shadow. */
-  .hero__content {
-    right: clamp(1.5rem, 5vw, 4rem);
-    padding: 1.25rem 1rem 0.25rem;
-    margin: 0 -1rem;
-    background: linear-gradient(to top, var(--c-white-a85) 40%, transparent);
-  }
-
   /* Some só no mobile — pedido do cliente: nessa largura o nome já
      ocupa quase toda a tela, e a tagline some cedo no scroll de
      qualquer forma (ver hero.js), então o texto vive muito pouco tempo
-     pra justificar o espaço. As redes sociais continuam. */
-  .hero__tagline {
+     pra justificar o espaço.
+     .hero__content só existe hoje pra envolver a tagline (não há mais
+     redes sociais aqui), então some junto — senão sobra o scrim (o
+     gradiente branco pensado pra ajudar a ler o texto sobre a foto)
+     sem nenhum texto dentro, e ele aparece como uma sombra solta no
+     rodapé do hero. */
+  .hero__content {
     display: none;
   }
 
