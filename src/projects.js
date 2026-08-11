@@ -68,6 +68,33 @@ const PROJECT_CONTENT = {
       },
     ],
   },
+  'Grupo Vikings': {
+    media: {
+      // Mockup em laptop gerado a partir do print original, redimensionado
+      // pra 2000px de largura via sharp-cli — ver public/images/projects.
+      src: `${BASE_URL}images/projects/vikings-showcase.webp`,
+      fallback: `${BASE_URL}images/projects/vikings-showcase.jpg`,
+      width: 2000,
+      height: 1116,
+      alt: 'Home do novo site do Grupo Vikings aberta em um notebook, com o título "Produtividade e atendimento de excelência em facilities e segurança."',
+    },
+    url: 'https://grupo-vikings.web-cf8.workers.dev/',
+    tags: ['Código moderno (sem WordPress)', 'Vídeo no hero', 'PT/EN'],
+    sections: [
+      {
+        heading: 'O problema',
+        text: 'O Grupo Vikings, empresa de facilities e segurança, já tinha um site, mas antigo e defasado em relação ao momento da operação.',
+      },
+      {
+        heading: 'O que eu fiz',
+        text: 'Desenvolvi o site inteiro sozinho, do zero, com um vídeo na abertura pra dar mais impacto à primeira impressão. Montei a estrutura em duas línguas, português e inglês, pra atender o alcance da operação da empresa.',
+      },
+      {
+        heading: 'Resultado',
+        text: 'Uma presença digital renovada e bilíngue, com uma abertura em vídeo que já comunica a escala do Grupo Vikings assim que o site carrega.',
+      },
+    ],
+  },
   Inov9: {
     media: {
       // Gerado a partir do print original via sharp-cli, redimensionado
