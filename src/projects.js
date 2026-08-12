@@ -2,8 +2,9 @@ import { gsap } from 'gsap';
 
 // Caminhos de public/ montados em string (não passam pelo pipeline de
 // assets do Vite, que só reescreve o que reconhece em index.html/CSS —
-// ver comentário longo em vite.config.js sobre o base "/robson-vital/").
-// Sem esse prefixo, essas imagens quebrariam publicadas em subpasta.
+// ver comentário longo em vite.config.js sobre o base). Hoje base é "/",
+// mas mantém o prefixo aqui pra continuar correto se voltar a publicar
+// em subpasta algum dia.
 const BASE_URL = import.meta.env.BASE_URL;
 
 /**

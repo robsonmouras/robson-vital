@@ -14,15 +14,15 @@ function stripHtmlComments() {
   };
 }
 
-// Publicado em https://robsonmouras.github.io/robson-vital/ (GitHub Pages de
-// projeto, não de usuário) — o site fica numa subpasta, não na raiz do
-// domínio, então todo asset precisa desse prefixo pra resolver certo (ver
+// Publicado em https://robsonvital.com.br/ via domínio customizado (CNAME em
+// public/) apontado pro GitHub Pages. O site fica na raiz do domínio, não
+// numa subpasta — por isso base "/" tanto no dev quanto no build (ver
 // %BASE_URL% em index.html e import.meta.env.BASE_URL em src/projects.js).
 //
-// Só aplica o prefixo no BUILD (o que sobe pro Pages) — no `npm run dev`
-// mantém base "/" pra continuar acessando em localhost normalmente, sem
-// precisar digitar /robson-vital/ toda hora.
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/robson-vital/' : '/',
+// Antes disso o site vivia em https://robsonmouras.github.io/robson-vital/
+// (GitHub Pages de projeto, subpasta) e o build usava base "/robson-vital/".
+// O GitHub já redireciona essa URL antiga pro domínio novo automaticamente.
+export default defineConfig({
+  base: '/',
   plugins: [stripHtmlComments()],
-}));
+});
