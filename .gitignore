@@ -15,6 +15,9 @@ dist-ssr
 .env.*
 !.env.example
 
+# Documentação interna
+IDENTIDADE-VISUAL.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

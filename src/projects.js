@@ -17,13 +17,13 @@ const BASE_URL = import.meta.env.BASE_URL;
 const PROJECT_CONTENT = {
   Jumper: {
     media: {
-      // Gerado a partir do print original (~1.7MB) via sharp-cli,
+      // Gerado a partir do print original (~1.8MB) via sharp-cli,
       // redimensionado pra 2000px de largura — ver public/images/projects.
       src: `${BASE_URL}images/projects/jumper-showcase.webp`,
       fallback: `${BASE_URL}images/projects/jumper-showcase.jpg`,
       width: 2000,
       height: 1116,
-      alt: 'Home do novo site da Jumper aberta em um notebook, com o título "Cuidamos da sua operação para que você cuide do seu negócio."',
+      alt: 'Home do novo site da Jumper aberta em um notebook e um smartphone, com o título "Cuidamos da sua operação para que você cuide do seu negócio."',
     },
     url: 'https://jumperseg.com.br/',
     tags: ['Vibe coding', 'GSAP', 'Animações de scroll', 'Copy de conversão'],
@@ -77,7 +77,7 @@ const PROJECT_CONTENT = {
       fallback: `${BASE_URL}images/projects/vikings-showcase.jpg`,
       width: 2000,
       height: 1116,
-      alt: 'Home do novo site do Grupo Vikings aberta em um notebook, com o título "Produtividade e atendimento de excelência em facilities e segurança."',
+      alt: 'Home do novo site do Grupo Vikings aberta em um notebook e um smartphone, com o título "Produtividade e atendimento de excelência em facilities e segurança."',
     },
     url: 'https://grupo-vikings.web-cf8.workers.dev/',
     tags: ['Código moderno (sem WordPress)', 'Vídeo no hero', 'PT/EN'],
@@ -283,7 +283,7 @@ function initOverlay({ lenis }) {
   if (!overlay || !closeBtn) return;
 
   const nameField = overlay.querySelector('[data-field="name"]');
-  const nameRowField = overlay.querySelector('[data-name-row]');
+  const visitRowField = overlay.querySelector('[data-visit-row]');
   const serviceField = overlay.querySelector('[data-field="service"]');
   const mediaField = overlay.querySelector('[data-project-media]');
   const bodyField = overlay.querySelector('[data-project-body]');
@@ -317,7 +317,7 @@ function initOverlay({ lenis }) {
     if (!bodyField) return;
     bodyField.innerHTML = '';
     if (mediaField) mediaField.innerHTML = '';
-    nameRowField?.querySelector('.project-overlay__visit')?.remove();
+    if (visitRowField) visitRowField.innerHTML = '';
 
     const content = PROJECT_CONTENT[projectName];
     if (!content) {
@@ -347,19 +347,18 @@ function initOverlay({ lenis }) {
       mediaField.appendChild(picture);
     }
 
-    // Ícone "abrir site" do lado do título, alinhado ao topo da palavra
-    // (ver .project-overlay__name-row). Só aparece pra quem tem `url`
-    // no PROJECT_CONTENT (limpo no topo desta função a cada render).
-    if (content.url && nameRowField) {
+    // Botão "ver site no ar" logo abaixo do título (ver .project-overlay__visit-row).
+    // Só aparece pra quem tem `url` no PROJECT_CONTENT (limpo no topo
+    // desta função a cada render).
+    if (content.url && visitRowField) {
       const link = document.createElement('a');
-      link.className = 'project-overlay__visit';
+      link.className = 'project-overlay__visit-cta';
       link.href = content.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.setAttribute('aria-label', 'Abrir site em uma nova aba');
       link.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><path d="M15 3h6v6" /><path d="M10 14 21 3" /></svg>';
-      nameRowField.appendChild(link);
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><path d="M15 3h6v6" /><path d="M10 14 21 3" /></svg><span>Ver projeto no ar</span>';
+      visitRowField.appendChild(link);
     }
 
     if (content.tags?.length) {

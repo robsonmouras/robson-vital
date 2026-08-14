@@ -1267,9 +1267,6 @@ main > section {
   color: var(--c-accent);
 }
 
-/* Título + link "abrir site" lado a lado, centralizados como grupo —
-   `align-items: flex-start` alinha o ícone ao topo da palavra em vez do
-   centro vertical do título (bem maior que o ícone). */
 .project-overlay__name-row {
   display: flex;
   align-items: flex-start;
@@ -1331,30 +1328,49 @@ main > section {
   display: block;
 }
 
-/* Ícone "abrir site", ao lado do título (ver .project-overlay__name-row).
-   Sem fundo/círculo — é uma marca discreta ao lado do nome, não um botão
-   de ação flutuante como o fechar. `margin-top` aproxima o topo do ícone
-   da altura de caixa (cap-height) da letra maiúscula, não da linha toda. */
-.project-overlay__visit {
+/* Botão "ver site no ar", logo abaixo do título (ver .project-overlay__name-row).
+   Fica no fluxo normal (rola junto com o conteúdo), vazio pra quem não
+   tem `url` em PROJECT_CONTENT — nesse caso some (:empty) sem deixar
+   respiro extra. Borda + rótulo pra ser um botão de verdade, não um
+   ícone discreto fácil de não notar; estilo outline pra não competir com
+   o preenchido "Fale comigo" (canto fixo, ver .project-overlay__contact-cta). */
+.project-overlay__visit-row {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  margin-top: 0.5em;
-  color: var(--c-ink-500);
+  margin: 0 0 1.5rem;
+}
+
+.project-overlay__visit-row:empty {
+  display: none;
+  margin: 0;
+}
+
+.project-overlay__visit-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.35rem;
+  border: 1px solid var(--c-gray-250);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--c-ink-900);
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.project-overlay__visit:hover,
-.project-overlay__visit:focus-visible {
+.project-overlay__visit-cta:hover,
+.project-overlay__visit-cta:focus-visible {
+  border-color: var(--c-accent);
   color: var(--c-accent);
-  transform: translate(2px, -2px);
+  transform: translateY(-2px);
 }
 
-.project-overlay__visit svg {
-  width: 1.5rem;
-  height: 1.5rem;
+.project-overlay__visit-cta svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
 }
 
 .project-overlay__tags {
@@ -1942,7 +1958,7 @@ main > section {
   .project-tile,
   .project-tile__logo,
   .project-overlay__close,
-  .project-overlay__visit,
+  .project-overlay__visit-cta,
   .project-overlay__contact-cta,
   .project-overlay__contact-cta-icon,
   .contact-overlay,

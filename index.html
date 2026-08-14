@@ -509,12 +509,13 @@
 
       <div class="project-overlay__inner">
         <p class="project-overlay__service" id="projectOverlayService" data-field="service"></p>
-        <!-- O link "abrir site" (se o projeto tiver `url` em PROJECT_CONTENT)
-             é inserido aqui do lado do h2 por projects.js, alinhado ao topo
-             do título — ver .project-overlay__name-row. -->
         <div class="project-overlay__name-row" data-name-row>
           <h2 class="project-overlay__name" id="projectOverlayName" data-field="name"></h2>
         </div>
+        <!-- Botão "ver site no ar" (se o projeto tiver `url` em PROJECT_CONTENT)
+             é inserido aqui por projects.js, logo abaixo do título — ver
+             .project-overlay__visit-row. -->
+        <div class="project-overlay__visit-row" data-visit-row></div>
         <p class="project-overlay__placeholder-note" data-placeholder-note>Conteúdo detalhado em breve.</p>
 
         <!-- Montado dinamicamente por projects.js (ver PROJECT_CONTENT). -->
