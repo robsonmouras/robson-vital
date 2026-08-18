@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /briefing-site.html
 Sitemap: https://robsonvital.com.br/sitemap.xml
