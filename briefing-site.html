@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de Projeto — Robson Vital</title>
+<style>
+  :root{
+    --accent:#dc2626;
+    --ink-950:#0f172a;
+    --ink-700:#334155;
+    --ink-500:#64748b;
+    --ink-400:#94a3b8;
+    --gray-200:#e5e7eb;
+    --gray-100:#f1f5f9;
+    --gray-50:#f8fafc;
+    --white:#ffffff;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:var(--gray-50); color:var(--ink-950);
+    font-family:"Helvetica Neue", Arial, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .wrap{ max-width:640px; margin:0 auto; padding:32px 20px 64px; }
+  .brand{ font-size:13px; font-weight:800; letter-spacing:.02em; color:var(--ink-950); }
+  .brand b{ color:var(--accent); }
+  .eyebrow{ display:flex; align-items:center; gap:9px; margin-top:26px;
+    font-size:11px; font-weight:800; letter-spacing:.14em; color:var(--accent); text-transform:uppercase; }
+  .eyebrow::before{ content:""; width:22px; height:3px; background:var(--accent); }
+  h1{ font-size:28px; font-weight:800; letter-spacing:-.01em; margin-top:12px; line-height:1.1; }
+  .lead{ color:var(--ink-500); font-size:15px; margin-top:10px; }
+  form{ margin-top:26px; }
+  .field{ background:var(--white); border:1px solid var(--gray-200); border-radius:12px;
+    padding:18px 18px 20px; margin-bottom:14px; }
+  label.q{ display:block; font-size:15px; font-weight:700; color:var(--ink-950); margin-bottom:4px; }
+  .hint{ font-size:12.5px; color:var(--ink-500); margin-bottom:12px; }
+  .req{ color:var(--accent); }
+  input[type=text], input[type=email], input[type=tel], input[type=url], textarea, select{
+    width:100%; font:inherit; font-size:15px; color:var(--ink-950);
+    background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px;
+    padding:11px 13px; outline:none; transition:border-color .15s, background .15s; }
+  input:focus, textarea:focus, select:focus{ border-color:var(--accent); background:#fff; }
+  textarea{ min-height:92px; resize:vertical; }
+  .opts{ display:flex; flex-direction:column; gap:9px; }
+  .opt{ display:flex; align-items:flex-start; gap:10px; font-size:14.5px; color:var(--ink-700);
+    padding:10px 12px; border:1px solid var(--gray-200); border-radius:8px; background:var(--gray-50); cursor:pointer; }
+  .opt:hover{ border-color:var(--ink-400); }
+  .opt input{ margin-top:2px; accent-color:var(--accent); width:16px; height:16px; flex:0 0 16px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:520px){ .row2{ grid-template-columns:1fr; } }
+  button{ width:100%; margin-top:8px; background:var(--accent); color:#fff; font:inherit;
+    font-size:16px; font-weight:800; border:none; border-radius:999px; padding:16px; cursor:pointer;
+    transition:transform .15s, opacity .15s; }
+  button:hover{ transform:translateY(-2px); }
+  button:disabled{ opacity:.6; cursor:default; transform:none; }
+  .footer{ text-align:center; margin-top:22px; font-size:12px; color:var(--ink-400);
+    text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+  .success{ display:none; background:#fff; border:1px solid var(--gray-200); border-radius:14px;
+    padding:40px 26px; text-align:center; }
+  .success .check{ width:56px; height:56px; border-radius:50%; background:var(--accent);
+    color:#fff; font-size:30px; line-height:56px; margin:0 auto 18px; }
+  .success h2{ font-size:22px; font-weight:800; }
+  .success p{ color:var(--ink-500); margin-top:10px; font-size:15px; }
+  .err{ color:var(--accent); font-size:13.5px; margin-top:10px; text-align:center; display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Robson <b>Vital</b></div>
+  <div class="eyebrow">Briefing de Projeto</div>
+  <h1 id="title">Vamos montar o seu site</h1>
+  <p class="lead">São poucas perguntas — leva uns 3 minutos. Quanto mais detalhe você der, mais a proposta vai ter a sua cara. Sem compromisso.</p>
+
+  <form id="briefing">
+    <div class="field">
+      <label class="q">Seu nome / nome do negócio <span class="req">*</span></label>
+      <input type="text" name="nome" required>
+    </div>
+
+    <div class="field row2">
+      <div>
+        <label class="q">WhatsApp <span class="req">*</span></label>
+        <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required>
+      </div>
+      <div>
+        <label class="q">E-mail</label>
+        <input type="email" name="email" placeholder="voce@email.com">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Qual seu objetivo nº1 com o site? <span class="req">*</span></label>
+      <div class="hint">Pode marcar mais de um.</div>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="objetivo" value="Aparecer no Google e atrair clientes novos"> Aparecer no Google e atrair clientes novos</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Passar mais credibilidade / profissionalismo"> Passar mais credibilidade e profissionalismo</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Vender cursos, produtos ou palestras"> Vender cursos, produtos ou palestras</label>
+        <label class="opt"><input type="checkbox" name="objetivo" value="Centralizar meus serviços num lugar só"> Centralizar meus serviços num lugar só</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Quais serviços você oferece? E qual é o carro-chefe? <span class="req">*</span></label>
+      <div class="hint">Liste os serviços e diga qual você mais quer vender / encher a agenda.</div>
+      <textarea name="servicos" required></textarea>
+    </div>
+
+    <div class="field">
+      <label class="q">Quem é o cliente que você mais quer atrair?</label>
+      <div class="hint">Ex.: pessoas com dor crônica, público de longevidade, empresas, noivas...</div>
+      <textarea name="publico"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="q">Como você quer receber o contato? <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="contato" value="Direto no meu WhatsApp" required> Direto no meu WhatsApp</label>
+        <label class="opt"><input type="radio" name="contato" value="Agendamento online (cliente escolhe horário)"> Agendamento online (o cliente escolhe o horário)</label>
+        <label class="opt"><input type="radio" name="contato" value="Formulário de contato / orçamento"> Formulário de contato ou orçamento</label>
+        <label class="opt"><input type="radio" name="contato" value="Ainda não sei"> Ainda não sei, quero sua sugestão</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Você já tem material pronto?</label>
+      <div class="hint">Marque o que já tiver — o que faltar a gente resolve junto.</div>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="material" value="Fotos profissionais"> Fotos profissionais (suas / do trabalho)</label>
+        <label class="opt"><input type="checkbox" name="material" value="Textos / descrições"> Textos e descrições dos serviços</label>
+        <label class="opt"><input type="checkbox" name="material" value="Depoimentos de clientes"> Depoimentos de clientes</label>
+        <label class="opt"><input type="checkbox" name="material" value="Logo / identidade visual"> Logo e identidade visual próprios</label>
+        <label class="opt"><input type="checkbox" name="material" value="Ainda não tenho nada pronto"> Ainda não tenho nada pronto</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Tem algum site de referência que você gosta?</label>
+      <div class="hint">Cole links ou nomes de sites/perfis com um visual que te agrada.</div>
+      <textarea name="referencias"></textarea>
+    </div>
+
+    <div class="field row2">
+      <div>
+        <label class="q">Já tem domínio próprio?</label>
+        <input type="text" name="dominio" placeholder="ex.: seunome.com.br — ou 'não'">
+      </div>
+      <div>
+        <label class="q">Prazo / urgência</label>
+        <select name="prazo">
+          <option value="">Selecione...</option>
+          <option>O quanto antes</option>
+          <option>Nas próximas semanas</option>
+          <option>Sem pressa, quero fazer bem feito</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Quer contar mais alguma coisa?</label>
+      <div class="hint">Qualquer detalhe, ideia ou dúvida que ajude a entender seu projeto.</div>
+      <textarea name="observacoes"></textarea>
+    </div>
+
+    <div class="err" id="err">Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.</div>
+    <button type="submit" id="btn">Enviar briefing</button>
+    <div class="footer">Robson Vital · robsonvital.com.br</div>
+  </form>
+
+  <div class="success" id="success">
+    <div class="check">✓</div>
+    <h2>Recebido! Obrigado 🙌</h2>
+    <p>Já tô com tudo aqui. Vou analisar e te chamar no WhatsApp com a proposta e o investimento certinho pro seu momento.</p>
+  </div>
+</div>
+
+<script>
+  // ====== CONFIG: cole aqui a URL do App da Web do Google Apps Script ======
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbwlWJKTCrAo6Lu-VpRL8K_K6OaF_lw-hHbtsYyhIJMVYMrd5iRJ0ELnHa1g0xYYqdLGgA/exec";
+  // ========================================================================
+
+  const form = document.getElementById('briefing');
+  const btn = document.getElementById('btn');
+  const err = document.getElementById('err');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    err.style.display = 'none';
+
+    // exige pelo menos um objetivo marcado
+    if(!form.querySelector('input[name="objetivo"]:checked')){
+      err.textContent = 'Marque pelo menos um objetivo.';
+      err.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const fd = new FormData(form);
+    const params = new URLSearchParams();
+    // agrupa checkboxes (objetivo, material) em texto separado por " | "
+    const grouped = {};
+    for(const [k,v] of fd.entries()){
+      if(grouped[k]) grouped[k] += ' | ' + v; else grouped[k] = v;
+    }
+    for(const k in grouped) params.append(k, grouped[k]);
+
+    try{
+      if(ENDPOINT.startsWith('http')){
+        await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: params });
+      }
+      form.style.display = 'none';
+      document.getElementById('title').style.display = 'none';
+      document.querySelector('.lead').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      window.scrollTo({top:0, behavior:'smooth'});
+    }catch(e){
+      btn.disabled = false;
+      btn.textContent = 'Enviar briefing';
+      err.textContent = 'Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.';
+      err.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
