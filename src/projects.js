@@ -14,8 +14,22 @@ const BASE_URL = import.meta.env.BASE_URL;
  * Projeto sem entrada aqui cai no aviso placeholder
  * (.project-overlay__placeholder-note).
  */
+// Selo "desenvolvido para cliente da Zalieza" (ver PROJECT_CONTENT/
+// buildPartnerNote), reaproveitado nos projetos captados via agência —
+// hoje Jumper, Grupo RCR, Grupo Vikings e Inov9.
+const ZALIEZA_PARTNER = {
+  name: 'Zalieza',
+  url: 'https://zalieza.com/',
+  logo: {
+    src: `${BASE_URL}images/logos/zalieza.svg`,
+    alt: 'Logo da Zalieza',
+  },
+  text: 'Site desenvolvido para cliente da',
+};
+
 const PROJECT_CONTENT = {
   Jumper: {
+    partner: ZALIEZA_PARTNER,
     media: {
       // Gerado a partir do print original (~1.8MB) via sharp-cli,
       // redimensionado pra 2000px de largura — ver public/images/projects.
@@ -43,6 +57,7 @@ const PROJECT_CONTENT = {
     ],
   },
   'Grupo RCR': {
+    partner: ZALIEZA_PARTNER,
     media: {
       // Gerado a partir do print original (~1.4MB) via sharp-cli,
       // redimensionado pra 2000px de largura — ver public/images/projects.
@@ -70,6 +85,7 @@ const PROJECT_CONTENT = {
     ],
   },
   'Grupo Vikings': {
+    partner: ZALIEZA_PARTNER,
     media: {
       // Mockup em laptop gerado a partir do print original, redimensionado
       // pra 2000px de largura via sharp-cli — ver public/images/projects.
@@ -97,6 +113,7 @@ const PROJECT_CONTENT = {
     ],
   },
   Inov9: {
+    partner: ZALIEZA_PARTNER,
     media: {
       // Gerado a partir do print original via sharp-cli, redimensionado
       // pra 2000px de largura — ver public/images/projects.
@@ -401,6 +418,11 @@ function initOverlay({ lenis }) {
       wrap.append(heading, text);
       bodyField.appendChild(wrap);
     });
+
+    // Selo do parceiro por último, fechando o case study.
+    if (content.partner) {
+      bodyField.appendChild(buildPartnerNote(content.partner));
+    }
   }
 
   /**
@@ -493,6 +515,39 @@ function initOverlay({ lenis }) {
     }
 
     return quote;
+  }
+
+  /**
+   * Selo "desenvolvido para cliente da [parceiro]" (ver ZALIEZA_PARTNER em
+   * PROJECT_CONTENT) — projetos captados via agência, não diretamente pelo
+   * cliente final. Link sai em nova aba, igual o CTA "ver site no ar".
+   */
+  function buildPartnerNote(partner) {
+    const note = document.createElement('a');
+    note.className = 'project-overlay__partner-note';
+    note.href = partner.url;
+    note.target = '_blank';
+    note.rel = 'noopener noreferrer';
+
+    const text = document.createElement('span');
+    text.textContent = partner.text;
+    note.appendChild(text);
+
+    if (partner.logo) {
+      const img = document.createElement('img');
+      img.className = 'project-overlay__partner-logo';
+      img.src = partner.logo.src;
+      img.alt = partner.logo.alt || partner.name;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      note.appendChild(img);
+    } else {
+      const name = document.createElement('strong');
+      name.textContent = partner.name;
+      note.appendChild(name);
+    }
+
+    return note;
   }
 
   function close() {

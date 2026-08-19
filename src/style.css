@@ -1392,6 +1392,33 @@ main > section {
   color: var(--c-ink-600);
 }
 
+/* Selo "desenvolvido para cliente da Zalieza" (ver PROJECT_CONTENT/
+   buildPartnerNote em projects.js), fechando o case study — sem borda,
+   pra ler como crédito discreto, não como badge/tag. */
+.project-overlay__partner-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--c-ink-500);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.project-overlay__partner-note:hover,
+.project-overlay__partner-note:focus-visible {
+  color: var(--c-ink-700);
+}
+
+.project-overlay__partner-logo {
+  height: 4rem;
+  width: auto;
+  display: block;
+}
+
 /* Coluna centralizada, texto alinhado à esquerda dentro dela — mesmo
    padrão de leitura usado em .trajectory__desc. */
 .project-overlay__section {
