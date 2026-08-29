@@ -307,19 +307,67 @@ function initOverlay({ lenis }) {
   const placeholderNote = overlay.querySelector('[data-placeholder-note]');
 
   let lastFocused = null;
+  let currentSlug = null;
 
-  function open(tile) {
+  /**
+   * URL própria por projeto, pra rastrear no GTM/Analytics qual case é
+   * mais visto e permitir link direto. Usa hash (`#/projetos/<slug>`) em
+   * vez de caminho real porque o site é estático no GitHub Pages — hash
+   * não precisa de fallback de servidor e não corre risco de SEO.
+   * Slug = `data-slug` do tile (ver index.html).
+   */
+  const PROJECT_HASH_PREFIX = '#/projetos/';
+  const slugToTile = new Map();
+  tiles.forEach((tile) => {
+    if (tile.dataset.slug) slugToTile.set(tile.dataset.slug, tile);
+  });
+
+  function slugFromHash() {
+    const hash = window.location.hash;
+    return hash.startsWith(PROJECT_HASH_PREFIX)
+      ? decodeURIComponent(hash.slice(PROJECT_HASH_PREFIX.length))
+      : null;
+  }
+
+  // `syncUrl: false` quando a abertura veio da própria URL (deep link ou
+  // botão voltar/avançar) — aí o histórico já está no estado certo e não
+  // se deve empilhar outra entrada.
+  function open(tile, { syncUrl = true } = {}) {
+    const slug = tile.dataset.slug || null;
+
     if (nameField) nameField.textContent = tile.dataset.name || '';
     if (serviceField) serviceField.textContent = tile.dataset.service || '';
     renderProjectBody(tile.dataset.name);
     if (scroller) scroller.scrollTop = 0;
 
-    lastFocused = document.activeElement;
+    if (!overlay.classList.contains('is-open')) {
+      lastFocused = document.activeElement;
+    }
     overlay.setAttribute('aria-hidden', 'false');
     overlay.classList.add('is-open');
     document.body.classList.add('has-overlay');
     lenis?.stop();
     closeBtn.focus();
+
+    currentSlug = slug;
+
+    if (slug && syncUrl) {
+      window.history.pushState(
+        { project: slug },
+        '',
+        PROJECT_HASH_PREFIX + slug
+      );
+    }
+
+    if (slug) {
+      // Evento explícito pro GTM/GA4 — mais confiável do que depender do
+      // gatilho de History Change pra medir visualização de cada case.
+      window.dataLayer?.push({
+        event: 'view_project',
+        project_name: tile.dataset.name || '',
+        project_slug: slug,
+      });
+    }
   }
 
   /**
@@ -550,12 +598,52 @@ function initOverlay({ lenis }) {
     return note;
   }
 
-  function close() {
+  function close({ syncUrl = true } = {}) {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('has-overlay');
     lenis?.start();
     if (lastFocused instanceof HTMLElement) lastFocused.focus();
+
+    currentSlug = null;
+
+    // Só mexe na URL quando o fechamento partiu de um gesto do usuário
+    // (botão, fundo, Escape). Se veio do popstate (voltar), a URL já
+    // está limpa.
+    if (syncUrl && slugFromHash()) {
+      if (window.history.state?.project) {
+        // Abrimos via clique (empilhamos uma entrada): voltar remove o
+        // hash e mantém o histórico consistente.
+        window.history.back();
+      } else {
+        // Deep link direto, sem entrada nossa pra voltar: só troca a URL.
+        window.history.replaceState(
+          null,
+          '',
+          window.location.pathname + window.location.search
+        );
+      }
+    }
+  }
+
+  // Voltar/avançar do navegador: sincroniza o overlay com a URL.
+  window.addEventListener('popstate', () => {
+    const slug = slugFromHash();
+    const tile = slug ? slugToTile.get(slug) : null;
+
+    if (tile && !tile.querySelector('.project-tile__wip')) {
+      if (slug !== currentSlug) open(tile, { syncUrl: false });
+    } else if (overlay.classList.contains('is-open')) {
+      close({ syncUrl: false });
+    }
+  });
+
+  // Link direto (`robsonvital.com.br/#/projetos/jumper`): abre o case já
+  // no carregamento.
+  const initialSlug = slugFromHash();
+  const initialTile = initialSlug ? slugToTile.get(initialSlug) : null;
+  if (initialTile && !initialTile.querySelector('.project-tile__wip')) {
+    open(initialTile, { syncUrl: false });
   }
 
   // Tiles marcados como "em andamento" (ver .project-tile__wip no
