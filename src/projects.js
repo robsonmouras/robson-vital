@@ -72,7 +72,7 @@ const PROJECT_CONTENT = {
     sections: [
       {
         heading: 'O problema',
-        text: 'O Grupo RCR já tinha um site, mas ele não acompanhava o momento da empresa, um crescimento exponencial na sua área, e deixava a operação parecer menor do que é.',
+        text: 'O Grupo RCR já tinha um site, mas ele não acompanhava o momento da empresa, um crescimento exponencial na sua área, e deixava a operação parecer menor do que é. O projeto foi conduzido via Zalieza, agência responsável pela conta.',
       },
       {
         heading: 'O que eu fiz',
@@ -100,7 +100,7 @@ const PROJECT_CONTENT = {
     sections: [
       {
         heading: 'O problema',
-        text: 'O Grupo Vikings, empresa de facilities e segurança, já tinha um site, mas antigo e defasado em relação ao momento da operação.',
+        text: 'O Grupo Vikings, empresa de facilities e segurança, já tinha um site, mas antigo e defasado em relação ao momento da operação. O projeto foi conduzido via Zalieza, agência responsável pela conta.',
       },
       {
         heading: 'O que eu fiz',
@@ -128,7 +128,7 @@ const PROJECT_CONTENT = {
     sections: [
       {
         heading: 'O problema',
-        text: 'O Grupo Inov9, segurança, facilities e tecnologia, ainda não tinha site. Sem presença digital, a empresa não tinha como transmitir pra quem chegava até ela o ponto em que já estava: uma operação madura e estruturada.',
+        text: 'O Grupo Inov9, segurança, facilities e tecnologia, ainda não tinha site. Sem presença digital, a empresa não tinha como transmitir pra quem chegava até ela o ponto em que já estava: uma operação madura e estruturada. O projeto foi conduzido via Zalieza, agência responsável pela conta.',
       },
       {
         heading: 'O que eu fiz',
