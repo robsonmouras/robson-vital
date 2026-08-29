@@ -40,19 +40,19 @@ const PROJECT_CONTENT = {
       alt: 'Home do novo site da Jumper aberta em um notebook e um smartphone, com o título "Cuidamos da sua operação para que você cuide do seu negócio."',
     },
     url: 'https://jumperseg.com.br/',
-    tags: ['Vibe coding', 'GSAP', 'Animações de scroll', 'Copy de conversão'],
+    tags: ['GSAP', 'Animações de scroll', 'Copy de conversão'],
     sections: [
       {
         heading: 'O problema',
-        text: 'A Jumper, grupo que integra segurança, facilities e tecnologia, tinha um site antigo, feito em WordPress. Visual genérico, sem hierarquia de conteúdo e nenhuma estrutura pensada pra converter visita em contato.',
+        text: 'A Jumper, grupo que integra segurança, facilities e tecnologia, tinha um site antigo em WordPress: visual genérico, sem hierarquia de conteúdo e nenhuma estrutura pensada para converter visita em contato. O projeto foi conduzido via Zalieza, agência responsável pela conta.',
       },
       {
         heading: 'O que eu fiz',
-        text: 'Projetei o site inteiro em vibe coding: fluxo apoiado em IA pra ganhar velocidade, mas com cada tela, animação e linha de copy revisada e ajustada à mão, sem deixar nada com "cara de IA". Site do zero, sem WordPress, com animações em GSAP orientadas a scroll pra guiar o visitante pela narrativa da marca, e conteúdo reescrito seção por seção com foco em conversão.',
+        text: 'Projetei e desenvolvi o site do zero, sem WordPress, usando IA como acelerador de fluxo, mas com cada tela, animação e linha de copy revisada e ajustada manualmente, sem deixar nada com "cara de gerado automaticamente". Implementei animações em GSAP orientadas a scroll para guiar o visitante pela narrativa da marca, e reescrevi o conteúdo seção por seção com foco em conversão.',
       },
       {
         heading: 'Resultado',
-        text: 'Um site entregue rápido e que carrega rápido, no nível da operação que a Jumper representa, da segurança patrimonial ao centro de controle 24/7, com uma experiência de scroll que segura atenção, leva à ação e não parece ter saído de um gerador automático.',
+        text: 'Um site rápido para carregar e rápido para entregar, à altura da operação que a Jumper representa, da segurança patrimonial ao centro de controle 24/7, com uma experiência de scroll que prende atenção, conduz à ação e tem identidade própria.',
       },
     ],
   },
