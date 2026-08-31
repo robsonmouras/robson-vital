@@ -2,7 +2,23 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+
+<!-- Google Tag Manager (mesmo container do site, GTM-K7RJPKD) — pra medir
+     briefing enviado como conversão. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K7RJPKD');</script>
+<!-- End Google Tag Manager -->
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Cloudflare Turnstile — desafio anti-bot do formulário. A chave do site
+     (data-sitekey no widget) é pública; a validação do token é feita no
+     servidor (siteverify no apps-script-briefing.gs, com a secret key). -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <!-- Página de acesso restrito: só deve ser aberta por quem recebe o link
      diretamente. noindex/nofollow pede pros buscadores não indexar nem
      seguir links daqui; reforçado também em public/robots.txt. -->
@@ -65,9 +81,17 @@
   .success h2{ font-size:22px; font-weight:800; }
   .success p{ color:var(--ink-500); margin-top:10px; font-size:15px; }
   .err{ color:var(--accent); font-size:13.5px; margin-top:10px; text-align:center; display:none; }
+  /* Honeypot anti-spam: fora da tela pra gente, mas visível pra bot. */
+  .hp{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+  .cf-turnstile{ display:flex; justify-content:center; margin:6px 0 2px; min-height:65px; }
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7RJPKD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <div class="wrap">
   <div class="brand">Robson <b>Vital</b></div>
   <div class="eyebrow">Briefing de Projeto</div>
@@ -75,6 +99,14 @@
   <p class="lead">São poucas perguntas — leva uns 3 minutos. Quanto mais detalhe você der, mais a proposta vai ter a sua cara. Sem compromisso.</p>
 
   <form id="briefing">
+    <!-- Honeypot: bot preenche, o Apps Script descarta o envio silenciosamente
+         (ver apps-script-briefing.gs). Não é campo real do briefing. -->
+    <div class="hp" aria-hidden="true">
+      <label>Deixe este campo em branco
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+    </div>
+
     <div class="field">
       <label class="q">Seu nome / nome do negócio <span class="req">*</span></label>
       <input type="text" name="nome" required>
@@ -164,6 +196,11 @@
       <textarea name="observacoes"></textarea>
     </div>
 
+    <!-- Cloudflare Turnstile: renderiza sozinho pela classe e injeta um
+         <input name="cf-turnstile-response"> neste form, validado no Apps Script. -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEAHQMq_kGnLj1Im"
+      data-theme="light" data-language="pt-br" data-refresh-expired="auto"></div>
+
     <div class="err" id="err">Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.</div>
     <button type="submit" id="btn">Enviar briefing</button>
     <div class="footer">Robson Vital · robsonvital.com.br</div>
@@ -185,13 +222,35 @@
   const btn = document.getElementById('btn');
   const err = document.getElementById('err');
 
+  // Momento em que a página carregou — envio quase instantâneo é bot
+  // (a checagem final é no Apps Script, ver `_elapsed` lá).
+  const loadedAt = Date.now();
+
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     err.style.display = 'none';
 
+    // Honeypot preenchido: só um bot faria isso. Finge que deu certo
+    // (sem enviar nada) pra não sinalizar a armadilha.
+    if(form.elements.website && form.elements.website.value){
+      form.style.display = 'none';
+      document.getElementById('title').style.display = 'none';
+      document.querySelector('.lead').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      return;
+    }
+
     // exige pelo menos um objetivo marcado
     if(!form.querySelector('input[name="objetivo"]:checked')){
       err.textContent = 'Marque pelo menos um objetivo.';
+      err.style.display = 'block';
+      return;
+    }
+
+    // Turnstile: precisa do token antes de enviar (validado no servidor).
+    const tsField = form.elements['cf-turnstile-response'];
+    if(!tsField || !tsField.value){
+      err.textContent = 'Confirme que você não é um robô e tente de novo.';
       err.style.display = 'block';
       return;
     }
@@ -207,11 +266,15 @@
       if(grouped[k]) grouped[k] += ' | ' + v; else grouped[k] = v;
     }
     for(const k in grouped) params.append(k, grouped[k]);
+    params.append('_elapsed', String(Date.now() - loadedAt));
 
     try{
       if(ENDPOINT.startsWith('http')){
         await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: params });
       }
+      // Conversão pro GTM/GA4: briefing enviado com sucesso.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'briefing_enviado' });
       form.style.display = 'none';
       document.getElementById('title').style.display = 'none';
       document.querySelector('.lead').style.display = 'none';
@@ -222,6 +285,8 @@
       btn.textContent = 'Enviar briefing';
       err.textContent = 'Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.';
       err.style.display = 'block';
+      // Token do Turnstile é de uso único — gera um novo pra próxima tentativa.
+      if(window.turnstile) window.turnstile.reset();
     }
   });
 </script>
