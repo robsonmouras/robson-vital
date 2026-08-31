@@ -363,7 +363,10 @@ function initOverlay({ lenis }) {
     if (nameField) nameField.textContent = tile.dataset.name || '';
     if (serviceField) serviceField.textContent = tile.dataset.service || '';
     renderProjectBody(tile.dataset.name);
-    if (scroller) scroller.scrollTop = 0;
+    if (scroller) {
+      scroller.scrollTop = 0;
+      scroller.classList.remove('is-scrolled');
+    }
 
     if (!overlay.classList.contains('is-open')) {
       lastFocused = document.activeElement;
@@ -435,6 +438,17 @@ function initOverlay({ lenis }) {
       picture.appendChild(img);
 
       mediaField.appendChild(picture);
+
+      // Seta animada sobre a imagem de capa, avisando que dá pra rolar
+      // pra ver o case study. Some assim que o usuário rola
+      // (ver .is-scrolled em initOverlay e .project-overlay__scroll-hint
+      // no CSS).
+      const scrollHint = document.createElement('div');
+      scrollHint.className = 'project-overlay__scroll-hint';
+      scrollHint.setAttribute('aria-hidden', 'true');
+      scrollHint.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>';
+      mediaField.appendChild(scrollHint);
     }
 
     // Botão "ver site no ar" logo abaixo do título (ver .project-overlay__visit-row).
@@ -720,6 +734,18 @@ function initOverlay({ lenis }) {
     if (tile.querySelector('.project-tile__wip')) return;
     tile.addEventListener('click', () => open(tile));
   });
+
+  // Rolou um tico: esconde a seta animada da capa (ver
+  // .project-overlay__scroll-hint no CSS).
+  if (scroller) {
+    scroller.addEventListener(
+      'scroll',
+      () => {
+        scroller.classList.toggle('is-scrolled', scroller.scrollTop > 24);
+      },
+      { passive: true }
+    );
+  }
 
   closeBtn.addEventListener('click', close);
 

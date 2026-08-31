@@ -1322,10 +1322,62 @@ main > section {
   display: none;
 }
 
+/* Capa limitada a 87vh pra sobrar tela pra seta de "rolar" e pro começo
+   do texto (ver .project-overlay__scroll-hint). Acima disso, corta pela
+   base mantendo o topo do mockup. */
+.project-overlay__media:not(:empty) picture {
+  display: block;
+}
+
 .project-overlay__media img {
   width: 100%;
   height: auto;
+  max-height: 87vh;
+  object-fit: cover;
+  object-position: center top;
   display: block;
+}
+
+/* Seta pulsando sobre a imagem de capa, avisando que dá pra rolar pra
+   ver o case study (ver renderProjectBody em projects.js). Some assim
+   que o usuário rola um pouco (.is-scrolled no wrapper __scroll). */
+.project-overlay__scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 3vh, 2rem);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--c-ink-950);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(4px);
+  animation: project-scroll-hint 1.8s ease-in-out infinite;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.project-overlay__scroll-hint svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.project-overlay__scroll.is-scrolled .project-overlay__scroll-hint {
+  opacity: 0;
+}
+
+@keyframes project-scroll-hint {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(0.4rem);
+  }
 }
 
 /* Botão "ver site no ar", logo abaixo do título (ver .project-overlay__name-row).
@@ -2013,7 +2065,8 @@ main > section {
     transform: none;
   }
 
-  .hero__scroll-line {
+  .hero__scroll-line,
+  .project-overlay__scroll-hint {
     animation: none;
   }
 
