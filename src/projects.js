@@ -218,7 +218,17 @@ const PROJECT_CONTENT = {
       },
       {
         heading: 'Resultado',
-        text: 'Depois das melhorias de layout aplicadas a partir dos testes de usabilidade e da análise comportamental, a taxa de conclusão do onboarding e envio de documentos pelos clientes subiu 17%, e a produtividade da equipe de contadores aumentou 24%. Cruzar pesquisa qualitativa com dados de Hotjar e analytics foi o que deu segurança pra priorizar as mudanças certas junto aos stakeholders — em vez de redesenhar por intuição, cada ajuste partiu de um ponto de fricção observado e comprovado, com o impacto medido depois da entrega.',
+        text: 'Depois das melhorias de layout aplicadas a partir dos testes de usabilidade e da análise comportamental, os números confirmaram o que a pesquisa já apontava:',
+      },
+      {
+        type: 'stats',
+        items: [
+          { value: '+17%', label: 'na conclusão de onboarding e envio de documentos pelos clientes' },
+          { value: '+24%', label: 'na produtividade da equipe de contadores' },
+        ],
+      },
+      {
+        text: 'Cruzar pesquisa qualitativa com dados de Hotjar e analytics foi o que deu segurança pra priorizar as mudanças certas junto aos stakeholders — em vez de redesenhar por intuição, cada ajuste partiu de um ponto de fricção observado e comprovado, com o impacto medido depois da entrega.',
       },
     ],
   },
@@ -467,18 +477,32 @@ function initOverlay({ lenis }) {
         return;
       }
 
+      // Números de resultado em destaque (ver PROJECT_CONTENT, `sections`
+      // com `type: 'stats'`) — usado pra dar peso visual a métricas de
+      // impacto em vez de deixá-las perdidas no meio do parágrafo.
+      if (section.type === 'stats') {
+        bodyField.appendChild(buildStats(section));
+        return;
+      }
+
       const wrap = document.createElement('div');
       wrap.className = 'project-overlay__section';
 
-      const heading = document.createElement('h3');
-      heading.className = 'project-overlay__section-heading';
-      heading.textContent = section.heading;
+      // `heading` é opcional — permite emendar um parágrafo de
+      // continuação (ex.: logo antes/depois de um bloco de `stats`) sem
+      // repetir o título da seção anterior.
+      if (section.heading) {
+        const heading = document.createElement('h3');
+        heading.className = 'project-overlay__section-heading';
+        heading.textContent = section.heading;
+        wrap.appendChild(heading);
+      }
 
       const text = document.createElement('p');
       text.className = 'project-overlay__section-text';
       text.textContent = section.text;
 
-      wrap.append(heading, text);
+      wrap.appendChild(text);
       bodyField.appendChild(wrap);
     });
 
@@ -578,6 +602,34 @@ function initOverlay({ lenis }) {
     }
 
     return quote;
+  }
+
+  /**
+   * Números de resultado em destaque (ver PROJECT_CONTENT, `sections` com
+   * `type: 'stats'`) — cada item é `{ value, label }`, renderizado lado a
+   * lado (empilha no mobile via CSS, ver .project-overlay__stats).
+   */
+  function buildStats(section) {
+    const row = document.createElement('div');
+    row.className = 'project-overlay__stats';
+
+    section.items?.forEach((item) => {
+      const stat = document.createElement('div');
+      stat.className = 'project-overlay__stat';
+
+      const value = document.createElement('strong');
+      value.className = 'project-overlay__stat-value';
+      value.textContent = item.value;
+
+      const label = document.createElement('span');
+      label.className = 'project-overlay__stat-label';
+      label.textContent = item.label;
+
+      stat.append(value, label);
+      row.appendChild(stat);
+    });
+
+    return row;
   }
 
   /**

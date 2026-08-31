@@ -1522,6 +1522,42 @@ main > section {
   color: var(--c-ink-500);
 }
 
+/* Números de resultado em destaque (ver PROJECT_CONTENT/buildStats em
+   projects.js) — lado a lado enquanto couber, empilha no mobile pra cada
+   número continuar grande e legível em vez de espremer a linha. */
+.project-overlay__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}
+
+.project-overlay__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 15rem;
+}
+
+.project-overlay__stat-value {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  line-height: 1;
+  color: var(--c-accent);
+}
+
+.project-overlay__stat-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--c-ink-600);
+}
+
 /* CTA "Fale comigo" — fica FORA de `.project-overlay__scroll` de propósito,
    igual `.project-overlay__close`, pra continuar visível independente da
    rolagem do case study. Abre `.contact-overlay` por cima (ver contact.js). */
