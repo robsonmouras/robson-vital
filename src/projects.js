@@ -150,10 +150,13 @@ const PROJECT_CONTENT = {
       height: 1116,
       alt: 'Tela de cadastro do Kwik Ledgers aberta em um laptop, com seleção de tipo de pessoa, endereço e contatos.',
     },
-    tags: ['UX/UI', 'Product Design', 'Design System'],
-    // Sequência intercalada: imagem, texto, imagem, citação de cliente,
-    // texto, imagem, texto — cada item cai num tipo diferente dentro de
-    // renderProjectBody (default 'text', mais 'image' e 'quote').
+    tags: ['UX/UI Design', 'Pesquisa & Testes de Usabilidade', 'Design System'],
+    // Sequência intercalada: imagem, texto, imagem, texto, imagem, citação
+    // de cliente, texto, imagem, texto — cada item cai num tipo diferente
+    // dentro de renderProjectBody (default 'text', mais 'image' e 'quote').
+    // Conteúdo alinhado ao case study completo em
+    // Desktop/KL/Portfolio - KwikLedgers/case-study-kwikledgers.md — aqui
+    // condensado pro formato mais curto do overlay.
     sections: [
       {
         type: 'image',
@@ -167,8 +170,8 @@ const PROJECT_CONTENT = {
         alt: 'Painel "Overview" do Kwik Ledgers, com status da contabilidade, contas bancárias, lucro e despesas.',
       },
       {
-        heading: 'Problema',
-        text: 'O desafio era estruturar uma experiência digital para um produto de contabilidade internacional que envolvia diferentes informações, processos e perfis de usuário. A complexidade do serviço precisava ser traduzida em uma interface mais clara, organizada e fácil de utilizar, sem perder de vista as necessidades do negócio.',
+        heading: 'O desafio',
+        text: 'Uma plataforma de contabilidade que combina IA com revisão humana lida com dois públicos bem diferentes dentro do mesmo produto: o cliente, dono do negócio e geralmente sem conhecimento contábil, que precisa concluir um onboarding, enviar documentos e entender relatórios financeiros complexos sem se perder; e o contador, que precisa localizar, revisar e processar documentos e transações de múltiplos clientes com o mínimo de fricção possível. Uma interface mal pensada nesse contexto não gera só insatisfação — ela vira onboarding incompleto, documento enviado errado e mais tempo da equipe interna compensando a confusão de quem está do outro lado.',
       },
       {
         type: 'image',
@@ -177,6 +180,18 @@ const PROJECT_CONTENT = {
         width: 1280,
         height: 996,
         alt: 'Formulário de cadastro do Kwik Ledgers, com seleção de tipo (pessoa física/jurídica), endereço e contatos.',
+      },
+      {
+        heading: 'Processo',
+        text: 'Comecei alinhando com o time de negócio as métricas que mais importavam — conclusão do onboarding, envio correto de documentos e tempo de processamento dos contadores — pra guiar as prioridades de pesquisa e design. A partir daí, cruzei gravações de sessão e mapas de calor do Hotjar com dados de analytics pra identificar, com evidência, em quais telas os clientes hesitavam ou desistiam, e validei essas hipóteses com testes de usabilidade antes de qualquer mudança de layout ir pra produção.',
+      },
+      {
+        type: 'image',
+        src: `${BASE_URL}images/projects/kwik-ledgers-design-system.webp`,
+        fallback: `${BASE_URL}images/projects/kwik-ledgers-design-system.jpg`,
+        width: 1300,
+        height: 880,
+        alt: 'Paleta de cores do design system do Kwik Ledgers — background, primária, secundária, sucesso, erro, desabilitado e CTA, cada uma com o código hexadecimal.',
       },
       {
         type: 'quote',
@@ -190,8 +205,8 @@ const PROJECT_CONTENT = {
         },
       },
       {
-        heading: 'Solução',
-        text: 'Atuei no projeto como Product Designer, com foco em UX/UI, trabalhando na estruturação dos fluxos, arquitetura das informações e criação das interfaces do produto. Transformei necessidades do negócio em soluções digitais, criando e refinando layouts, componentes e padrões visuais. Também trabalhei em conjunto com o desenvolvimento para aproximar design e implementação, garantindo que as soluções fossem não apenas visualmente consistentes, mas também viáveis tecnicamente.',
+        heading: 'Fluxos principais',
+        text: 'Com os achados validados, construí um design system consistente — cores, tipografia, botões, inputs, cards, modais e estados de pagamento — pra dar previsibilidade visual à medida que o produto crescia, e apliquei essa base nos principais fluxos: onboarding e autenticação, gestão de empresas e sócios, dashboard financeiro, contas bancárias, métodos de pagamento, planos e checkout, relatórios financeiros e notificações. Trabalhei em conjunto com o desenvolvimento em cada etapa, pra garantir que as soluções fossem viáveis tecnicamente, não só consistentes na tela.',
       },
       {
         type: 'image',
@@ -203,7 +218,7 @@ const PROJECT_CONTENT = {
       },
       {
         heading: 'Resultado',
-        text: 'O trabalho ajudou a transformar um serviço complexo em uma experiência digital mais estruturada e consistente, estabelecendo uma base de interface e experiência para a evolução do produto. Além da criação das interfaces, minha atuação contribuiu para aproximar produto, design e desenvolvimento, tornando o processo de evolução da plataforma mais organizado e orientado à experiência do usuário.',
+        text: 'Depois das melhorias de layout aplicadas a partir dos testes de usabilidade e da análise comportamental, a taxa de conclusão do onboarding e envio de documentos pelos clientes subiu 17%, e a produtividade da equipe de contadores aumentou 24%. Cruzar pesquisa qualitativa com dados de Hotjar e analytics foi o que deu segurança pra priorizar as mudanças certas junto aos stakeholders — em vez de redesenhar por intuição, cada ajuste partiu de um ponto de fricção observado e comprovado, com o impacto medido depois da entrega.',
       },
     ],
   },
