@@ -329,10 +329,17 @@ function initOverlay({ lenis }) {
   const serviceField = overlay.querySelector('[data-field="service"]');
   const mediaField = overlay.querySelector('[data-project-media]');
   const bodyField = overlay.querySelector('[data-project-body]');
+  const moreField = overlay.querySelector('[data-project-more]');
   const placeholderNote = overlay.querySelector('[data-placeholder-note]');
 
   let lastFocused = null;
   let currentSlug = null;
+  // true só quando empilhamos uma entrada nossa no histórico (pushState) —
+  // aí `close()` pode dar `history.back()` com segurança. Troca de projeto
+  // pelos cards "Veja outros projetos" usa replaceState e não mexe nisto,
+  // então voltar continua fechando o overlay direto, sem reabrir o case
+  // anterior "por cima".
+  let pushedHistoryEntry = false;
 
   /**
    * URL própria por projeto, pra rastrear no GTM/Analytics qual case é
@@ -357,12 +364,17 @@ function initOverlay({ lenis }) {
   // `syncUrl: false` quando a abertura veio da própria URL (deep link ou
   // botão voltar/avançar) — aí o histórico já está no estado certo e não
   // se deve empilhar outra entrada.
-  function open(tile, { syncUrl = true } = {}) {
+  // `replaceUrl: true` quando a troca partiu de dentro do próprio overlay
+  // (cards "Veja outros projetos") — substitui a entrada atual em vez de
+  // empilhar, pra não abrir um case "por cima" do outro: voltar fecha o
+  // overlay direto, sem passar pelo projeto anterior.
+  function open(tile, { syncUrl = true, replaceUrl = false } = {}) {
     const slug = tile.dataset.slug || null;
 
     if (nameField) nameField.textContent = tile.dataset.name || '';
     if (serviceField) serviceField.textContent = tile.dataset.service || '';
     renderProjectBody(tile.dataset.name);
+    renderMoreProjects(slug);
     if (scroller) {
       scroller.scrollTop = 0;
       scroller.classList.remove('is-scrolled');
@@ -380,11 +392,20 @@ function initOverlay({ lenis }) {
     currentSlug = slug;
 
     if (slug && syncUrl) {
-      window.history.pushState(
-        { project: slug },
-        '',
-        PROJECT_HASH_PREFIX + slug
-      );
+      if (replaceUrl) {
+        window.history.replaceState(
+          { project: slug },
+          '',
+          PROJECT_HASH_PREFIX + slug
+        );
+      } else {
+        window.history.pushState(
+          { project: slug },
+          '',
+          PROJECT_HASH_PREFIX + slug
+        );
+        pushedHistoryEntry = true;
+      }
     }
 
     if (slug) {
@@ -524,6 +545,91 @@ function initOverlay({ lenis }) {
     if (content.partner) {
       bodyField.appendChild(buildPartnerNote(content.partner));
     }
+  }
+
+  /**
+   * "Veja outros projetos" no fim do case study: até 3 projetos
+   * sorteados, fora o que está aberto e os marcados como "em andamento"
+   * (ainda sem case pra mostrar). Clicar num card abre aquele projeto no
+   * mesmo overlay — reusa `open`, que já cuida de histórico, scroll e
+   * evento de GTM.
+   */
+  function renderMoreProjects(currentSlug) {
+    if (!moreField) return;
+    moreField.innerHTML = '';
+
+    const pool = [...tiles].filter(
+      (tile) =>
+        tile.dataset.slug &&
+        tile.dataset.slug !== currentSlug &&
+        !tile.querySelector('.project-tile__wip')
+    );
+
+    // Fisher–Yates pra sortear sem viés, depois pega no máximo 3.
+    for (let i = pool.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    const picks = pool.slice(0, 3);
+
+    if (!picks.length) {
+      moreField.hidden = true;
+      return;
+    }
+    moreField.hidden = false;
+
+    const heading = document.createElement('h3');
+    heading.className = 'project-overlay__more-heading';
+    heading.textContent = 'Veja outros projetos';
+    moreField.appendChild(heading);
+
+    const grid = document.createElement('div');
+    grid.className = 'project-overlay__more-grid';
+
+    picks.forEach((tile) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'project-overlay__more-card';
+      card.setAttribute('aria-label', tile.dataset.name || '');
+      if (tile.classList.contains('project-tile--dark')) {
+        card.classList.add('project-overlay__more-card--dark');
+      }
+
+      const logo = tile.querySelector('.project-tile__logo');
+      if (logo) {
+        const img = document.createElement('img');
+        img.className = 'project-overlay__more-logo';
+        img.src = logo.currentSrc || logo.src;
+        img.alt = tile.dataset.name || logo.alt || '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        // Sem logo carregado, mostra o nome no lugar da imagem quebrada
+        // (mesmo fallback dos tiles — ver .project-tile--broken).
+        img.addEventListener(
+          'error',
+          () => {
+            img.remove();
+            const name = document.createElement('span');
+            name.className = 'project-overlay__more-name';
+            name.textContent = tile.dataset.name || '';
+            card.appendChild(name);
+          },
+          { once: true }
+        );
+        card.appendChild(img);
+      } else {
+        const name = document.createElement('span');
+        name.className = 'project-overlay__more-name';
+        name.textContent = tile.dataset.name || '';
+        card.appendChild(name);
+      }
+
+      card.addEventListener('click', () => open(tile, { replaceUrl: true }));
+
+      grid.appendChild(card);
+    });
+
+    moreField.appendChild(grid);
   }
 
   /**
@@ -692,9 +798,11 @@ function initOverlay({ lenis }) {
     // (botão, fundo, Escape). Se veio do popstate (voltar), a URL já
     // está limpa.
     if (syncUrl && slugFromHash()) {
-      if (window.history.state?.project) {
+      if (pushedHistoryEntry) {
         // Abrimos via clique (empilhamos uma entrada): voltar remove o
-        // hash e mantém o histórico consistente.
+        // hash e mantém o histórico consistente. Um replaceState posterior
+        // (troca de projeto pelos cards) não conta — segue sendo a mesma
+        // entrada empilhada aqui.
         window.history.back();
       } else {
         // Deep link direto, sem entrada nossa pra voltar: só troca a URL.
@@ -705,6 +813,8 @@ function initOverlay({ lenis }) {
         );
       }
     }
+
+    pushedHistoryEntry = false;
   }
 
   // Voltar/avançar do navegador: sincroniza o overlay com a URL.

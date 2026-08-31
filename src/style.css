@@ -1471,6 +1471,108 @@ main > section {
   display: block;
 }
 
+/* "Veja outros projetos" — grade de cards no fim do case study (ver
+   renderMoreProjects em projects.js). Separada do corpo por uma linha
+   sutil, pra ler como navegação e não como mais uma seção do texto. */
+.project-overlay__more {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--c-gray-200);
+}
+
+.project-overlay__more[hidden] {
+  display: none;
+}
+
+.project-overlay__more-heading {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  text-align: center;
+}
+
+.project-overlay__more-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .project-overlay__more-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mesmo visual dos tiles da seção Projetos (ver .project-tile), em
+   escala menor — logo em cinza que ganha cor no hover. */
+.project-overlay__more-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.75rem 1rem;
+  aspect-ratio: 16 / 10;
+  background: var(--c-gray-50);
+  border: 1px solid var(--c-gray-200);
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.project-overlay__more-card:hover,
+.project-overlay__more-card:focus-visible {
+  border-color: var(--c-accent);
+  background: var(--c-white);
+  transform: translateY(-2px);
+}
+
+.project-overlay__more-card--dark {
+  background: var(--c-ink-950);
+  border-color: var(--c-ink-800);
+}
+
+.project-overlay__more-card--dark:hover,
+.project-overlay__more-card--dark:focus-visible {
+  background: var(--c-ink-950);
+  border-color: var(--c-accent);
+}
+
+.project-overlay__more-logo {
+  max-height: 60%;
+  max-width: 78%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.project-overlay__more-card:hover .project-overlay__more-logo,
+.project-overlay__more-card:focus-visible .project-overlay__more-logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Só aparece como fallback quando o logo não carrega (ver
+   renderMoreProjects em projects.js). */
+.project-overlay__more-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--c-ink-900);
+}
+
+.project-overlay__more-card--dark .project-overlay__more-name {
+  color: var(--c-white);
+}
+
 /* Coluna centralizada, texto alinhado à esquerda dentro dela — mesmo
    padrão de leitura usado em .trajectory__desc. */
 .project-overlay__section {
