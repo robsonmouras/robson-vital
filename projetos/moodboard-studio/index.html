@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Google Tag Manager (mesmo container do site, GTM-K7RJPKD) -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-K7RJPKD');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Moodboard Studio — Case Design Engineer | Robson Vital</title>
+  <meta name="description"
+    content="Do briefing ao board compartilhável. Case Design Engineer: pesquisa de usuário, identidade visual, prototipagem em código (prompt-to-production) e entrega funcional com autenticação e persistência real — Next.js + Supabase." />
+  <link rel="canonical" href="https://robsonvital.com.br/projetos/moodboard-studio/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://robsonvital.com.br/projetos/moodboard-studio/" />
+  <meta property="og:title" content="Moodboard Studio — Case Design Engineer | Robson Vital" />
+  <meta property="og:description"
+    content="Do briefing ao board compartilhável. Produto real construído com pesquisa de usuário, identidade visual e prototipagem em código (prompt-to-production)." />
+  <meta property="og:image" content="https://robsonvital.com.br/images/projects/moodboard-studio/hero.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Moodboard Studio — Case Design Engineer | Robson Vital" />
+  <meta name="twitter:description"
+    content="Do briefing ao board compartilhável. Prompt-to-production com Next.js + Supabase." />
+  <meta name="twitter:image" content="https://robsonvital.com.br/images/projects/moodboard-studio/hero.jpg" />
+
+  <link rel="icon" href="/images/favicon/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/images/favicon/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png" />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/hanken-grotesk-regular.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-regular.woff2" crossorigin />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Moodboard Studio — do briefing ao board compartilhável",
+    "headline": "Moodboard Studio — Case Design Engineer",
+    "about": ["Product Design", "UX Research", "Design System", "Prompt-to-Production"],
+    "creator": { "@type": "Person", "name": "Robson Vital", "url": "https://robsonvital.com.br/" },
+    "inLanguage": "pt-BR",
+    "url": "https://robsonvital.com.br/projetos/moodboard-studio/"
+  }
+  </script>
+
+  <style>
+    /* Hanken Grotesk (corpo/UI) é self-hosted e subsetado — cobre PT-BR
+       completo, testado.
+       Display: NÃO dá pra usar a Foun Pro do portfólio aqui — o subset dela
+       é praticamente só caixa-alta A-Z, sem acentos minúsculos nem travessão,
+       e quebrava todo título com "ç/ã/á/—". Anton (Google Fonts, self-hosted,
+       subset latin) mantém o mesmo espírito da Foun Pro — grotesca preta,
+       condensada, de cartaz — e tem os acentos do PT-BR (U+0000–00FF). */
+    @font-face {
+      font-family: 'Hanken Grotesk';
+      src: url('/fonts/hanken-grotesk-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Anton';
+      src: url('/fonts/anton-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --c-white: #ffffff;
+      --c-gray-50: #f8fafc;
+      --c-gray-100: #f1f5f9;
+      --c-gray-200: #e5e7eb;
+      --c-gray-300: #cbd5e1;
+      --c-ink-950: #0f172a;
+      --c-ink-800: #1e293b;
+      --c-ink-700: #334155;
+      --c-ink-600: #475569;
+      --c-ink-500: #64748b;
+      --c-ink-400: #94a3b8;
+      --c-accent: #dc2626;
+      --c-brand-purple: #6a1f74;
+
+      --font-display: 'Anton', 'Arial Narrow', 'Hanken Grotesk', sans-serif;
+      --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: ui-monospace, 'Cascadia Code', 'Consolas', 'SFMono-Regular', monospace;
+
+      --wrap: 1120px;
+      --measure: 720px;
+
+      color-scheme: light;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--c-white);
+      color: var(--c-ink-950);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    img,
+    picture {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Sem isto, os atributos width/height do <img> mantêm a altura fixa
+       enquanto a largura encolhe pro container — a imagem estica. */
+    .shot img {
+      width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: var(--c-accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--wrap);
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    }
+
+    .measure {
+      max-width: var(--measure);
+    }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--c-white) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--c-gray-200);
+    }
+
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      height: 56px;
+    }
+
+    .topbar__back {
+      color: var(--c-ink-700);
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .topbar__back:hover {
+      color: var(--c-ink-950);
+      text-decoration: none;
+    }
+
+    .topbar__tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-ink-400);
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      padding-top: clamp(3rem, 9vw, 6rem);
+      padding-bottom: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin: 0 0 1.25rem;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(3rem, 8.5vw, 6rem);
+      line-height: 0.98;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .hero__title span {
+      display: block;
+      color: var(--c-ink-500);
+      font-size: clamp(1.35rem, 3.4vw, 2.1rem);
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      margin-top: 0.6rem;
+    }
+
+    .hero__lede {
+      font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+      color: var(--c-ink-700);
+      margin: 1.75rem 0 0;
+    }
+
+    .hero__support {
+      color: var(--c-ink-600);
+      margin: 1rem 0 0;
+    }
+
+    .taglist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 2rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .taglist li {
+      font-size: 0.8rem;
+      color: var(--c-ink-700);
+      border: 1px solid var(--c-gray-200);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      background: var(--c-gray-50);
+    }
+
+    .taglist--stack li {
+      border-style: dashed;
+      color: var(--c-ink-500);
+    }
+
+    .hero__figure {
+      margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    .shot {
+      border: 1px solid var(--c-gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--c-gray-50);
+    }
+
+    figcaption {
+      font-size: 0.82rem;
+      color: var(--c-ink-500);
+      margin-top: 0.65rem;
+    }
+
+    /* ---- Generic section ---- */
+    section {
+      padding-block: clamp(2.75rem, 7vw, 5rem);
+      border-top: 1px solid var(--c-gray-100);
+    }
+
+    .h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 4.8vw, 3.25rem);
+      line-height: 1.03;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      margin: 0.6rem 0 0;
+    }
+
+    .lead {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--c-ink-700);
+      margin: 1.1rem 0 0;
+    }
+
+    p {
+      margin: 1.1rem 0 0;
+    }
+
+    .section__body > p:first-child {
+      margin-top: 1.4rem;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--c-ink-950);
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: var(--c-gray-100);
+      border: 1px solid var(--c-gray-200);
+      border-radius: 4px;
+      padding: 0.08em 0.36em;
+      white-space: nowrap;
+    }
+
+    /* ---- Personas ---- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .persona {
+      border: 1px solid var(--c-gray-200);
+      border-left: 3px solid var(--c-accent);
+      border-radius: 8px;
+      padding: 1.4rem 1.4rem 1.5rem;
+      background: var(--c-gray-50);
+    }
+
+    .persona h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin: 0;
+    }
+
+    .persona__role {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin: 0.5rem 0 0.9rem;
+    }
+
+    .persona p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--c-ink-700);
+      line-height: 1.6;
+    }
+
+    /* ---- Callout ---- */
+    .callout {
+      border-left: 3px solid var(--c-ink-800);
+      background: var(--c-gray-50);
+      padding: 1.1rem 1.3rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.8rem;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.97rem;
+      color: var(--c-ink-700);
+    }
+
+    /* ---- Table ---- */
+    .table-scroll {
+      overflow-x: auto;
+      margin-top: 1.8rem;
+      border: 1px solid var(--c-gray-200);
+      border-radius: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 640px;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--c-gray-200);
+      vertical-align: top;
+    }
+
+    thead th {
+      font-size: 0.7rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--c-ink-500);
+      background: var(--c-gray-50);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody th {
+      font-weight: 600;
+      color: var(--c-ink-950);
+    }
+
+    tr.is-us th,
+    tr.is-us td {
+      background: color-mix(in srgb, var(--c-accent) 7%, var(--c-white));
+    }
+
+    tr.is-us th {
+      color: var(--c-accent);
+    }
+
+    /* ---- Palette ---- */
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .swatch {
+      border: 1px solid var(--c-gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .swatch__chip {
+      height: 96px;
+    }
+
+    .swatch__body {
+      padding: 0.85rem 1rem 1rem;
+    }
+
+    .swatch__body b {
+      font-size: 0.95rem;
+    }
+
+    .swatch__body span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--c-ink-500);
+      margin-top: 0.2rem;
+    }
+
+    .pillars {
+      margin: 1.8rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .pillars li {
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--c-ink-700);
+    }
+
+    .pillars li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--c-accent);
+    }
+
+    /* ---- Phases ---- */
+    .phase {
+      padding-top: clamp(2.75rem, 7vw, 4.5rem);
+    }
+
+    .phase:first-of-type {
+      padding-top: clamp(1rem, 3vw, 2rem);
+    }
+
+    .phase__num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      font-weight: 600;
+    }
+
+    .phase__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+      line-height: 1.06;
+      letter-spacing: 0.008em;
+      text-transform: uppercase;
+      margin: 0.4rem 0 0;
+    }
+
+    .phase__tag {
+      display: inline-block;
+      margin-top: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--c-ink-600);
+      background: var(--c-gray-100);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+    }
+
+    .prompt {
+      margin-top: 1.6rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--c-ink-800);
+    }
+
+    .prompt__head {
+      background: var(--c-ink-950);
+      color: var(--c-gray-300);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prompt__head::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 14px 0 0 #22c55e, 28px 0 0 var(--c-ink-600);
+      margin-right: 1.4rem;
+    }
+
+    .prompt pre {
+      margin: 0;
+      background: #0b1120;
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      padding: 1.1rem 1.2rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .prompt__note {
+      font-size: 0.8rem;
+      color: var(--c-ink-500);
+      margin-top: 0.6rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.8rem;
+      align-items: start;
+    }
+
+    .gallery figure.span-2 {
+      grid-column: 1 / -1;
+    }
+
+    /* ---- Result / links ---- */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      border: 1px solid var(--c-gray-200);
+      border-radius: 10px;
+      padding: 1.2rem;
+      background: var(--c-gray-50);
+    }
+
+    .stat b {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      display: block;
+    }
+
+    .stat span {
+      font-size: 0.9rem;
+      color: var(--c-ink-600);
+    }
+
+    .linkbar {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid var(--c-gray-300);
+      color: var(--c-ink-950);
+      background: var(--c-white);
+    }
+
+    .btn:hover {
+      text-decoration: none;
+      border-color: var(--c-ink-400);
+    }
+
+    .btn--primary {
+      background: var(--c-accent);
+      border-color: var(--c-accent);
+      color: #fff;
+    }
+
+    .btn--primary:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .btn[aria-disabled="true"] {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    footer.page {
+      border-top: 1px solid var(--c-gray-200);
+      padding-block: 2.5rem;
+      color: var(--c-ink-500);
+      font-size: 0.85rem;
+    }
+
+    footer.page a {
+      color: var(--c-ink-700);
+    }
+
+    @media (max-width: 760px) {
+
+      .cards,
+      .palette,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery figure.span-2 {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7RJPKD" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="topbar__back" href="/#projects">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m12 19-7-7 7-7" />
+          <path d="M19 12H5" />
+        </svg>
+        Robson Vital
+      </a>
+      <span class="topbar__tag">Case Design Engineer</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <div class="hero wrap">
+      <p class="eyebrow">Case Design Engineer</p>
+      <h1 class="hero__title">Moodboard Studio<span>do briefing ao board compartilhável</span></h1>
+      <p class="hero__lede measure">Do wireframe ao componente em produção com IA — pesquisa de usuário, identidade
+        visual, prototipagem em código (prompt-to-production) e entrega funcional com autenticação e persistência real.
+      </p>
+      <p class="hero__support measure">Projeto pessoal construído inteiramente via Claude Code, sem o Figma como etapa
+        obrigatória, para exercitar um workflow real de design-to-code — fase a fase, com cada decisão registrada.</p>
+
+      <ul class="taglist">
+        <li>Product Design</li>
+        <li>UX Research</li>
+        <li>Design System</li>
+        <li>Prompt-to-Production</li>
+      </ul>
+      <ul class="taglist taglist--stack">
+        <li>Next.js 16 + React 19</li>
+        <li>TypeScript</li>
+        <li>Panda CSS + Park UI</li>
+        <li>Supabase</li>
+        <li>Unsplash API</li>
+        <li>Phosphor Icons</li>
+      </ul>
+
+      <figure class="hero__figure">
+        <div class="shot">
+          <picture>
+            <source srcset="/images/projects/moodboard-studio/hero.webp" type="image/webp" />
+            <img src="/images/projects/moodboard-studio/hero.jpg" width="2000" height="1406" fetchpriority="high"
+              decoding="async"
+              alt="Home do Moodboard Studio: assinatura serifada 'Encontre, organize, compartilhe.' com acento circular à mão e um campo de busca 'Busca um tema do briefing'." />
+          </picture>
+        </div>
+        <figcaption>Home do produto — a própria tela de busca, sem porta de entrada.</figcaption>
+      </figure>
+    </div>
+
+    <!-- ===================== O PROBLEMA ===================== -->
+    <section id="problema">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">O problema</p>
+          <h2 class="h2">Direção visual, garimpada em abas espalhadas</h2>
+          <div class="section__body">
+            <p>Quem traduz um briefing de cliente cheio de adjetivos — <em>"quero algo mais premium"</em>, <em>"com a cara
+                da marca"</em> — em direção visual concreta é o designer. Geralmente isso acontece garimpando referências
+              em várias abas (Pinterest, Unsplash, Behance), sem um lugar único para organizar o que encontra nem para
+              justificar as escolhas depois.</p>
+            <p>Resultado: contexto perdido entre ferramentas, dificuldade em defender a direção diante do cliente e
+              retrabalho quando o board vive só na cabeça do designer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PERSONAS ===================== -->
+    <section id="personas">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Personas</p>
+          <h2 class="h2">Três pessoas, um mesmo board</h2>
+        </div>
+        <div class="cards">
+          <article class="persona">
+            <h3>Marina Costa, 29</h3>
+            <p class="persona__role">Designer UX/UI · usuária principal</p>
+            <p>Transforma palavras-chave de briefing em board visual coerente. Precisa de velocidade e de reabrir o board
+              semanas depois sem perder a lógica das escolhas.</p>
+          </article>
+          <article class="persona">
+            <h3>Rafael Nunes, 34</h3>
+            <p class="persona__role">Atendimento / gestor de contas</p>
+            <p>Não usa Figma. Precisa de um link simples para apresentar ao cliente sem depender da Marina em tempo real.
+            </p>
+          </article>
+          <article class="persona">
+            <h3>Beatriz Lemos, 41</h3>
+            <p class="persona__role">Cliente final</p>
+            <p>Abre o link pelo celular, sem cadastro, e decide em segundos se aquilo "tem a cara da marca".</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== JORNADA ===================== -->
+    <section id="jornada">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Jornada — do briefing ao feedback do cliente</p>
+          <h2 class="h2">Dois fluxos no mesmo produto</h2>
+          <div class="section__body">
+            <p>Mapear a jornada completa da Marina deixou claro que o produto precisava resolver duas coisas ao mesmo
+              tempo: um <strong>fluxo de curadoria rápido</strong> para quem cria (busca → favoritar → montar board) e uma
+              <strong>camada de consumo com zero fricção</strong> para quem só aprova (link público, sem login).</p>
+            <p>Cada risco identificado na jornada virou requisito de produto: loading state e mensagens de erro
+              específicas, favoritos persistentes entre buscas, nome obrigatório no board e link público sem exigir conta
+              de quem recebe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BENCHMARK ===================== -->
+    <section id="benchmark">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Benchmark — antes de desenhar</p>
+          <h2 class="h2">Onde as ferramentas existentes ficam devendo</h2>
+          <p class="lead">Cinco ferramentas resolvem parte do mesmo caso de uso — coletar imagens, organizar em board e
+            compartilhar — mas nenhuma resolve o combo completo <strong>palavra-chave → Unsplash → board → link de
+              cliente</strong> em um fluxo só.</p>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Ferramenta</th>
+                <th scope="col">Busca de imagem nativa</th>
+                <th scope="col">Board em canvas livre</th>
+                <th scope="col">Foco em apresentação ao cliente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Milanote</th>
+                <td>Não (clipper de web)</td>
+                <td>Sim (canvas espacial)</td>
+                <td>Médio</td>
+              </tr>
+              <tr>
+                <th scope="row">Niice</th>
+                <td>Não claro</td>
+                <td>Sim</td>
+                <td>Alto</td>
+              </tr>
+              <tr>
+                <th scope="row">SampleBoard</th>
+                <td>Não claro</td>
+                <td>Sim</td>
+                <td>Alto (interiores/produto)</td>
+              </tr>
+              <tr>
+                <th scope="row">Canva</th>
+                <td>Sim (biblioteca própria)</td>
+                <td>Parcial (templates)</td>
+                <td>Alto</td>
+              </tr>
+              <tr>
+                <th scope="row">Pinterest</th>
+                <td>Sim (nativo)</td>
+                <td>Não (grid fixo)</td>
+                <td>Baixo</td>
+              </tr>
+              <tr class="is-us">
+                <th scope="row">Moodboard Studio</th>
+                <td>Sim (Unsplash nativa)</td>
+                <td>Sim (board dedicado)</td>
+                <td>Alto — link read-only, sem conta</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout measure">
+          <p><strong>A oportunidade.</strong> Busca nativa direto na Unsplash, sem clipper ou upload manual. Favoritar com
+            um clique vendo o board se formar ao lado. Link leve e read-only para o cliente, sem exigir conta — o que
+            concorrentes fazem só em plano pago. Login simples, mantendo a barreira de entrada baixa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== IDENTIDADE VISUAL ===================== -->
+    <section id="identidade">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Identidade visual</p>
+          <h2 class="h2">Paleta, tipografia e voz — decididas primeiro</h2>
+          <p class="lead">Identidade visual e tom de voz foram tratados como decisões isoladas e documentadas, antes de
+            qualquer linha de código de interface.</p>
+        </div>
+
+        <div class="palette">
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#F2F2F2"></div>
+            <div class="swatch__body"><b>60% — Fundo</b><span>#F2F2F2</span></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#FFFFFF;border-bottom:1px solid var(--c-gray-200)"></div>
+            <div class="swatch__body"><b>30% — Superfície</b><span>#FFFFFF · texto #464645</span></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#6A1F74"></div>
+            <div class="swatch__body"><b>10% — CTA</b><span>#6A1F74 · só ação e estado ativo</span></div>
+          </div>
+        </div>
+
+        <div class="measure section__body">
+          <p>O roxo <code>#6A1F74</code> — extraído do próprio símbolo da marca-mãe — é cor de CTA exclusiva do produto:
+            transmite criatividade sem competir visualmente com as imagens do board. Todas as combinações validadas em
+            contraste <strong>WCAG AAA</strong>.</p>
+          <p><strong>Tipografia:</strong> Outfit para display/títulos (Light 300 · Regular 400 · Semibold 600 pontual) e
+            Inter para corpo/UI. A frase-assinatura <em>"Encontre, organize, compartilhe."</em> ganhou depois um
+            tratamento serifado com acento circular à mão (Instrument Serif), virou componente único e passou a abrir
+            tanto o login quanto a home.</p>
+        </div>
+
+        <div class="measure">
+          <p class="eyebrow" style="margin-top:2.5rem">Tom de voz — quatro pilares</p>
+          <ul class="pillars">
+            <li>Confiante sem ser chato — afirma, não fica em cima do muro.</li>
+            <li>Explicado sem virar manual — contexto em uma frase, dentro do fluxo.</li>
+            <li>Fluxo sem atrito — sem confirmação redundante quando o feedback visual já é claro.</li>
+            <li>Vocabulário de quem já manja — termos técnicos sem tradução (board, rate limit, link read-only).</li>
+          </ul>
+          <div class="callout">
+            <p>Em vez de <em>"Ocorreu um erro inesperado, tente novamente mais tarde"</em>, a mensagem nomeia a causa real
+              — <strong>"Unsplash bateu o limite de buscas agora. Espera um minuto e tenta de novo."</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROCESSO / FASES ===================== -->
+    <section id="processo">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Processo — prompt-to-production</p>
+          <h2 class="h2">Construído fase a fase, decisão por decisão</h2>
+          <p class="lead">Cada ciclo de geração foi documentado: o prompt exato enviado, o resultado obtido e os pontos
+            onde o código exigiu intervenção manual. Escopo fechado e critério de aceite explícito em cada fase.</p>
+        </div>
+
+        <!-- FASE 0 -->
+        <div class="phase measure">
+          <span class="phase__num">Fase 0 · Setup</span>
+          <h3 class="phase__title">Scaffold da stack, sem nenhuma tela</h3>
+          <span class="phase__tag">Infra pura — dependências, tema, convenções</span>
+          <p>Só o esqueleto: nome da pasta, dependências, tokens de tema (cores 60/30/10, tipografia), convenção de
+            nomenclatura e estrutura interna. Nenhuma tela.</p>
+          <p>Aqui veio o primeiro ajuste em tempo real: a documentação oficial do Park UI para Tailwind saiu do ar durante
+            o setup. A troca de <strong>Tailwind por Panda CSS</strong> foi levada ao usuário, decidida e registrada como
+            decisão de arquitetura — não como acidente. (Os ícones Tabler também deram lugar ao Phosphor mais adiante,
+            registrado na decisão 07.)</p>
+          <div class="prompt">
+            <div class="prompt__head">Prompt enviado ao Claude Code — trecho</div>
+            <pre>Contexto: estou começando o Moodboard Studio, um gerador de moodboard
+(busca de imagens via Unsplash, favoritar, montar board, login e link
+público). Este é o primeiro prompt — quero SÓ o setup inicial da stack,
+sem nenhuma tela, componente visual ou lógica de negócio. Scaffold puro.
+
+## Stack a instalar
+- Next.js (App Router) + TypeScript desde o início (create-next-app,
+  ESLint, diretório src/). Gerenciador: npm.
+- Estilização: Park UI (sobre Ark UI). Confirme na doc oficial os pacotes
+  e a versão exigida antes de instalar. Configure apenas o tema claro.
+- Ícones: biblioteca Tabler, outline, stroke-width 1.
+- Auth/Banco: só client e variáveis de ambiente do Supabase — sem telas
+  de login, sessão ou chamadas ao banco.
+- Imagens: só placeholder UNSPLASH_ACCESS_KEY no .env.local.example.
+
+## Tokens de identidade visual (aplicar exatamente assim)
+- Títulos: Outfit (300/400, 600 pontual). Corpo: Inter (400/500).
+- Cores 60/30/10 como tokens de tema: #F2F2F2 / #FFFFFF (texto #464645)
+  / #6A1F74 (só CTA e estado ativo).
+
+## Critério de aceite
+- npm run dev sobe sem erro. Fontes e tokens aplicados. Lint limpo.
+- .env.local.example com os 3 placeholders. README com a stack e o
+  padrão de nomenclatura. Git inicializado com o primeiro commit.</pre>
+          </div>
+        </div>
+
+        <!-- FASE 1 -->
+        <div class="phase">
+          <div class="measure">
+            <span class="phase__num">Fase 1 · Protótipo de interface</span>
+            <h3 class="phase__title">Busca, curadoria e biblioteca de boards — com dados mockados</h3>
+            <span class="phase__tag">Valida o fluxo e a linguagem visual, sem API nem persistência</span>
+            <p>A home vira a própria tela de busca — sem porta de entrada, sem landing — para reduzir a fricção até o valor
+              central: buscar, favoritar, montar board. A biblioteca de boards salvos foi antecipada para esta fase,
+              fechando o ciclo completo com dados falsos antes de existir qualquer persistência.</p>
+            <p>Os resultados de busca são <strong>blocos de cor em gradiente</strong> — mock deliberado, que já deixa
+              testar hierarquia, favoritar e o board se formando na base da tela. A tela de login foi desenhada e
+              implementada em código, mas mantida <strong>fora do fluxo navegável</strong>: decisão consciente para não
+              competir com o que precisava ser validado.</p>
+            <div class="prompt">
+              <div class="prompt__head">Prompt — tela de busca + board (reconstrução a partir do diff do commit)</div>
+              <pre>A home (/) vira a tela de busca do Moodboard Studio — sem porta de login
+na frente, sem tela de entrada separada. O usuário abre a URL e já cai
+no fluxo.
+
+Fluxo:
+- Estado inicial: título + campo de busca centralizados, hero limpo,
+  ilustração abaixo do campo.
+- Busca por palavras-chave (texto livre) — sem chamada real a nenhuma
+  API, dados mockados.
+- Depois da 1ª busca: busca sobe pro topo, aparece um grid de resultados.
+- Cada resultado pode ser favoritado / adicionado a um board.
+- O board se forma abaixo do grid (largura cheia, não em coluna lateral),
+  reunindo tudo que foi favoritado.
+- Favoritos persistem entre buscas diferentes na mesma sessão.
+- "Salvar" dá só feedback visual (toast) — sem persistência real ainda.
+
+Tipagem: tudo em TypeScript, sem `any` solto nem no dataset mockado.
+
+Tela de login: aproveitar a maquete (v3) e implementar em código de
+verdade (/login, LoginForm) — mas FORA do fluxo. Não linkar de lugar
+nenhum. Fica pronta pra quando a auth real entrar (Fase 3).</pre>
+            </div>
+            <div class="prompt">
+              <div class="prompt__head">Prompt — biblioteca de boards (texto original, enviado como veio)</div>
+              <pre>agora vamos criar a tela onde o usuario ve todos os seus boards salvo.
+uma lista com todos os boards mostrar quandos "inspirações" estao salvas
+dentro desse board deletar editar e buscar
+
+vamos adicionar uma "navbar" home | Favoritos | Perfil (depois pensamos
+no restante</pre>
+              <p class="prompt__note">Registrar o prompt como veio — inclusive os erros de digitação — faz parte do
+                método: o case mostra o processo real, não uma versão higienizada.</p>
+            </div>
+          </div>
+
+          <div class="gallery">
+            <figure class="span-2">
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f1-busca.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f1-busca.jpg" width="1280" height="1218" loading="lazy"
+                    decoding="async"
+                    alt="Grid de resultados da Fase 1 com blocos de cor em gradiente (dados mockados) e um painel 'Board · 3 imagens' se formando na base, com campo 'Segurança Corporativa — Cliente X' e botão Salvar." />
+                </picture>
+              </div>
+              <figcaption>Busca com dados mockados — o board se forma na base da tela conforme a Marina favorita.
+              </figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f1-biblioteca.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f1-biblioteca.jpg" width="1490" height="694" loading="lazy"
+                    decoding="async"
+                    alt="Tela Favoritos da Fase 1 com seis boards salvos em cards, cada um com prévia em mosaico de blocos de cor, nome e contagem de inspirações." />
+                </picture>
+              </div>
+              <figcaption>Biblioteca de boards salvos (mock).</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f1-board.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f1-board.jpg" width="1490" height="692" loading="lazy"
+                    decoding="async"
+                    alt="Detalhe de um board na Fase 1, com blocos de cor em grid e ações de edição." />
+                </picture>
+              </div>
+              <figcaption>Detalhe do board — editar, remover, renomear.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- FASE 2 -->
+        <div class="phase">
+          <div class="measure">
+            <span class="phase__num">Fase 2 · Consumo real da Unsplash</span>
+            <h3 class="phase__title">De dado mockado para busca real</h3>
+            <span class="phase__tag">Todos os estados de borda tratados como parte do produto</span>
+            <p>Troca do mock pela API real da Unsplash. Busca vazia, falha de rede e rate limit tratados
+              <strong>como parte do produto</strong>, não como exceção — cada um com copy própria, seguindo o guia de tom
+              de voz.</p>
+            <p>Decisão técnica: a chamada à Unsplash passa por uma <strong>Route Handler no servidor</strong> — a chave de
+              acesso nunca vai para o bundle do client. Debounce de 300–500&nbsp;ms na digitação, obrigatório com API real
+              (não existia no mock, onde o filtro era instantâneo).</p>
+            <div class="prompt">
+              <div class="prompt__head">Prompt enviado ao Claude Code — trecho</div>
+              <pre>Contexto: o fluxo de busca completo (Fase 1) já roda com mock em
+src/lib/mock-images.ts. Agora: trocar esse mock pela busca real na
+Unsplash. Login continua fora do fluxo (Fase 3) — não mexer nisso.
+
+## O que trocar
+- Criar uma Route Handler (src/app/api/search/route.ts) que recebe o
+  termo, chama GET https://api.unsplash.com/search/photos no servidor
+  com Authorization: Client-ID <key>, e devolve pro client só o que a
+  interface precisa (mapeado, não a resposta bruta).
+- SearchWorkspace passa a chamar essa rota via fetch.
+- Adicionar debounce na digitação (300–500ms).
+
+## Tipagem
+Interfaces pra resposta real (UnsplashPhoto, UnsplashSearchResponse) e
+uma função de mapeamento UnsplashPhoto -> SearchImage. Sem `any`.
+
+## Estados (cópia exata do guia de tom de voz)
+- Loading: "Buscando imagens."
+- Sem resultado: "Nada por aqui para '[termo]'. Tenta um termo mais aberto."
+- Falha de rede: "Falha de conexão. Verifica sua internet e tenta de novo."
+- Rate limit: "Unsplash bateu o limite de buscas agora. Espera um minuto
+  e tenta de novo."</pre>
+            </div>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f2-grid.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f2-grid.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async"
+                    alt="Grid de resultados da Fase 2 populado com fotos reais de concreto vindas da API da Unsplash." />
+                </picture>
+              </div>
+              <figcaption>Grid populado com imagens reais da Unsplash.</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f2-board.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f2-board.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async" alt="Board montado com imagens reais da Unsplash na Fase 2." />
+                </picture>
+              </div>
+              <figcaption>Board montado com fotos reais, com crédito ao autor.</figcaption>
+            </figure>
+            <figure class="span-2">
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f2-erro.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f2-erro.jpg" width="1600" height="473" loading="lazy"
+                    decoding="async"
+                    alt="Estado de rate limit: 'Unsplash bateu o limite de buscas agora.' com o subtexto 'Espera um minuto e tenta de novo.'" />
+                </picture>
+              </div>
+              <figcaption>Rate limit — a mensagem nomeia a causa real e a próxima ação.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="phase">
+          <div class="measure">
+            <span class="phase__num">Fase 3 · Autenticação e persistência</span>
+            <h3 class="phase__title">Login real, board no banco e link público</h3>
+            <span class="phase__tag">Supabase Auth · Postgres com RLS · rota /b/[slug] read-only</span>
+            <p>Login volta a ser portão obrigatório (Supabase Auth). Os boards passam a gravar de verdade no Postgres com
+              <strong>RLS por usuário</strong>, e cada board ganha um slug público — uma rota somente-leitura
+              (<code>/b/[slug]</code>) que resolve exatamente a necessidade da Beatriz: abrir, olhar, decidir, sem login.
+            </p>
+            <div class="prompt">
+              <div class="prompt__head">Prompt enviado ao Claude Code — trecho</div>
+              <pre>Contexto: Fase 2 rodando (busca real, favoritar, board em memória). As
+tabelas boards e board_images já existem no Supabase, com RLS por dono e
+uma função get_public_board(slug) pra leitura pública.
+
+## Autenticação
+- Trocar @supabase/supabase-js isolado por @supabase/ssr (clients de
+  browser e servidor).
+- LoginForm.tsx: signInWithPassword. Erro -> "Email ou senha não bateram.
+  Tenta de novo." Sucesso -> redireciona pra /.
+- Botão "Entrar com o Google": visível, desabilitado, "Em breve".
+- "Sair" na Navbar + email do usuário como indicativo de sessão.
+
+## Proteção de rota
+- Middleware checando sessão: sem sessão, / e /favoritos vão pra /login.
+
+## Persistência
+- "Salvar" cria linha em boards + uma linha em board_images por item.
+  Slug curto e url-safe (nanoid), checando unicidade.
+- Remove mock-boards.ts. BoardsLibrary lista os boards do usuário direto
+  do Supabase. Renomear / remover imagem / excluir com escrita real.
+- "Copiar link" copia <origem>/b/<slug>, confirmação "Link copiado."
+
+## Página pública
+- Nova rota /b/[slug] — Server Component, sem sessão, via
+  get_public_board(slug) (nunca select direto). Slug inexistente:
+  "Este board não existe ou não está mais disponível." Read-only, sem
+  exigir login — requisito central: a Beatriz não pode precisar de conta.</pre>
+            </div>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f3-login.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f3-login.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async"
+                    alt="Tela de login do Moodboard Studio com a assinatura serifada, campos de email e senha, botão Entrar e opção 'Entrar com o Google' desabilitada com o rótulo 'Em breve'." />
+                </picture>
+              </div>
+              <figcaption>Login real via Supabase Auth.</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f3-home.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f3-home.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async" alt="Home logada, com o email do usuário e o botão Sair na navbar." />
+                </picture>
+              </div>
+              <figcaption>Home logada — sessão ativa indicada pelo email.</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f3-board.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f3-board.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async"
+                    alt="Detalhe do board 'corporativo' com cinco imagens reais e os botões 'Copiar link' e 'Excluir board'." />
+                </picture>
+              </div>
+              <figcaption>Board persistido, com "Copiar link".</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f3-link-publico.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f3-link-publico.jpg" width="1600" height="675" loading="lazy"
+                    decoding="async"
+                    alt="Link público '/b/[slug]' aberto sem login: título 'Estúdio Rama — concreto', duas imagens e o rodapé 'Feito no Moodboard Studio'." />
+                </picture>
+              </div>
+              <figcaption>Link público read-only — sem login, sem cadastro.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="phase">
+          <div class="measure">
+            <span class="phase__num">Fase 4 · Polimento e deploy</span>
+            <h3 class="phase__title">Refino visual, responsividade e produção</h3>
+            <span class="phase__tag">No ar na Vercel · refino contínuo</span>
+            <p>Revisão geral de UI/UX a partir de um checklist de refinamento pré-portfólio: a assinatura serifada com
+              acento à mão, hover autoral no grid de resultados, menu de conta na navbar, ajustes de qualidade de imagem
+              no board. O produto está <a href="https://moodboard-studio-phi.vercel.app/" target="_blank"
+                rel="noopener">no ar na Vercel</a>; os ajustes finais de responsividade seguem em andamento.</p>
+            <div class="prompt">
+              <div class="prompt__head">Prompt — refinamento visual pré-portfólio (trecho)</div>
+              <pre>Ciclo de refino antes de virar case. Itens, um a um:
+
+1. A frase-assinatura "Encontre, organize, compartilhe." tem dois
+   tratamentos (serif no /login, Outfit na home). Unificar: serifada +
+   acento circular à mão nos dois, num componente único (BrandHeadline),
+   só mudando a escala por contexto.
+2. Home: adicionar sugestões de busca e "Boards recentes" no estado
+   inicial, sem poluir o hero.
+3. Grid de resultados: hover autoral (não o zoom padrão).
+6. Navbar: menu de conta com o email + "Sair"; excluir board pede
+   confirmação; hover de lixeira em vermelho.</pre>
+            </div>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f4-grid.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f4-grid.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async"
+                    alt="Grid de resultados refinado, com a assinatura em versão compacta no topo e hover autoral nas imagens." />
+                </picture>
+              </div>
+              <figcaption>Grid refinado — assinatura compacta no topo após a busca.</figcaption>
+            </figure>
+            <figure>
+              <div class="shot">
+                <picture>
+                  <source srcset="/images/projects/moodboard-studio/f4-board.webp" type="image/webp" />
+                  <img src="/images/projects/moodboard-studio/f4-board.jpg" width="1600" height="1125" loading="lazy"
+                    decoding="async" alt="Detalhe do board após o refino visual, com tipografia e espaçamento ajustados." />
+                </picture>
+              </div>
+              <figcaption>Board após o refino de tipografia e espaçamento.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STACK ===================== -->
+    <section id="stack">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Stack final</p>
+          <h2 class="h2">O que sustenta o produto</h2>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Camada</th>
+                <th scope="col">Tecnologia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Framework</th>
+                <td>Next.js 16 (App Router) + React 19 + TypeScript</td>
+              </tr>
+              <tr>
+                <th scope="row">Estilização</th>
+                <td>Panda CSS + Park UI (sobre Ark UI)</td>
+              </tr>
+              <tr>
+                <th scope="row">Ícones</th>
+                <td>Phosphor</td>
+              </tr>
+              <tr>
+                <th scope="row">Auth / Banco</th>
+                <td>Supabase — Auth + Postgres com RLS por usuário</td>
+              </tr>
+              <tr>
+                <th scope="row">Imagens</th>
+                <td>Unsplash API, via Route Handler server-side</td>
+              </tr>
+              <tr>
+                <th scope="row">Slug público</th>
+                <td>nanoid — link read-only, sem login</td>
+              </tr>
+              <tr>
+                <th scope="row">Deploy</th>
+                <td>Vercel</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RESULTADO ===================== -->
+    <section id="resultado">
+      <div class="wrap">
+        <div class="measure">
+          <p class="eyebrow">Resultado</p>
+          <h2 class="h2">Um produto funcional ponta a ponta</h2>
+          <div class="section__body">
+            <p>Não um mockup estático — <strong>autenticação real, persistência real e link de compartilhamento público
+                real</strong>, construído em fases incrementais e validadas, cada uma com escopo fechado e critério de
+              aceite explícito.</p>
+            <p>O nível de documentação — decisão por decisão, com data, motivo e consequência no código — foi tratado como
+              parte do entregável, não como nota de rodapé.</p>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="stat"><b>Pesquisa</b><span>3 personas, jornada mapeada e benchmark com 5 ferramentas</span></div>
+          <div class="stat"><b>Decisão</b><span>identidade visual, tom de voz e 10+ decisões de escopo registradas</span>
+          </div>
+          <div class="stat"><b>Entrega</b><span>produto navegável com auth, banco e link público — do wireframe ao
+              deploy</span></div>
+        </div>
+
+        <p class="lead measure" style="margin-top:2.5rem">O case demonstra o ciclo completo de um Design Engineer:
+          <strong>pesquisa → decisão → protótipo → entrega</strong>.</p>
+
+        <div class="linkbar">
+          <a class="btn btn--primary" href="https://moodboard-studio-phi.vercel.app/" target="_blank"
+            rel="noopener">Abrir o produto
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <path d="M15 3h6v6" />
+              <path d="M10 14 21 3" />
+            </svg>
+          </a>
+          <a class="btn" href="/#contact">Falar sobre um projeto assim</a>
+          <a class="btn" href="/#projects">Ver outros projetos</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div class="wrap">
+      <p>Moodboard Studio — case pessoal de <a href="/">Robson Vital</a>, Design Engineer. 2026.<br />
+        Imagens de referência via <a href="https://unsplash.com" rel="noopener">Unsplash</a>. Produto construído com
+        Claude Code.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
