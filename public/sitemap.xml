@@ -4,4 +4,8 @@
     <loc>https://robsonvital.com.br/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/moodboard-studio/</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>

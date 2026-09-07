@@ -839,8 +839,11 @@ function initOverlay({ lenis }) {
 
   // Tiles marcados como "em andamento" (ver .project-tile__wip no
   // index.html) ainda não têm case study pra mostrar — não abre o
-  // overlay nesses, só no clique de tiles concluídos.
+  // overlay nesses, só no clique de tiles concluídos. Tiles que são
+  // link (<a>, ex.: Moodboard Studio) têm página de case própria e
+  // navegam pra ela no clique — não passam pelo overlay.
   tiles.forEach((tile) => {
+    if (tile.tagName === 'A') return;
     if (tile.querySelector('.project-tile__wip')) return;
     tile.addEventListener('click', () => open(tile));
   });
