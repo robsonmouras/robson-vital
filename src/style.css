@@ -695,6 +695,21 @@ main > section {
   height: 100%;
 }
 
+/* Moodboard Studio: lockup horizontal (marca + wordmark), proporção
+   ~6:1. No limite padrão de 78%/62% fica curto demais — aqui ele usa
+   quase toda a largura do tile (com respiro menor) pra ganhar presença,
+   object-fit:contain segura a proporção. */
+.project-tile[data-name="Moodboard Studio"] {
+  padding: 1rem 1.1rem;
+}
+
+.project-tile[data-name="Moodboard Studio"] .project-tile__logo {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 /* Fallback caso o arquivo do logo não carregue (ver projects.js): some
    com a tag <img> quebrada e mostra o nome da empresa no lugar. */
 .project-tile--broken .project-tile__logo {

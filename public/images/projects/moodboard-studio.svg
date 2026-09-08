@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 16 742 122" role="img" aria-label="Moodboard Studio">
+  <defs>
+    <style>
+      .mbs-gray { fill: #8f8e8c; }
+      .mbs-purple { fill: #6a1f74; }
+      .mbs-wm { font-family: "Trebuchet MS", "Segoe UI", Verdana, "DejaVu Sans", sans-serif; font-size: 62px; }
+      .mbs-wm-b { font-weight: 700; fill: #3c3a38; letter-spacing: -0.5px; }
+      .mbs-wm-l { font-weight: 400; fill: #8f8e8c; letter-spacing: -0.5px; }
+      .mbs-swoosh { fill: none; stroke: #bab9b7; stroke-width: 4; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <!-- Marca: quatro peças que se encaixam num board; a roxa (CTA da identidade, #6A1F74) ancora o conjunto -->
+  <g>
+    <rect class="mbs-gray" x="26" y="32" width="40" height="40" rx="9" transform="rotate(-20 46 52)"/>
+    <rect class="mbs-gray" x="70" y="26" width="40" height="40" rx="9" transform="rotate(13 90 46)"/>
+    <rect class="mbs-gray" x="25.5" y="75.5" width="37" height="37" rx="8" transform="rotate(17 44 94)"/>
+    <rect class="mbs-purple" x="66" y="66" width="52" height="52" rx="12" transform="rotate(3 92 92)"/>
+  </g>
+
+  <!-- Wordmark: "Moodboard" em peso forte, "Studio" leve -->
+  <text class="mbs-wm" x="142" y="99">
+    <tspan class="mbs-wm-b">Moodboard</tspan><tspan class="mbs-wm-l"> Studio</tspan>
+  </text>
+
+  <!-- Rabisco à mão sob "Studio" -->
+  <path class="mbs-swoosh" d="M462,120 C 537,109 610,111 664,120 C 620,131 528,129 478,133"/>
+</svg>
