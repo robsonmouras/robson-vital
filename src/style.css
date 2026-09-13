@@ -622,7 +622,7 @@ main > section {
   transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 
-/* Duas logos (Jumper, Elmek) são versões "negativas" — claras, pensadas
+/* Algumas logos (ex.: Jumper) são versões "negativas" — claras, pensadas
    pra fundo escuro. Em vez de forçar todo o grid pra um único esquema,
    cada tile usa o fundo que dá contraste pro seu próprio logo (padrão
    comum em "logo walls" reais). */
@@ -743,7 +743,7 @@ main > section {
   text-transform: uppercase;
 }
 
-/* Em tile escuro (Elmek), o badge claro-sobre-claro do padrão acima some:
+/* Em tile escuro, o badge claro-sobre-claro do padrão acima some:
    inverte pro mesmo esquema do popover (.project-tile--dark .project-tile__popover). */
 .project-tile--dark .project-tile__wip {
   background: var(--c-white-a08);
