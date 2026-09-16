@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+
+<!-- Google Tag Manager (mesmo container do site, GTM-K7RJPKD) — pra medir
+     briefing enviado como conversão. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K7RJPKD');</script>
+<!-- End Google Tag Manager -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Briefing de Identidade Visual — Robson Vital</title>
+<meta name="description"
+    content="Formulário de briefing de identidade visual: algumas perguntas rápidas para entender o negócio, o público e o estilo da marca antes de começar o projeto." />
+
+<!-- Página de cliente: fora de busca, fora do sitemap e sem link a partir do
+     site. Sem canonical de propósito — canonical pede indexação da URL e
+     contradiz o noindex. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, max-snippet:0, max-image-preview:none">
+<meta name="author" content="Robson Moura">
+<meta name="theme-color" content="#dc2626">
+
+<link rel="icon" href="/images/favicon/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
+
+<!-- Cloudflare Turnstile — desafio anti-bot do formulário. Carregado em modo
+     "explicit" porque o widget só é renderizado quando a pessoa chega na
+     última etapa (o token expira em poucos minutos). -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+
+<style>
+  :root{
+    --accent:#dc2626;
+    --ink-950:#0f172a;
+    --ink-700:#334155;
+    --ink-500:#64748b;
+    --ink-400:#94a3b8;
+    --gray-200:#e5e7eb;
+    --gray-100:#f1f5f9;
+    --gray-50:#f8fafc;
+    --white:#ffffff;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:var(--gray-50); color:var(--ink-950);
+    font-family:"Helvetica Neue", Arial, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .page{ min-height:100vh; padding:0; display:flex; justify-content:center; }
+  @media (min-width:700px){ .page{ padding:32px 20px; } }
+  .card{ background:var(--white); width:100%; max-width:760px;
+    box-shadow:0 20px 60px rgba(15,23,42,.08); }
+
+  header{ display:flex; justify-content:space-between; align-items:center;
+    padding:28px 24px; border-bottom:1px solid var(--gray-200);
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--ink-400); }
+  @media (min-width:700px){ header{ padding:28px 48px; } }
+  .brand{ font-size:15px; font-weight:800; letter-spacing:-.01em; color:var(--ink-950); text-decoration:none; text-transform:none; }
+  .brand b{ color:var(--accent); }
+  header a.back{ color:inherit; text-decoration:none; }
+  header a.back:hover{ color:var(--ink-950); }
+
+  main{ padding:40px 24px 48px; }
+  @media (min-width:700px){ main{ padding:56px 48px 64px; } }
+
+  .eyebrow{ display:flex; align-items:center; gap:9px; font-size:11px; font-weight:800;
+    letter-spacing:.14em; color:var(--accent); text-transform:uppercase; }
+  .eyebrow::before{ content:""; width:22px; height:3px; background:var(--accent); }
+  h1{ font-size:clamp(1.5rem, 4vw, 2.25rem); font-weight:800; letter-spacing:-.01em; margin-top:14px; line-height:1.15; max-width:34ch; }
+  .lead{ color:var(--ink-500); font-size:15.5px; margin-top:14px; max-width:56ch; line-height:1.65; }
+
+  /* Progresso */
+  #progress{ margin-top:40px; }
+  .progress-top{ display:flex; justify-content:space-between; align-items:baseline;
+    font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  .progress-top .steps{ color:var(--ink-950); }
+  .progress-top .name{ color:var(--ink-400); }
+  .progress-track{ margin-top:10px; height:4px; width:100%; background:var(--gray-100); border-radius:999px; overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--accent); border-radius:999px; transition:width .4s ease; width:0%; }
+
+  form{ margin-top:32px; }
+
+  .step{ animation:step-in .35s cubic-bezier(.22,1,.36,1) both; }
+  .step[hidden]{ display:none; }
+  @keyframes step-in{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+
+  .step h2{ font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
+  .step > p.desc{ margin-top:6px; color:var(--ink-500); font-size:14.5px; }
+
+  .fields{ margin-top:28px; display:grid; gap:16px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:560px){ .row2{ grid-template-columns:1fr; } }
+
+  .field{ background:var(--gray-50); border:1px solid var(--gray-200); border-radius:12px; padding:18px; }
+  label.q, legend.q{ display:block; font-size:14.5px; font-weight:700; color:var(--ink-950); }
+  .req{ color:var(--accent); }
+  .hint{ font-size:12.5px; color:var(--ink-500); margin-top:3px; }
+
+  input[type=text], input[type=email], input[type=tel], textarea{
+    width:100%; font:inherit; font-size:15px; color:var(--ink-950);
+    background:var(--white); border:1px solid var(--gray-200); border-radius:8px;
+    padding:11px 13px; margin-top:12px; outline:none; transition:border-color .15s, box-shadow .15s; }
+  input::placeholder, textarea::placeholder{ color:var(--ink-400); }
+  input:focus, textarea:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(220,38,38,.12); }
+  input[aria-invalid="true"], textarea[aria-invalid="true"]{ border-color:var(--accent); background:#fef2f2; }
+  textarea{ min-height:96px; resize:vertical; line-height:1.6; }
+
+  .opts{ margin-top:12px; display:grid; gap:9px; }
+  .opts--grid{ grid-template-columns:1fr 1fr; }
+  @media (max-width:560px){ .opts--grid{ grid-template-columns:1fr; } }
+  .opt{ display:flex; align-items:flex-start; gap:10px; font-size:14.5px; color:var(--ink-700);
+    padding:10px 12px; border:1px solid var(--gray-200); border-radius:8px; background:var(--white); cursor:pointer;
+    transition:border-color .15s, background-color .15s; }
+  .opt:hover{ border-color:var(--ink-400); }
+  .opt input{ margin:2px 0 0; accent-color:var(--accent); width:16px; height:16px; flex:0 0 16px; }
+  .opt:has(input:checked){ border-color:var(--accent); background:#fef2f2; color:var(--ink-950); font-weight:600; }
+
+  .other-input{ margin-top:10px; }
+  .other-input[hidden]{ display:none; }
+
+  .field-error{ display:none; margin-top:10px; font-size:13px; color:var(--accent); font-weight:600; }
+  .field-error.is-visible{ display:block; }
+
+  #formError{ display:none; margin-top:28px; border:1px solid #fecaca; background:#fef2f2;
+    padding:14px 16px; font-size:14px; color:var(--accent); border-radius:8px; }
+
+  #turnstileBox{ display:flex; justify-content:center; margin:24px 0 4px; min-height:65px; }
+
+  .form-nav{ margin-top:36px; padding-top:28px; border-top:1px solid var(--gray-200);
+    display:flex; flex-direction:column-reverse; gap:14px; }
+  @media (min-width:560px){ .form-nav{ flex-direction:row; justify-content:space-between; align-items:center; } }
+
+  button{ font:inherit; border:none; border-radius:999px; cursor:pointer; transition:transform .15s, opacity .15s, background-color .15s; }
+  button:disabled{ opacity:.55; cursor:default; transform:none; }
+  #btnPrev{ background:var(--white); border:1px solid var(--gray-200); color:var(--ink-700);
+    padding:14px 26px; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  #btnPrev:hover:not(:disabled){ border-color:var(--ink-400); color:var(--ink-950); }
+  #btnNext, #btnSubmit{ background:var(--accent); color:#fff; padding:16px 30px;
+    font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; width:100%; }
+  @media (min-width:560px){ #btnNext, #btnSubmit{ width:auto; } }
+  #btnNext:hover:not(:disabled), #btnSubmit:hover:not(:disabled){ transform:translateY(-2px); }
+  #btnSubmit[hidden]{ display:none; }
+
+  /* Tela de sucesso */
+  #successBox{ display:none; padding:32px 0 8px; text-align:center; max-width:34rem; margin:0 auto; }
+  .success-mark{ width:64px; height:64px; margin:0 auto; border-radius:50%;
+    border:2px solid #16a34a; background:#f0fdf4; display:flex; align-items:center; justify-content:center;
+    animation:mark-in .45s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes mark-in{ from{ opacity:0; transform:scale(.6); } 60%{ transform:scale(1.06); } to{ opacity:1; transform:scale(1); } }
+  .success-check{ stroke-dasharray:26; stroke-dashoffset:26; animation:check-draw .45s cubic-bezier(.65,0,.35,1) .3s forwards; }
+  @keyframes check-draw{ to{ stroke-dashoffset:0; } }
+  #successBox h2{ margin-top:28px; font-size:1.6rem; font-weight:800; letter-spacing:-.01em; }
+  #successBox p{ margin-top:12px; color:var(--ink-500); font-size:15.5px; line-height:1.65; }
+  #successBox .back-link{ margin-top:32px; display:inline-flex; align-items:center; gap:10px;
+    background:var(--ink-950); color:#fff; padding:14px 26px; font-size:12px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase; text-decoration:none; border-radius:999px; }
+  #successBox .back-link:hover{ background:#1e293b; }
+
+  footer{ padding:28px 24px; text-align:center; border-top:4px solid var(--accent); background:var(--ink-950); }
+  footer p{ font-size:12.5px; color:var(--ink-400); letter-spacing:.04em; }
+
+  @media (prefers-reduced-motion: reduce){
+    .step, .success-mark{ animation:none; }
+    .success-check{ animation:none; stroke-dashoffset:0; }
+  }
+
+  /* Campo-armadilha: invisível para gente, preenchido por robô de formulário. */
+  .hp{ position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; }
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7RJPKD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="page">
+  <div class="card">
+
+    <header>
+      <a href="/" class="brand">Robson <b>Vital</b></a>
+      <a href="/" class="back">Voltar ao site</a>
+    </header>
+
+    <main>
+      <div class="eyebrow">Identidade visual</div>
+      <h1>Vamos entender sua marca antes de desenhar ela.</h1>
+      <p class="lead">
+        São 7 blocos curtos de perguntas. Responda com suas palavras, sem se preocupar com termos
+        técnicos — quanto mais honesto, melhor fica o resultado. Leva de 10 a 15 minutos, e o que
+        você escrever fica salvo neste navegador caso precise parar no meio.
+      </p>
+
+      <div id="progress">
+        <div class="progress-top">
+          <span class="steps">Etapa <span id="stepCurrent">1</span> de <span id="stepTotal">7</span></span>
+          <span id="stepName" class="name">Seus dados</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+          aria-valuenow="14" aria-label="Progresso do briefing" id="progressBar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <form id="briefingForm" novalidate>
+
+        <!-- Honeypot: bot preenche, o envio finge sucesso sem gravar nada. -->
+        <div class="hp" aria-hidden="true">
+          <label for="website">Não preencha este campo</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <!-- ETAPA 1 — Seus dados -->
+        <section class="step" data-step="1" data-step-name="Seus dados">
+          <h2>Primeiro, quem é você</h2>
+          <p class="desc">Só para eu saber com quem estou falando e como te retornar.</p>
+
+          <div class="fields">
+            <div class="row2">
+              <div class="field">
+                <label for="nome" class="q">Seu nome <span class="req">*</span></label>
+                <input type="text" id="nome" name="nome" autocomplete="name" data-req="1" placeholder="Como você quer ser chamado">
+                <p class="field-error"></p>
+              </div>
+              <div class="field">
+                <label for="empresa" class="q">Nome da empresa ou marca <span class="req">*</span></label>
+                <input type="text" id="empresa" name="empresa" autocomplete="organization" data-req="1" placeholder="Como a marca se chama hoje">
+                <p class="field-error"></p>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="email" class="q">E-mail <span class="req">*</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" data-req="1" placeholder="voce@empresa.com.br">
+                <p class="field-error"></p>
+              </div>
+              <div class="field">
+                <label for="whatsapp" class="q">WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" placeholder="(00) 00000-0000">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ETAPA 2 — Sobre o negócio -->
+        <section class="step" data-step="2" data-step-name="Sobre o negócio" hidden>
+          <h2>Sobre o negócio</h2>
+          <p class="desc">O que a empresa faz e para onde ela está indo.</p>
+
+          <div class="fields">
+            <div class="field">
+              <label for="q_o_que_fazem" class="q">O que vocês fazem, em poucas palavras? <span class="req">*</span></label>
+              <textarea id="q_o_que_fazem" name="q_o_que_fazem" rows="4" data-req="1"
+                placeholder="Explique como explicaria para alguém que acabou de conhecer vocês."></textarea>
+              <p class="field-error"></p>
+            </div>
+            <div class="field">
+              <label for="q_onde_chegar" class="q">Onde vocês querem chegar nos próximos anos?</label>
+              <textarea id="q_onde_chegar" name="q_onde_chegar" rows="4" placeholder="Crescer em quê, para onde, com que tamanho."></textarea>
+            </div>
+            <div class="field">
+              <label for="q_concorrentes" class="q">Quem são seus principais concorrentes?</label>
+              <input type="text" id="q_concorrentes" name="q_concorrentes" placeholder="Pode ser só o nome deles, separados por vírgula.">
+            </div>
+            <div class="field">
+              <label for="q_diferencial" class="q">O que te faz diferente deles?</label>
+              <textarea id="q_diferencial" name="q_diferencial" rows="4" placeholder="O motivo real pelo qual alguém escolhe vocês."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ETAPA 3 — Sobre o cliente de vocês -->
+        <section class="step" data-step="3" data-step-name="Sobre o cliente de vocês" hidden>
+          <h2>Sobre o cliente de vocês</h2>
+          <p class="desc">Para quem a marca precisa falar.</p>
+
+          <div class="fields">
+            <div class="field">
+              <label for="q_quem_compra" class="q">Quem compra de vocês? Como é essa pessoa? <span class="req">*</span></label>
+              <textarea id="q_quem_compra" name="q_quem_compra" rows="4" data-req="1"
+                placeholder="Idade, o que faz, o que ela valoriza na hora de decidir."></textarea>
+              <p class="field-error"></p>
+            </div>
+
+            <fieldset class="field" data-group="q_onde_ve">
+              <legend class="q">Onde ela costuma ver vocês primeiro?</legend>
+              <p class="hint">Pode marcar mais de uma.</p>
+              <div class="opts opts--grid">
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Instagram / redes sociais"><span>Instagram / redes sociais</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Google"><span>Google</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Na rua / fachada"><span>Na rua / fachada</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Indicação de outra pessoa"><span>Indicação de outra pessoa</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Embalagem ou produto"><span>Embalagem ou produto</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_ve" value="Outro" data-other="q_onde_ve_outro"><span>Outro</span></label>
+              </div>
+              <input type="text" id="q_onde_ve_outro" name="q_onde_ve_outro" class="other-input" placeholder="Onde mais?" hidden>
+            </fieldset>
+
+            <fieldset class="field" data-group="q_sentir">
+              <legend class="q">O que você quer que ela sinta ao ver a marca?</legend>
+              <p class="hint">Pode marcar mais de uma.</p>
+              <div class="opts opts--grid">
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Confiança"><span>Confiança</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Sofisticação"><span>Sofisticação</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Proximidade"><span>Proximidade</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Energia"><span>Energia</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Segurança"><span>Segurança</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Modernidade"><span>Modernidade</span></label>
+                <label class="opt"><input type="checkbox" name="q_sentir" value="Outro" data-other="q_sentir_outro"><span>Outro</span></label>
+              </div>
+              <input type="text" id="q_sentir_outro" name="q_sentir_outro" class="other-input" placeholder="Que outra sensação?" hidden>
+            </fieldset>
+          </div>
+        </section>
+
+        <!-- ETAPA 4 — Sobre o estilo da marca -->
+        <section class="step" data-step="4" data-step-name="Sobre o estilo da marca" hidden>
+          <h2>Sobre o estilo da marca</h2>
+          <p class="desc">A personalidade que a marca precisa transmitir.</p>
+
+          <div class="fields">
+            <div class="field">
+              <label for="q_marca_pessoa" class="q">Se a marca fosse uma pessoa, como ela seria?</label>
+              <textarea id="q_marca_pessoa" name="q_marca_pessoa" rows="4" placeholder="Como ela fala, como se veste, como trata as pessoas."></textarea>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="q_tres_palavras" class="q">Me diz 3 palavras que combinam com a marca.</label>
+                <input type="text" id="q_tres_palavras" name="q_tres_palavras" placeholder="Ex.: robusta, direta, confiável">
+              </div>
+              <div class="field">
+                <label for="q_tres_palavras_nao" class="q">E 3 palavras que não têm nada a ver.</label>
+                <input type="text" id="q_tres_palavras_nao" name="q_tres_palavras_nao" placeholder="Ex.: infantil, barata, exagerada">
+              </div>
+            </div>
+            <div class="field">
+              <label for="q_inspiracao" class="q">Tem alguma marca que você acha linda e se inspira?</label>
+              <p class="hint">Pode colar o link ou o @ dela.</p>
+              <textarea id="q_inspiracao" name="q_inspiracao" rows="3" placeholder="Cole aqui os links ou @ — pode ser de qualquer segmento."></textarea>
+            </div>
+            <div class="field">
+              <label for="q_nao_parecer" class="q">Tem alguma marca que você não quer parecer de jeito nenhum?</label>
+              <input type="text" id="q_nao_parecer" name="q_nao_parecer" placeholder="Pode ser bem direto aqui.">
+            </div>
+          </div>
+        </section>
+
+        <!-- ETAPA 5 — Onde o logo vai aparecer -->
+        <section class="step" data-step="5" data-step-name="Onde o logo vai aparecer" hidden>
+          <h2>Onde o logo vai aparecer</h2>
+          <p class="desc">Isso muda o desenho: um logo de fachada e um de avatar não são a mesma coisa.</p>
+
+          <div class="fields">
+            <fieldset class="field" data-group="q_onde_logo">
+              <legend class="q">Onde o logo vai ser usado?</legend>
+              <p class="hint">Pode marcar mais de uma.</p>
+              <div class="opts opts--grid">
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Uniforme"><span>Uniforme</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Carro / frota"><span>Carro / frota</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Fachada"><span>Fachada</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Site"><span>Site</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Redes sociais"><span>Redes sociais</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Adesivo / brinde"><span>Adesivo / brinde</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Documento / proposta"><span>Documento / proposta</span></label>
+                <label class="opt"><input type="checkbox" name="q_onde_logo" value="Outro" data-other="q_onde_logo_outro"><span>Outro</span></label>
+              </div>
+              <input type="text" id="q_onde_logo_outro" name="q_onde_logo_outro" class="other-input" placeholder="Onde mais?" hidden>
+            </fieldset>
+
+            <fieldset class="field" data-group="q_tem_logo">
+              <legend class="q">Vocês já têm um logo hoje?</legend>
+              <div class="opts opts--grid">
+                <label class="opt"><input type="radio" name="q_tem_logo" value="Sim"><span>Sim</span></label>
+                <label class="opt"><input type="radio" name="q_tem_logo" value="Não"><span>Não</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field" id="wrap_q_logo_opiniao" hidden>
+              <label for="q_logo_opiniao" class="q">Se sim, o que você gosta e o que não gosta nele?</label>
+              <textarea id="q_logo_opiniao" name="q_logo_opiniao" rows="4" placeholder="O que pode ser aproveitado e o que precisa morrer."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ETAPA 6 — Cores e visual -->
+        <section class="step" data-step="6" data-step-name="Cores e visual" hidden>
+          <h2>Cores e visual</h2>
+          <p class="desc">Limites e material que já existe.</p>
+
+          <div class="fields">
+            <div class="field">
+              <label for="q_cor_obrigatoria" class="q">Tem alguma cor que precisa entrar por obrigação?</label>
+              <p class="hint">Por exemplo, uma cor que já é da empresa.</p>
+              <input type="text" id="q_cor_obrigatoria" name="q_cor_obrigatoria" placeholder="Se souber o código da cor, melhor ainda.">
+            </div>
+            <div class="field">
+              <label for="q_cor_evitar" class="q">Tem alguma cor ou estilo que você não quer nem ver?</label>
+              <input type="text" id="q_cor_evitar" name="q_cor_evitar" placeholder="Ex.: nada de rosa, nada de degradê.">
+            </div>
+            <div class="field">
+              <label for="q_fotos" class="q">Vocês têm foto da equipe, do produto ou do serviço? Ou vamos criar tudo do zero?</label>
+              <textarea id="q_fotos" name="q_fotos" rows="4" placeholder="Conte o que já existe e em que estado está."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ETAPA 7 — Pra fechar o combinado -->
+        <section class="step" data-step="7" data-step-name="Pra fechar o combinado" hidden>
+          <h2>Pra fechar o combinado</h2>
+          <p class="desc">Entrega, aprovação e prazo.</p>
+
+          <div class="fields">
+            <fieldset class="field" data-group="q_entregaveis">
+              <legend class="q">O que exatamente você precisa receber no final? <span class="req">*</span></legend>
+              <p class="hint">Pode marcar mais de uma.</p>
+              <div class="opts opts--grid" data-req-group="1">
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Logo e suas variações"><span>Logo e suas variações</span></label>
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Paleta de cores"><span>Paleta de cores</span></label>
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Artes pra redes sociais"><span>Artes pra redes sociais</span></label>
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Manual da marca"><span>Manual da marca</span></label>
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Key visual pra campanha"><span>Key visual pra campanha</span></label>
+                <label class="opt"><input type="checkbox" name="q_entregaveis" value="Ainda não sei, me ajuda a definir"><span>Ainda não sei, me ajuda a definir</span></label>
+              </div>
+              <p class="field-error"></p>
+            </fieldset>
+
+            <div class="row2">
+              <div class="field">
+                <label for="q_aprovador" class="q">Quem vai aprovar de dentro da empresa?</label>
+                <input type="text" id="q_aprovador" name="q_aprovador" placeholder="Nome e cargo de quem dá a palavra final.">
+              </div>
+              <div class="field">
+                <label for="q_prazo" class="q">Pra quando você precisa?</label>
+                <input type="text" id="q_prazo" name="q_prazo" placeholder="Uma data ou um evento que manda no prazo.">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="q_recado" class="q">Quer deixar algum recado ou detalhe que não perguntei aqui?</label>
+              <textarea id="q_recado" name="q_recado" rows="4" placeholder="Fique à vontade."></textarea>
+            </div>
+
+            <div class="field">
+              <label class="opt" id="lgpdWrap" style="background:transparent;">
+                <input type="checkbox" id="lgpd" name="lgpd" data-req="1">
+                <span>Autorizo o uso destas informações para a elaboração da proposta e do projeto de identidade visual. Os dados não são compartilhados com terceiros.</span>
+              </label>
+              <p class="field-error"></p>
+
+              <!-- O widget do Turnstile é renderizado aqui pelo JS só quando
+                   a pessoa chega nesta etapa: o token vale poucos minutos e
+                   expiraria durante o preenchimento se carregasse antes. -->
+              <div id="turnstileBox"></div>
+            </div>
+          </div>
+        </section>
+
+        <div id="formError"></div>
+
+        <div class="form-nav">
+          <button type="button" id="btnPrev">Voltar</button>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <button type="button" id="btnNext">Próximo</button>
+            <button type="submit" id="btnSubmit" hidden>Enviar briefing</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tela de sucesso -->
+      <div id="successBox">
+        <div class="success-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" width="28" height="28" aria-hidden="true">
+            <path class="success-check" d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h2>Briefing recebido.</h2>
+        <p>Obrigado pelo tempo. Vou ler com calma e te retornar em até dois dias úteis com as próximas etapas.</p>
+        <a href="/" class="back-link">Voltar ao site</a>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Robson Vital. Todos os direitos reservados.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  // ====== CONFIG: cole aqui a URL do App da Web do Google Apps Script ======
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyN9yVDmqlyDng4VuBeB8GDX68s65DCpwDeyB__kF9tVH1jJKeBLh8ZpcZtmXSbubhN/exec";
+  // ========================================================================
+
+  const form = document.getElementById('briefingForm');
+  const steps = Array.from(form.querySelectorAll('.step'));
+  const total = steps.length;
+  let current = 0;
+
+  const stepCurrentEl = document.getElementById('stepCurrent');
+  const stepTotalEl = document.getElementById('stepTotal');
+  const stepNameEl = document.getElementById('stepName');
+  const progressFill = document.getElementById('progressFill');
+  const progressBar = document.getElementById('progressBar');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const formError = document.getElementById('formError');
+  const successBox = document.getElementById('successBox');
+
+  stepTotalEl.textContent = total;
+
+  // Momento em que a página carregou — envio quase instantâneo é bot
+  // (a checagem final é no Apps Script).
+  const loadedAt = Date.now();
+
+  const DRAFT_KEY = 'briefingKvDraft';
+
+  function errorElFor(input){
+    const container = input.closest('.field, fieldset');
+    return container ? container.querySelector('.field-error') : null;
+  }
+
+  function setError(input, msg){
+    const el = errorElFor(input);
+    if(el){ el.textContent = msg; el.classList.add('is-visible'); }
+    if('setAttribute' in input) input.setAttribute('aria-invalid', 'true');
+  }
+
+  function clearError(input){
+    const el = errorElFor(input);
+    if(el){ el.textContent = ''; el.classList.remove('is-visible'); }
+    if('removeAttribute' in input) input.removeAttribute('aria-invalid');
+  }
+
+  function render(){
+    steps.forEach(function(step, i){ step.hidden = i !== current; });
+    stepCurrentEl.textContent = current + 1;
+    stepNameEl.textContent = steps[current].dataset.stepName;
+    const pct = Math.round(((current + 1) / total) * 100);
+    progressFill.style.width = pct + '%';
+    progressBar.setAttribute('aria-valuenow', String(pct));
+    btnPrev.disabled = current === 0;
+    const isLast = current === total - 1;
+    btnNext.hidden = isLast;
+    btnSubmit.hidden = !isLast;
+    if(isLast) renderTurnstile();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validateStep(step){
+    let ok = true;
+
+    step.querySelectorAll('[data-req="1"]').forEach(function(input){
+      if(input.type === 'checkbox'){
+        if(!input.checked){ ok = false; setError(input, 'Esse campo é obrigatório.'); }
+        else clearError(input);
+        return;
+      }
+      if(!input.value.trim()){ ok = false; setError(input, 'Esse campo é obrigatório.'); }
+      else clearError(input);
+    });
+
+    step.querySelectorAll('[data-req-group="1"]').forEach(function(group){
+      const checked = group.querySelector('input:checked');
+      const anyInput = group.querySelector('input');
+      if(!checked){ ok = false; setError(anyInput, 'Marque pelo menos uma opção.'); }
+      else clearError(anyInput);
+    });
+
+    return ok;
+  }
+
+  btnNext.addEventListener('click', function(){
+    if(!validateStep(steps[current])) return;
+    if(current < total - 1){ current++; render(); }
+  });
+
+  btnPrev.addEventListener('click', function(){
+    if(current > 0){ current--; render(); }
+  });
+
+  // Campos "Outro": mostra o texto livre só quando a caixa é marcada
+  form.querySelectorAll('[data-other]').forEach(function(checkbox){
+    const target = document.getElementById(checkbox.dataset.other);
+    checkbox.addEventListener('change', function(){
+      target.hidden = !checkbox.checked;
+      if(!checkbox.checked) target.value = '';
+    });
+  });
+
+  // "Já tem logo?" — só faz sentido perguntar a opinião se a resposta for "Sim"
+  const wrapLogoOpiniao = document.getElementById('wrap_q_logo_opiniao');
+  form.querySelectorAll('input[name="q_tem_logo"]').forEach(function(radio){
+    radio.addEventListener('change', function(){
+      wrapLogoOpiniao.hidden = radio.value !== 'Sim' || !radio.checked;
+    });
+  });
+
+  // ---- Turnstile: renderizado só ao chegar na última etapa ----
+  let turnstileWidgetId = null;
+  function renderTurnstile(){
+    if(turnstileWidgetId !== null) return;
+    if(!window.turnstile) { setTimeout(renderTurnstile, 300); return; }
+    turnstileWidgetId = window.turnstile.render('#turnstileBox', {
+      sitekey: '0x4AAAAAAEAHQMq_kGnLj1Im',
+      theme: 'light',
+      language: 'pt-br'
+    });
+  }
+
+  // Junta os campos do form num objeto { nome: valor }, com arrays para
+  // grupos de checkbox — mesmo formato que o Apps Script espera em body.fields.
+  function collectFields(){
+    const data = {};
+    Array.from(form.elements).forEach(function(el){
+      if(!el.name || el.name === 'website' || el.name === 'cf-turnstile-response') return;
+      if(el.type === 'checkbox'){
+        if(!data[el.name]) data[el.name] = [];
+        if(el.checked) data[el.name].push(el.value);
+      } else if(el.type === 'radio'){
+        if(el.checked) data[el.name] = el.value;
+      } else {
+        data[el.name] = el.value;
+      }
+    });
+    return data;
+  }
+
+  // ---- Rascunho salvo no navegador ----
+  function saveDraft(){
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(collectFields())); }catch(e){}
+  }
+
+  function restoreDraft(){
+    let data;
+    try{ data = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); }catch(e){ data = null; }
+    if(!data) return;
+
+    Array.from(form.elements).forEach(function(el){
+      if(!el.name || !(el.name in data)) return;
+      if(el.type === 'checkbox'){
+        el.checked = Array.isArray(data[el.name]) && data[el.name].indexOf(el.value) !== -1;
+      } else if(el.type === 'radio'){
+        el.checked = data[el.name] === el.value;
+      } else {
+        el.value = data[el.name];
+      }
+    });
+
+    // reaplica os campos condicionais ("Outro" e "já tem logo")
+    form.querySelectorAll('[data-other]').forEach(function(checkbox){
+      const target = document.getElementById(checkbox.dataset.other);
+      target.hidden = !checkbox.checked;
+    });
+    const logoRadio = form.querySelector('input[name="q_tem_logo"]:checked');
+    wrapLogoOpiniao.hidden = !logoRadio || logoRadio.value !== 'Sim';
+  }
+
+  form.addEventListener('input', saveDraft);
+  form.addEventListener('change', saveDraft);
+  restoreDraft();
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    formError.style.display = 'none';
+
+    // Honeypot preenchido: só um bot faria isso. O Apps Script também checa
+    // isso (body.trap) e grava nada nesse caso — aqui só evita gastar a
+    // validação e o Turnstile à toa.
+    const trap = !!(form.elements.website && form.elements.website.value);
+
+    if(!trap){
+      if(!validateStep(steps[current])) return;
+    }
+
+    const tsField = form.elements['cf-turnstile-response'];
+    if(!trap && (!tsField || !tsField.value)){
+      formError.textContent = 'Confirme que você não é um robô e tente de novo.';
+      formError.style.display = 'block';
+      return;
+    }
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Enviando...';
+
+    // Corpo em JSON (não form-urlencoded): é o formato que o doPost do Apps
+    // Script espera (body.fields / body.trap / body.elapsedMs / body.token).
+    // Content-Type fica em text/plain (default do fetch pra um body string)
+    // de propósito — application/json dispararia um preflight OPTIONS que o
+    // Apps Script não responde.
+    const payload = {
+      fields: collectFields(),
+      trap: trap,
+      elapsedMs: Date.now() - loadedAt,
+      token: tsField ? tsField.value : ''
+    };
+
+    try{
+      if(ENDPOINT.startsWith('http')){
+        await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'briefing_kv_enviado' });
+      try{ localStorage.removeItem(DRAFT_KEY); }catch(err){}
+      showSuccess();
+    }catch(err){
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Enviar briefing';
+      formError.textContent = 'Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.';
+      formError.style.display = 'block';
+      if(window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+    }
+  });
+
+  function showSuccess(){
+    form.style.display = 'none';
+    successBox.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>
