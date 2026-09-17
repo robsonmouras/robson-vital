@@ -9,6 +9,7 @@ import {
   clientIp,
   corsHeaders,
   dominioRecebeEmail,
+  enviarAlertaLead,
   jsonResponse,
   rateLimitOk,
   validarCampos,
@@ -99,6 +100,16 @@ Deno.serve(async (req) => {
     console.error('quiz-submit insert error', error.code, error.message);
     return jsonResponse({ success: false, error: 'Erro ao salvar seu resultado.', code: 'INTERNAL_ERROR' }, 500, origin);
   }
+
+  await enviarAlertaLead({
+    nome: payload.nome,
+    email: payload.email,
+    whatsapp: payload.whatsapp,
+    resultado,
+    utm_source: payload.utm_source,
+    utm_medium: payload.utm_medium,
+    utm_content: payload.utm_content,
+  });
 
   return jsonResponse({ success: true, lead_id: inserido.id, resultado }, 201, origin);
 });

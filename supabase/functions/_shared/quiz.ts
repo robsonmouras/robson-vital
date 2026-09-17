@@ -214,3 +214,34 @@ export function clientIp(req: Request): string {
   if (fwd) return fwd.split(',')[0].trim();
   return req.headers.get('cf-connecting-ip') ?? 'desconhecido';
 }
+
+// Alerta por e-mail a cada lead novo, via um Web App do Google Apps Script
+// (ver apps-script-quiz-alert.gs na raiz do repositório) — evita depender de
+// um provedor de e-mail transacional à parte só pra isso. Sem as duas
+// secrets configuradas, não faz nada (alerta é opcional). Falha aqui nunca
+// derruba o cadastro do lead, só loga.
+export async function enviarAlertaLead(lead: {
+  nome: string;
+  email: string;
+  whatsapp: string;
+  resultado: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_content?: string;
+}): Promise<void> {
+  const url = Deno.env.get('QUIZ_ALERT_WEBHOOK_URL');
+  const segredo = Deno.env.get('QUIZ_ALERT_WEBHOOK_SECRET');
+  if (!url || !segredo) return;
+
+  const timeout = AbortSignal.timeout(5000);
+  try {
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...lead, segredo }),
+      signal: timeout,
+    });
+  } catch (err) {
+    console.error('enviarAlertaLead: falha ao chamar webhook', err);
+  }
+}

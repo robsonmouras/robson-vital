@@ -17,6 +17,12 @@ copy) continua no HTML estático em `public/quiz/index.html`.
 - **`quiz-stats`** — endpoint administrativo (exige header `x-admin-token`)
   com contagem de leads e distribuição por resultado / por `utm_content`.
 
+A `quiz-submit` também dispara um alerta por e-mail a cada lead gravado,
+chamando um Web App do Google Apps Script (`apps-script-quiz-alert.gs` na
+raiz do repositório) — ver `enviarAlertaLead` em `_shared/quiz.ts`. Sem as
+secrets `QUIZ_ALERT_WEBHOOK_URL`/`QUIZ_ALERT_WEBHOOK_SECRET` configuradas,
+esse passo simplesmente não faz nada (não quebra o cadastro do lead).
+
 ## Deploy
 
 Pré-requisito: [Supabase CLI](https://supabase.com/docs/guides/cli)
@@ -36,6 +42,12 @@ supabase secrets set QUIZ_ADMIN_TOKEN=cole-uma-string-aleatoria-aqui
 # opcional: restringe CORS a mais de uma origem (separadas por vírgula).
 # sem isso, o padrão já é https://robsonvital.com.br
 supabase secrets set CORS_ORIGIN=https://robsonvital.com.br,http://localhost:5173
+
+# alerta por e-mail a cada lead novo (opcional — sem isso, quiz-submit
+# funciona normal, só não manda e-mail). Deploy do Web App: veja o passo a
+# passo no topo de apps-script-quiz-alert.gs, na raiz do repositório.
+supabase secrets set QUIZ_ALERT_WEBHOOK_URL=https://script.google.com/macros/s/SEU-ID/exec
+supabase secrets set QUIZ_ALERT_WEBHOOK_SECRET=a-mesma-string-que-voce-colocou-no-apps-script
 ```
 
 `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` são injetadas automaticamente
@@ -75,7 +87,6 @@ mais permissão de escrever direto na tabela `quiz_leads` (ver
   `quiz-stats` — já são cobertos pelos eventos `quiz_step_view` /
   `quiz_lead_enviado` no GTM/GA4 (ver comentário no topo do
   `public/quiz/index.html`), sem necessidade de duplicar em SQL.
-- **Email de confirmação e webhook de notificação** (V2 do
-  `prompt-quiz-implementacao.md`) não foram implementados — dá pra somar
-  depois como mais uma function (`quiz-submit` já centraliza onde plugar
-  isso, no ponto em que o insert dá certo).
+- **Alerta por e-mail a cada lead** é enviado via Web App do Apps Script
+  (ver acima) — não via um provedor de e-mail transacional dedicado. Cai na
+  cota de envio do Gmail pessoal (bem acima do volume esperado aqui).
