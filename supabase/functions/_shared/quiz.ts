@@ -92,13 +92,16 @@ export type QuizPayload = {
   p2: string;
   p3: string;
   p4: string;
+  consentimento_lgpd: boolean;
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
   utm_content?: string;
 };
 
-export type ValidationErrors = Partial<Record<'nome' | 'email' | 'whatsapp' | 'p1' | 'p2' | 'p3' | 'p4', string>>;
+export type ValidationErrors = Partial<
+  Record<'nome' | 'email' | 'whatsapp' | 'p1' | 'p2' | 'p3' | 'p4' | 'consentimento_lgpd', string>
+>;
 
 const P12_VALORES = ['A', 'B', 'C', 'D'];
 const P34_VALORES = ['A', 'B'];
@@ -135,6 +138,10 @@ export function validarCampos(body: Record<string, unknown>): { errors: Validati
   if (!P34_VALORES.includes(p3)) errors.p3 = 'Resposta inválida.';
   if (!P34_VALORES.includes(p4)) errors.p4 = 'Resposta inválida.';
 
+  if (body.consentimento_lgpd !== true) {
+    errors.consentimento_lgpd = 'É preciso aceitar o uso dos seus dados pra continuar.';
+  }
+
   if (Object.keys(errors).length > 0) return { errors };
 
   return {
@@ -147,6 +154,7 @@ export function validarCampos(body: Record<string, unknown>): { errors: Validati
       p2,
       p3,
       p4,
+      consentimento_lgpd: true,
       utm_source: utmValido(body.utm_source) ? (body.utm_source as string | undefined) : undefined,
       utm_medium: utmValido(body.utm_medium) ? (body.utm_medium as string | undefined) : undefined,
       utm_campaign: utmValido(body.utm_campaign) ? (body.utm_campaign as string | undefined) : undefined,

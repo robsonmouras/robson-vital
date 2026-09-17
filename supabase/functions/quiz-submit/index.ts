@@ -86,6 +86,7 @@ Deno.serve(async (req) => {
       p3_agendamento: payload.p3,
       p4_conteudo: payload.p4,
       resultado,
+      consentimento_lgpd: payload.consentimento_lgpd,
       utm_source: payload.utm_source ?? null,
       utm_medium: payload.utm_medium ?? null,
       utm_campaign: payload.utm_campaign ?? null,

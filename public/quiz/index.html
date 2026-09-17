@@ -136,6 +136,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .field-error{ display:none; margin-top:7px; font-size:12.5px; color:var(--accent); font-weight:500; }
   .field-error.is-visible{ display:block; }
 
+  .field-consent{ display:flex; align-items:flex-start; gap:10px; margin-top:4px; }
+  .field-consent input{ width:16px; height:16px; margin-top:3px; flex:0 0 auto; accent-color:var(--accent); }
+  .field-consent label{ font-size:13px; color:var(--text-soft); line-height:1.45; }
+  .field-consent input[aria-invalid="true"] + label{ color:var(--accent); }
+
   #formError{ display:none; margin-top:22px; border:1px solid #fecaca; background:var(--accent-soft);
     padding:13px 16px; font-size:13.5px; color:var(--accent); border-radius:10px; }
 
@@ -282,6 +287,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="field-error" id="err-whatsapp"></p>
           </div>
         </div>
+        <div class="field-consent" id="fieldConsentimento">
+          <input type="checkbox" id="consentimento" name="consentimento_lgpd">
+          <label for="consentimento">Autorizo o uso do meu nome, e-mail e WhatsApp pra receber o resultado do
+            quiz e um contato sobre o meu site, conforme a LGPD.</label>
+        </div>
+        <p class="field-error" id="err-consentimento"></p>
         <div id="formError"></div>
         <button type="submit" class="btn btn--block" id="btnSubmit">Descobrir meu site ideal</button>
       </form>
@@ -570,6 +581,10 @@ function validarFormulario(){
   if(digitos.length !== 11){ setFieldError(whatsapp, 'Digite DDD + número, 11 dígitos (ex.: 41988794473).'); ok = false; }
   else clearFieldError(whatsapp);
 
+  const consentimento = form.elements.consentimento_lgpd;
+  if(!consentimento.checked){ setFieldError(consentimento, 'É preciso aceitar o uso dos seus dados pra continuar.'); ok = false; }
+  else clearFieldError(consentimento);
+
   return ok;
 }
 
@@ -603,6 +618,7 @@ form.addEventListener('submit', async (e) => {
     p2: respostas.p2,
     p3: respostas.p3,
     p4: respostas.p4,
+    consentimento_lgpd: form.elements.consentimento_lgpd.checked,
   }, utm);
 
   try{
@@ -617,6 +633,7 @@ form.addEventListener('submit', async (e) => {
         if(data.errors.nome) setFieldError(form.elements.nome, data.errors.nome);
         if(data.errors.email) setFieldError(form.elements.email, data.errors.email);
         if(data.errors.whatsapp) setFieldError(form.elements.whatsapp, data.errors.whatsapp);
+        if(data.errors.consentimento_lgpd) setFieldError(form.elements.consentimento_lgpd, data.errors.consentimento_lgpd);
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Descobrir meu site ideal';
         return;

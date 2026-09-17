@@ -32,6 +32,12 @@ alter table quiz_leads add column if not exists email_enviado boolean not null d
 alter table quiz_leads add column if not exists whatsapp_enviado boolean not null default false;
 alter table quiz_leads add column if not exists convertido boolean not null default false;
 
+-- Consentimento LGPD: o formulário só envia se o checkbox estiver marcado
+-- (validado também no servidor, na Edge Function quiz-submit), então na
+-- prática essa coluna é sempre "true" — existe pra ter o registro formal de
+-- que o consentimento foi dado nesse envio.
+alter table quiz_leads add column if not exists consentimento_lgpd boolean not null default false;
+
 create index if not exists idx_quiz_leads_email on quiz_leads(email);
 create index if not exists idx_quiz_leads_utm_content on quiz_leads(utm_content);
 create index if not exists idx_quiz_leads_created_at on quiz_leads(created_at);
