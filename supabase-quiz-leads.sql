@@ -1,12 +1,13 @@
 -- Robson Vital — Leads do quiz "Como você quer que seu site te ajude?"
 --
--- Como usar:
+-- Como usar (projeto novo):
 -- 1. Crie um projeto em https://supabase.com/dashboard (plano free serve).
 -- 2. Menu "SQL Editor" > New query > cole este arquivo inteiro > Run.
--- 3. Menu "Project Settings" > "API": copie a "Project URL" e a chave
---    "anon public" (NUNCA a "service_role", essa é secreta).
--- 4. Cole os dois valores em public/quiz/index.html, nas constantes
---    SUPABASE_URL e SUPABASE_ANON_KEY (procure por "COLE AQUI").
+-- 3. Deploy das Edge Functions em supabase/functions/ (veja o README lá).
+--
+-- Se você já tinha rodado a versão antiga deste script (sem as colunas de
+-- UTM/flags abaixo), pode rodar este arquivo de novo — os comandos são
+-- todos "IF NOT EXISTS" / idempotentes, não apagam dados existentes.
 
 create table if not exists quiz_leads (
   id uuid primary key default gen_random_uuid(),
@@ -21,13 +22,29 @@ create table if not exists quiz_leads (
   created_at timestamptz not null default now()
 );
 
+-- Tracking de origem (de onde veio o clique) e follow-up.
+alter table quiz_leads add column if not exists utm_source text;
+alter table quiz_leads add column if not exists utm_medium text;
+alter table quiz_leads add column if not exists utm_campaign text;
+alter table quiz_leads add column if not exists utm_content text;
+alter table quiz_leads add column if not exists updated_at timestamptz not null default now();
+alter table quiz_leads add column if not exists email_enviado boolean not null default false;
+alter table quiz_leads add column if not exists whatsapp_enviado boolean not null default false;
+alter table quiz_leads add column if not exists convertido boolean not null default false;
+
+create index if not exists idx_quiz_leads_email on quiz_leads(email);
+create index if not exists idx_quiz_leads_utm_content on quiz_leads(utm_content);
+create index if not exists idx_quiz_leads_created_at on quiz_leads(created_at);
+
 alter table quiz_leads enable row level security;
 
--- A chave "anon" (pública, embutida no HTML) só pode INSERIR linhas —
--- não consegue ler, editar ou apagar nada. Consultar os leads é feito só
--- pelo painel do Supabase (Table Editor) ou com a service_role key.
+-- Gravação passou a ser feita só pela Edge Function "quiz-submit", que usa a
+-- service_role key (ignora RLS) depois de validar tudo no servidor (MX check
+-- de e-mail, formato de WhatsApp, dedupe). Por isso não existe mais policy
+-- de insert pra role "anon": a chave anon embutida no HTML só serve pra
+-- autenticar a chamada às Edge Functions, não pra escrever direto na tabela.
 drop policy if exists "quiz_leads_insert_anon" on quiz_leads;
-create policy "quiz_leads_insert_anon" on quiz_leads
-  for insert
-  to anon
-  with check (true);
+
+-- Consultar os leads é feito pelo painel do Supabase (Table Editor), pela
+-- Edge Function "quiz-stats" (também com service_role) ou com a service_role
+-- key diretamente — nunca pela chave anon.

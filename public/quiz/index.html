@@ -309,19 +309,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer><p>&copy; 2026 Robson Vital. Todos os direitos reservados.</p></footer>
 
 <script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
 // ====== CONFIG: cole aqui a URL e a chave anon do seu projeto Supabase ======
-// Veja o passo a passo em supabase-quiz-leads.sql (raiz do repositório).
-const SUPABASE_URL = 'https://SEU-PROJETO.supabase.co';
-const SUPABASE_ANON_KEY = 'COLE-AQUI-SUA-CHAVE-ANON';
+// Veja o passo a passo em supabase-quiz-leads.sql e em supabase/functions/README.md
+// (raiz do repositório). A gravação do lead é feita pela Edge Function
+// "quiz-submit" (valida e-mail/WhatsApp no servidor), não mais direto na
+// tabela — a chave anon abaixo só autentica a chamada às functions.
+const SUPABASE_URL = 'https://mgnafwfcublwfhiveqmp.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_jaBMnQeyDF7EDRoH0h5pIQ_uwEUr4Y_';
 // =============================================================================
 
-const supabase = SUPABASE_URL.indexOf('SEU-PROJETO') === -1
-  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  : null;
+const FUNCTIONS_CONFIGURADO = SUPABASE_URL.indexOf('SEU-PROJETO') === -1;
+const FUNCTIONS_URL = SUPABASE_URL + '/functions/v1/';
+
+async function chamarFunction(nome, body){
+  const resp = await fetch(FUNCTIONS_URL + nome, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+    },
+    body: JSON.stringify(body),
+  });
+  const data = await resp.json().catch(() => ({}));
+  return { ok: resp.ok, status: resp.status, data };
+}
 
 const WHATSAPP_NUMERO = '5541988794473';
+
+// UTM capturados da URL (ex.: ?utm_source=instagram&utm_content=joao) pra
+// rastrear de onde veio o clique — ver tabela quiz_leads.
+const utmParams = new URLSearchParams(window.location.search);
+const utm = {
+  utm_source: utmParams.get('utm_source') || undefined,
+  utm_medium: utmParams.get('utm_medium') || undefined,
+  utm_campaign: utmParams.get('utm_campaign') || undefined,
+  utm_content: utmParams.get('utm_content') || undefined,
+};
 
 // Regras de recomendação — ver tabela completa em prompt-quiz-implementacao.md.
 // Combinações fora da tabela (ex.: vender + portfólio) caem num fallback
@@ -508,6 +531,29 @@ function clearFieldError(input){
   if(el){ el.textContent = ''; el.classList.remove('is-visible'); }
 }
 
+// Checagem de domínio (MX) em tempo real, ao sair do campo — só o servidor
+// consegue fazer essa consulta, o navegador não tem acesso a DNS.
+const emailInput = form.elements.email;
+let emailCheckToken = 0;
+emailInput.addEventListener('blur', async () => {
+  const valor = emailInput.value.trim();
+  if(!FUNCTIONS_CONFIGURADO || !EMAIL_RE.test(valor)) return;
+
+  const meuToken = ++emailCheckToken;
+  try{
+    const { data } = await chamarFunction('quiz-validate-email', { email: valor });
+    if(meuToken !== emailCheckToken) return; // usuário já digitou outra coisa
+    if(data && data.valid === false){
+      setFieldError(emailInput, data.message || 'Não encontramos esse domínio de e-mail.');
+    } else if(data && data.valid === true){
+      clearFieldError(emailInput);
+    }
+  }catch(err){
+    // Falha na checagem em tempo real não bloqueia o usuário — o submit
+    // final valida de novo no servidor antes de gravar.
+  }
+});
+
 function validarFormulario(){
   let ok = true;
   const nome = form.elements.nome;
@@ -548,27 +594,42 @@ form.addEventListener('submit', async (e) => {
   btnSubmit.disabled = true;
   btnSubmit.textContent = 'Enviando...';
 
-  const lead = {
+  const whatsappDigitos = form.elements.whatsapp.value.replace(/\D/g, '');
+  const payload = Object.assign({
     nome: form.elements.nome.value.trim(),
     email: form.elements.email.value.trim(),
-    whatsapp: form.elements.whatsapp.value.replace(/\D/g, ''),
-    p1_objetivo: respostas.p1,
-    p2_oferece: respostas.p2,
-    p3_agendamento: respostas.p3,
-    p4_conteudo: respostas.p4,
-    resultado: resultKey,
-  };
+    whatsapp: whatsappDigitos,
+    p1: respostas.p1,
+    p2: respostas.p2,
+    p3: respostas.p3,
+    p4: respostas.p4,
+  }, utm);
 
   try{
-    if(supabase){
-      const { error } = await supabase.from('quiz_leads').insert(lead);
-      if(error) throw error;
+    if(!FUNCTIONS_CONFIGURADO){
+      throw new Error('Supabase não configurado');
     }
+
+    const { ok, status, data } = await chamarFunction('quiz-submit', payload);
+
+    if(!ok){
+      if(status === 422 && data && data.errors){
+        if(data.errors.nome) setFieldError(form.elements.nome, data.errors.nome);
+        if(data.errors.email) setFieldError(form.elements.email, data.errors.email);
+        if(data.errors.whatsapp) setFieldError(form.elements.whatsapp, data.errors.whatsapp);
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Descobrir meu site ideal';
+        return;
+      }
+      throw new Error((data && data.error) || 'Falha no envio');
+    }
+
+    const resultKeyFinal = data.resultado || resultKey;
     try{
-      sessionStorage.setItem('quizLeadDone', JSON.stringify({ resultKey, whatsapp: lead.whatsapp }));
+      sessionStorage.setItem('quizLeadDone', JSON.stringify({ resultKey: resultKeyFinal, whatsapp: whatsappDigitos }));
     }catch(err){}
-    pushDataLayer('quiz_lead_enviado', { quiz_resultado: RESULTADOS[resultKey].label, quiz_tempo_ms: elapsedMs });
-    mostrarResultado(resultKey);
+    pushDataLayer('quiz_lead_enviado', { quiz_resultado: RESULTADOS[resultKeyFinal].label, quiz_tempo_ms: elapsedMs });
+    mostrarResultado(resultKeyFinal);
   }catch(err){
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Descobrir meu site ideal';

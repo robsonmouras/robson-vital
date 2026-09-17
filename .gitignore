@@ -18,6 +18,11 @@ dist-ssr
 # Documentação interna
 IDENTIDADE-VISUAL.md
 
+# Estado local do Supabase CLI (supabase link) — nada de segredo, mas é
+# cache de máquina, não faz sentido versionar.
+supabase/.temp
+supabase/.branches
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
