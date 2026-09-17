@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+
+<!-- Google Tag Manager (mesmo container do site, GTM-K7RJPKD) — os eventos
+     quiz_step_view / quiz_lead_enviado abaixo alimentam o funil e a
+     distribuição de resultados no GA4, configurável no próprio GTM. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K7RJPKD');</script>
+<!-- End Google Tag Manager -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Qual site combina com o seu negócio? — Robson Vital</title>
+<meta name="description"
+    content="Responda 4 perguntas rápidas e descubra qual tipo de site faz sentido pro seu negócio.">
+
+<!-- Ferramenta ainda em teste, sem divulgação: fora de busca por enquanto.
+     Remover esta linha quando decidir divulgar o quiz publicamente. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="Robson Moura">
+<meta name="theme-color" content="#dc2626">
+
+<link rel="icon" href="/images/favicon/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#F2F2F2;
+    --surface:#FFFFFF;
+    --text:#464645;
+    --text-soft:#7a7a79;
+    --accent:#dc2626;
+    --accent-soft:#fef2f2;
+    --border:#E5E5E5;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  h1,h2,.brand{ font-family:"Outfit", sans-serif; }
+
+  a{ color:inherit; }
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px, 5vw, 48px);
+  }
+  .brand{ font-size:15px; font-weight:600; letter-spacing:-.01em; text-decoration:none; color:var(--text); }
+  .brand b{ color:var(--accent); font-weight:600; }
+  .exit{ font-size:12.5px; color:var(--text-soft); text-decoration:none; }
+  .exit:hover{ color:var(--text); }
+
+  .progress-wrap{ padding:0 clamp(20px, 5vw, 48px); }
+  .progress-top{ display:flex; justify-content:space-between; font-size:11.5px; font-weight:500;
+    letter-spacing:.06em; color:var(--text-soft); margin-bottom:8px; }
+  .progress-track{ height:3px; width:100%; background:var(--border); border-radius:999px; overflow:hidden; }
+  .progress-fill{ height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width .45s cubic-bezier(.65,0,.35,1); }
+
+  main{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:32px clamp(20px, 5vw, 48px) 56px;
+  }
+
+  .stage{ width:100%; max-width:640px; }
+
+  .screen{ display:none; }
+  .screen.is-active{ display:block; animation:screen-in .5s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes screen-in{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+
+  .eyebrow{ font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+  .q-title{ margin-top:14px; font-size:clamp(1.6rem, 4.2vw, 2.4rem); font-weight:400; letter-spacing:-.01em; line-height:1.2; max-width:22ch; }
+
+  .options{ margin-top:36px; display:grid; gap:12px; }
+  .option{
+    display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; font:inherit; font-size:15.5px; color:var(--text); cursor:pointer;
+    transition:border-color .15s, transform .15s, background-color .15s;
+  }
+  .option:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .option:active{ transform:translateY(0); }
+  .option.is-picked{ border-color:var(--accent); background:var(--accent-soft); }
+  .option__letter{
+    flex:0 0 30px; height:30px; border-radius:50%; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Outfit", sans-serif; font-size:13px; font-weight:600; color:var(--text-soft);
+  }
+  .option.is-picked .option__letter{ border-color:var(--accent); color:var(--accent); }
+
+  .back-link{
+    display:inline-block; margin-top:28px; font-size:13px; font-weight:500;
+    color:var(--text-soft); background:none; border:none; cursor:pointer; padding:0;
+  }
+  .back-link:hover{ color:var(--text); }
+
+  /* Transição pós-P4 */
+  .transition p{ font-size:clamp(1.2rem, 3vw, 1.6rem); font-weight:400; font-family:"Outfit", sans-serif; line-height:1.4; }
+  .transition p + p{ margin-top:16px; color:var(--text-soft); font-size:15px; font-family:"Inter", sans-serif; }
+  .btn{
+    margin-top:32px; display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:#fff; border:none; border-radius:999px;
+    padding:16px 30px; font:inherit; font-size:13px; font-weight:600;
+    letter-spacing:.04em; cursor:pointer; transition:transform .15s, opacity .15s;
+  }
+  .btn:hover:not(:disabled){ transform:translateY(-2px); }
+  .btn:disabled{ opacity:.55; cursor:default; transform:none; }
+  .btn--block{ width:100%; justify-content:center; }
+  @media (min-width:560px){ .btn--block{ width:auto; } }
+
+  /* Formulário */
+  .fields{ margin-top:32px; display:grid; gap:16px; }
+  .field label{ display:block; font-size:13.5px; font-weight:500; margin-bottom:8px; }
+  .field input{
+    width:100%; font:inherit; font-size:15px; color:var(--text);
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; outline:none; transition:border-color .15s, box-shadow .15s;
+  }
+  .field input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(220,38,38,.1); }
+  .field input[aria-invalid="true"]{ border-color:var(--accent); background:var(--accent-soft); }
+  .field-error{ display:none; margin-top:7px; font-size:12.5px; color:var(--accent); font-weight:500; }
+  .field-error.is-visible{ display:block; }
+
+  #formError{ display:none; margin-top:22px; border:1px solid #fecaca; background:var(--accent-soft);
+    padding:13px 16px; font-size:13.5px; color:var(--accent); border-radius:10px; }
+
+  .hp{ position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; }
+
+  /* Resultado */
+  .result .eyebrow{ }
+  .result h2{ margin-top:14px; font-size:clamp(1.7rem, 4.5vw, 2.5rem); font-weight:400; letter-spacing:-.01em; line-height:1.2; }
+  .result h2 b{ font-weight:600; color:var(--accent); }
+
+  /* Termo com explicação: sublinhado tracejado sinaliza que dá pra
+     passar o mouse (ou tocar, no celular) pra entender o que significa. */
+  .result h2 .term{ cursor:help; border-bottom:1.5px dashed currentColor; }
+
+  .term-tooltip{
+    position:fixed; z-index:60; max-width:260px; padding:12px 14px;
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    box-shadow:0 12px 30px rgba(0,0,0,.16); font-size:13px; line-height:1.55; color:var(--text);
+    pointer-events:none; opacity:0; transform:translateY(4px);
+    transition:opacity .15s, transform .15s;
+  }
+  .term-tooltip.is-visible{ opacity:1; transform:none; }
+
+  .result p.lead{ margin-top:16px; font-size:15.5px; color:var(--text-soft); line-height:1.65; max-width:52ch; }
+  .result ul{ margin-top:24px; display:grid; gap:10px; list-style:none; }
+  .result li{
+    display:flex; align-items:flex-start; gap:10px; font-size:14.5px;
+    background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px;
+  }
+  .result li::before{ content:"→"; color:var(--accent); font-weight:600; flex:0 0 auto; }
+  .result .redo{ margin-top:24px; }
+
+  footer{ padding:20px clamp(20px, 5vw, 48px); text-align:center; }
+  footer p{ font-size:12px; color:var(--text-soft); }
+
+  @media (prefers-reduced-motion: reduce){
+    .screen.is-active{ animation:none; }
+    .option, .btn{ transition:none; }
+    .term-tooltip{ transition:none; }
+  }
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7RJPKD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="topbar">
+  <a href="/" class="brand">Robson <b>Vital</b></a>
+  <a href="/" class="exit">Sair</a>
+</div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-top">
+    <span id="progressLabel">01/05</span>
+    <span id="progressStepName">Objetivo</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<main>
+  <div class="stage">
+
+    <!-- P1 -->
+    <section class="screen" data-screen="p1" data-step="1" data-step-name="Objetivo">
+      <div class="eyebrow">Pergunta 1 de 4</div>
+      <h1 class="q-title">O que você quer conquistar com seu site?</h1>
+      <div class="options" data-question="p1">
+        <button class="option" data-value="A"><span class="option__letter">A</span><span>Vender algo direto (produto, curso, serviço)</span></button>
+        <button class="option" data-value="B"><span class="option__letter">B</span><span>Atrair clientes / gerar leads</span></button>
+        <button class="option" data-value="C"><span class="option__letter">C</span><span>Mostrar meu trabalho / credibilidade</span></button>
+        <button class="option" data-value="D"><span class="option__letter">D</span><span>Compartilhar conhecimento / conteúdo</span></button>
+      </div>
+    </section>
+
+    <!-- P2 -->
+    <section class="screen" data-screen="p2" data-step="2" data-step-name="O que você oferece">
+      <div class="eyebrow">Pergunta 2 de 4</div>
+      <h1 class="q-title">Qual melhor descreve o que você faz?</h1>
+      <div class="options" data-question="p2">
+        <button class="option" data-value="A"><span class="option__letter">A</span><span>Serviço (consultoria, consultório, agência, etc)</span></button>
+        <button class="option" data-value="B"><span class="option__letter">B</span><span>Produto físico</span></button>
+        <button class="option" data-value="C"><span class="option__letter">C</span><span>Produto digital ou curso</span></button>
+        <button class="option" data-value="D"><span class="option__letter">D</span><span>Meu portfólio / trabalhos</span></button>
+      </div>
+      <button class="back-link" data-back>← Voltar</button>
+    </section>
+
+    <!-- P3 -->
+    <section class="screen" data-screen="p3" data-step="3" data-step-name="Agendamento">
+      <div class="eyebrow">Pergunta 3 de 4</div>
+      <h1 class="q-title">Seus clientes precisam marcar horário com você?</h1>
+      <div class="options" data-question="p3">
+        <button class="option" data-value="A"><span class="option__letter">A</span><span>Sim, preciso de agendamento</span></button>
+        <button class="option" data-value="B"><span class="option__letter">B</span><span>Não preciso</span></button>
+      </div>
+      <button class="back-link" data-back>← Voltar</button>
+    </section>
+
+    <!-- P4 -->
+    <section class="screen" data-screen="p4" data-step="4" data-step-name="Conteúdo">
+      <div class="eyebrow">Pergunta 4 de 4</div>
+      <h1 class="q-title">Você planeja publicar conteúdo regularmente no site?</h1>
+      <div class="options" data-question="p4">
+        <button class="option" data-value="A"><span class="option__letter">A</span><span>Sim, vou atualizar com artigos/dicas frequentemente</span></button>
+        <button class="option" data-value="B"><span class="option__letter">B</span><span>Não, só informações básicas da empresa/produtos</span></button>
+      </div>
+      <button class="back-link" data-back>← Voltar</button>
+    </section>
+
+    <!-- Transição -->
+    <section class="screen transition" data-screen="transition" data-step="4" data-step-name="Conteúdo">
+      <div class="eyebrow">Quase lá</div>
+      <p>Seu site ideal está tomando forma.</p>
+      <p>A gente identificou exatamente o que faz sentido pro seu negócio.<br>Agora a gente precisa se conhecer melhor.</p>
+      <button class="btn" id="btnContinue">Continuar</button>
+    </section>
+
+    <!-- Formulário -->
+    <section class="screen" data-screen="form" data-step="5" data-step-name="Seus dados">
+      <div class="eyebrow">Última etapa</div>
+      <h1 class="q-title">Pra onde eu te mando o resultado?</h1>
+      <form id="leadForm" novalidate>
+        <div class="hp" aria-hidden="true">
+          <label for="website">Não preencha este campo</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="fields">
+          <div class="field">
+            <label for="nome">Seu nome</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Como você se chama">
+            <p class="field-error" id="err-nome"></p>
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@empresa.com.br">
+            <p class="field-error" id="err-email"></p>
+          </div>
+          <div class="field">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" placeholder="(41) 98879-4473" inputmode="numeric">
+            <p class="field-error" id="err-whatsapp"></p>
+          </div>
+        </div>
+        <div id="formError"></div>
+        <button type="submit" class="btn btn--block" id="btnSubmit">Descobrir meu site ideal</button>
+      </form>
+      <button class="back-link" data-back>← Voltar</button>
+    </section>
+
+    <!-- Resultado -->
+    <section class="screen result" data-screen="result">
+      <div class="eyebrow">Seu resultado</div>
+      <h2 id="resultTitle"></h2>
+      <p class="lead" id="resultLead"></p>
+      <ul id="resultList"></ul>
+      <p class="lead" style="margin-top:28px; font-weight:500; color:var(--text);">Vamos converter isso em realidade?</p>
+      <a class="btn" id="resultCta" href="#" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+      <div class="redo"><button class="back-link" id="btnRedo">Refazer o quiz</button></div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Popover com a explicação do termo (ecommerce, landing page, etc.):
+     acompanha o mouse no hover, ou abre com um toque no celular. -->
+<div class="term-tooltip" id="termTooltip" role="tooltip"></div>
+
+<footer><p>&copy; 2026 Robson Vital. Todos os direitos reservados.</p></footer>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// ====== CONFIG: cole aqui a URL e a chave anon do seu projeto Supabase ======
+// Veja o passo a passo em supabase-quiz-leads.sql (raiz do repositório).
+const SUPABASE_URL = 'https://SEU-PROJETO.supabase.co';
+const SUPABASE_ANON_KEY = 'COLE-AQUI-SUA-CHAVE-ANON';
+// =============================================================================
+
+const supabase = SUPABASE_URL.indexOf('SEU-PROJETO') === -1
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+
+const WHATSAPP_NUMERO = '5541988794473';
+
+// Regras de recomendação — ver tabela completa em prompt-quiz-implementacao.md.
+// Combinações fora da tabela (ex.: vender + portfólio) caem num fallback
+// razoável em vez de deixar o resultado indefinido.
+function calcularResultado(p1, p2, p3, p4){
+  if(p1 === 'D') return 'blog';
+
+  if(p1 === 'A'){
+    if(p2 === 'B') return 'ecommerce';
+    if(p2 === 'C') return p4 === 'A' ? 'venda_curso' : 'landing_page';
+    return 'landing_page';
+  }
+
+  if(p1 === 'B'){
+    if(p2 === 'A') return p3 === 'A' ? 'servicos_calendly' : 'lead_magnet';
+    return p4 === 'A' ? 'lead_magnet_blog' : 'landing_page';
+  }
+
+  if(p1 === 'C'){
+    if(p2 === 'D') return p4 === 'A' ? 'portfolio_blog' : 'portfolio';
+    return p4 === 'A' ? 'institucional_blog' : 'institucional';
+  }
+
+  return 'landing_page';
+}
+
+const RESULTADOS = {
+  ecommerce: {
+    label: 'Ecommerce',
+    titulo: 'Você precisa de um <b>Ecommerce</b>.',
+    lead: 'Seu objetivo é vender produtos direto. Você vai precisar de:',
+    itens: ['Catálogo estruturado', 'Carrinho de compras', 'Integração de pagamento', 'Gestão de estoque'],
+    explicacao: 'É uma loja virtual: um site onde a pessoa escolhe o produto, coloca no carrinho e paga ali mesmo, sem precisar te chamar no WhatsApp pra fechar a compra.',
+  },
+  venda_curso: {
+    label: 'Site para Venda de Curso',
+    titulo: 'Você precisa de um <b>Site para Venda de Curso</b>.',
+    lead: 'Você quer vender conhecimento. Você vai precisar de:',
+    itens: ['Página de apresentação do curso', 'Sistema de login para alunos', 'Biblioteca de conteúdo', 'Email marketing integrado'],
+    explicacao: 'Um site feito pra vender um curso ou treinamento online: a pessoa conhece o conteúdo numa página de vendas, compra, e recebe acesso a uma área exclusiva pra assistir as aulas.',
+  },
+  landing_page: {
+    label: 'Landing Page',
+    titulo: 'Você precisa de uma <b>Landing Page</b>.',
+    lead: 'Seu foco é converter visitantes em clientes rápido. Você vai precisar de:',
+    itens: ['Headline que chama atenção', 'Benefícios claros', 'CTA irresistível', 'Formulário de contato'],
+    explicacao: 'É uma página única e direta ao ponto, feita pra fazer uma coisa só: convencer quem chegou nela a tomar uma ação — comprar, agendar ou deixar o contato. Sem menu, sem distração, sem outras páginas pra navegar.',
+  },
+  servicos_calendly: {
+    label: 'Site para Serviços com agendamento',
+    titulo: 'Você precisa de um <b>Site para Apresentar Serviços</b> com agendamento integrado.',
+    lead: 'Seus clientes precisam marcar horário. Você vai precisar de:',
+    itens: ['Apresentação clara dos serviços', 'Calendly ou sistema de agendamento integrado', 'Portfolio de clientes', 'Depoimentos'],
+    explicacao: 'Um site que mostra o que você faz e já deixa a pessoa marcar um horário com você na hora — tipo uma agenda aberta na tela dela — sem precisar trocar mensagem pra combinar dia e horário.',
+  },
+  lead_magnet: {
+    label: 'Lead Magnet',
+    titulo: 'Você precisa de um <b>Lead Magnet</b>.',
+    lead: 'Seu objetivo é captar contatos interessados. Você vai precisar de:',
+    itens: ['Oferta de valor (guia, checklist, etc)', 'Formulário estratégico', 'Email de boas-vindas', 'Follow-up automático'],
+    explicacao: 'É uma "isca digital": você oferece algo de graça (um guia, um checklist, uma planilha) em troca do contato da pessoa. Assim você forma uma lista de gente já interessada, pra vender pra ela depois.',
+  },
+  lead_magnet_blog: {
+    label: 'Lead Magnet com Blog',
+    titulo: 'Você precisa de um <b>Lead Magnet com Blog integrado</b>.',
+    lead: 'Você quer captar leads através de conteúdo. Você vai precisar de:',
+    itens: ['Artigos que resolvem problemas', 'Lead magnet no final de cada post', 'Email marketing', 'SEO básico'],
+    explicacao: 'A mesma ideia do Lead Magnet (uma oferta grátis em troca do contato da pessoa), só que combinada com artigos que atraem gente pelo Google — e no final de cada um, você oferece esse material grátis.',
+  },
+  portfolio: {
+    label: 'Portfolio',
+    titulo: 'Você precisa de um <b>Portfolio</b> (ou Showroom).',
+    lead: 'Seu objetivo é mostrar seu trabalho. Você vai precisar de:',
+    itens: ['Galeria de projetos', 'Case studies ou descrições', 'Contato direto', 'Filtros por categoria'],
+    explicacao: 'Uma vitrine dos seus trabalhos: fotos, projetos e cases organizados pra quem visita entender rápido a qualidade do que você faz, sem precisar perguntar.',
+  },
+  portfolio_blog: {
+    label: 'Portfolio com Blog',
+    titulo: 'Você precisa de um <b>Portfolio com Blog</b>.',
+    lead: 'Você quer mostrar trabalho e aparecer no Google. Você vai precisar de:',
+    itens: ['Galeria de projetos', 'Artigos sobre seu expertise', 'SEO otimizado', 'Email para contato'],
+    explicacao: 'Um portfólio (a vitrine dos seus trabalhos) que também publica conteúdo sobre o seu ramo, pra aparecer no Google e trazer gente nova além de quem já te conhece.',
+  },
+  institucional: {
+    label: 'Site Institucional',
+    titulo: 'Você precisa de um <b>Site Institucional</b>.',
+    lead: 'Seu objetivo é mostrar credibilidade e profissionalismo. Você vai precisar de:',
+    itens: ['Apresentação da empresa', 'Time e valores', 'Serviços estruturados', 'Contato claro'],
+    explicacao: 'É o "cartão de visitas" oficial da empresa na internet: quem é, o que faz, os serviços e como entrar em contato — pra passar credibilidade pra quem pesquisa sobre você.',
+  },
+  institucional_blog: {
+    label: 'Site Institucional com Blog',
+    titulo: 'Você precisa de um <b>Site Institucional com Blog</b>.',
+    lead: 'Você quer credibilidade e aparecer no Google. Você vai precisar de:',
+    itens: ['Site institucional robusto', 'Artigos de relevância', 'SEO estratégico', 'Inteligência em conteúdo'],
+    explicacao: 'Um site institucional (a apresentação oficial da empresa) que também publica conteúdo, pra ser encontrado no Google por gente que ainda não conhece o seu nome.',
+  },
+  blog: {
+    label: 'Blog',
+    titulo: 'Você precisa de um <b>Blog</b> (ou Hub de Conteúdo).',
+    explicacao: 'Um site focado em publicar artigos com frequência — pra ensinar, aparecer no Google e virar referência no assunto que você domina.',
+    lead: 'Seu foco é compartilhar conhecimento e educar. Você vai precisar de:',
+    itens: ['Estrutura de artigos', 'SEO e categorização', 'Newsletter integrada', 'Comunidade'],
+  },
+};
+
+const ORDEM = ['p1', 'p2', 'p3', 'p4', 'transition', 'form'];
+const screens = {};
+document.querySelectorAll('.screen[data-screen]').forEach((el) => { screens[el.dataset.screen] = el; });
+
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const progressStepName = document.getElementById('progressStepName');
+const progressWrap = document.getElementById('progressWrap');
+
+const respostas = { p1: null, p2: null, p3: null, p4: null };
+const loadedAt = Date.now();
+let current = 'p1';
+
+function pushDataLayer(evento, extra){
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(Object.assign({ event: evento }, extra || {}));
+}
+
+function show(nome){
+  Object.values(screens).forEach((el) => el.classList.remove('is-active'));
+  screens[nome].classList.add('is-active');
+  current = nome;
+
+  if(nome === 'result'){
+    progressWrap.style.display = 'none';
+  } else {
+    progressWrap.style.display = '';
+    const step = Number(screens[nome].dataset.step);
+    progressLabel.textContent = String(step).padStart(2, '0') + '/05';
+    progressStepName.textContent = screens[nome].dataset.stepName;
+    progressFill.style.width = (step / 5 * 100) + '%';
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  pushDataLayer('quiz_step_view', { quiz_step: nome });
+}
+
+function goNext(){
+  const idx = ORDEM.indexOf(current);
+  if(idx < ORDEM.length - 1) show(ORDEM[idx + 1]);
+}
+
+function goBack(){
+  const idx = ORDEM.indexOf(current);
+  if(idx > 0) show(ORDEM[idx - 1]);
+}
+
+document.querySelectorAll('.options').forEach((group) => {
+  const pergunta = group.dataset.question;
+  group.querySelectorAll('.option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      respostas[pergunta] = btn.dataset.value;
+      group.querySelectorAll('.option').forEach((b) => b.classList.toggle('is-picked', b === btn));
+      setTimeout(goNext, 200);
+    });
+  });
+});
+
+document.querySelectorAll('[data-back]').forEach((btn) => btn.addEventListener('click', goBack));
+document.getElementById('btnContinue').addEventListener('click', goNext);
+
+// ---- Formulário de captura ----
+const form = document.getElementById('leadForm');
+const btnSubmit = document.getElementById('btnSubmit');
+const formError = document.getElementById('formError');
+
+const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+function setFieldError(input, msg){
+  const el = document.getElementById('err-' + input.id);
+  input.setAttribute('aria-invalid', 'true');
+  if(el){ el.textContent = msg; el.classList.add('is-visible'); }
+}
+
+function clearFieldError(input){
+  const el = document.getElementById('err-' + input.id);
+  input.removeAttribute('aria-invalid');
+  if(el){ el.textContent = ''; el.classList.remove('is-visible'); }
+}
+
+function validarFormulario(){
+  let ok = true;
+  const nome = form.elements.nome;
+  const email = form.elements.email;
+  const whatsapp = form.elements.whatsapp;
+
+  if(nome.value.trim().length < 3){ setFieldError(nome, 'Digite pelo menos 3 letras.'); ok = false; }
+  else clearFieldError(nome);
+
+  if(!EMAIL_RE.test(email.value.trim())){ setFieldError(email, 'Digite um e-mail válido.'); ok = false; }
+  else clearFieldError(email);
+
+  const digitos = whatsapp.value.replace(/\D/g, '');
+  if(digitos.length !== 11){ setFieldError(whatsapp, 'Digite DDD + número, 11 dígitos (ex.: 41988794473).'); ok = false; }
+  else clearFieldError(whatsapp);
+
+  return ok;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  formError.style.display = 'none';
+
+  // Honeypot preenchido ou envio quase instantâneo (< 3s desde o carregamento
+  // da página) é sinal forte de bot — finge sucesso sem gravar nada.
+  const trap = !!(form.elements.website && form.elements.website.value);
+  const elapsedMs = Date.now() - loadedAt;
+
+  if(!trap && !validarFormulario()) return;
+
+  const resultKey = calcularResultado(respostas.p1, respostas.p2, respostas.p3, respostas.p4);
+
+  if(trap || elapsedMs < 3000){
+    mostrarResultado(resultKey);
+    return;
+  }
+
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Enviando...';
+
+  const lead = {
+    nome: form.elements.nome.value.trim(),
+    email: form.elements.email.value.trim(),
+    whatsapp: form.elements.whatsapp.value.replace(/\D/g, ''),
+    p1_objetivo: respostas.p1,
+    p2_oferece: respostas.p2,
+    p3_agendamento: respostas.p3,
+    p4_conteudo: respostas.p4,
+    resultado: resultKey,
+  };
+
+  try{
+    if(supabase){
+      const { error } = await supabase.from('quiz_leads').insert(lead);
+      if(error) throw error;
+    }
+    try{
+      sessionStorage.setItem('quizLeadDone', JSON.stringify({ resultKey, whatsapp: lead.whatsapp }));
+    }catch(err){}
+    pushDataLayer('quiz_lead_enviado', { quiz_resultado: RESULTADOS[resultKey].label, quiz_tempo_ms: elapsedMs });
+    mostrarResultado(resultKey);
+  }catch(err){
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Descobrir meu site ideal';
+    formError.textContent = 'Ops, algo deu errado ao enviar. Tenta de novo, ou me chama no WhatsApp.';
+    formError.style.display = 'block';
+  }
+});
+
+function mostrarResultado(resultKey){
+  const r = RESULTADOS[resultKey];
+
+  hideTermTooltip();
+
+  // Marca o próprio termo (dentro do <b>) como o gatilho do popover — em
+  // vez de um ícone à parte, é a palavra "Ecommerce"/"Landing Page"/etc.
+  // que fica sublinhada e reage ao hover/toque.
+  const tituloComTermo = r.titulo.replace('<b>', '<b class="term" tabindex="0">');
+  document.getElementById('resultTitle').innerHTML = tituloComTermo;
+  attachTermTooltip(document.querySelector('#resultTitle .term'), r.explicacao);
+
+  document.getElementById('resultLead').textContent = r.lead;
+
+  const list = document.getElementById('resultList');
+  list.innerHTML = '';
+  r.itens.forEach((item) => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.appendChild(li);
+  });
+
+  const texto = encodeURIComponent('Olá Robson! Acabei de fazer o quiz e descobri que preciso de um ' + r.label + '. Podemos conversar?');
+  document.getElementById('resultCta').href = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + texto;
+
+  show('result');
+}
+
+// ---- Popover do termo (explicação em linguagem simples do tipo de site) ----
+// Em telas com mouse de verdade, o popover segue o cursor enquanto ele
+// estiver em cima da palavra. Em toque (celular/tablet), não existe hover,
+// então o próprio toque abre/fecha o popover ancorado embaixo da palavra.
+const termTooltip = document.getElementById('termTooltip');
+const podeUsarHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+function posicionarTermTooltip(x, y){
+  const margem = 12;
+  const rect = termTooltip.getBoundingClientRect();
+  let left = x + margem;
+  let top = y + margem;
+  if(left + rect.width > window.innerWidth - margem) left = x - rect.width - margem;
+  if(top + rect.height > window.innerHeight - margem) top = y - rect.height - margem;
+  termTooltip.style.left = Math.max(margem, left) + 'px';
+  termTooltip.style.top = Math.max(margem, top) + 'px';
+}
+
+function showTermTooltip(texto, x, y){
+  termTooltip.textContent = texto;
+  termTooltip.classList.add('is-visible');
+  posicionarTermTooltip(x, y);
+}
+
+function hideTermTooltip(){
+  termTooltip.classList.remove('is-visible');
+}
+
+function attachTermTooltip(el, texto){
+  if(!el) return;
+
+  if(podeUsarHover){
+    el.addEventListener('mouseenter', (e) => showTermTooltip(texto, e.clientX, e.clientY));
+    el.addEventListener('mousemove', (e) => posicionarTermTooltip(e.clientX, e.clientY));
+    el.addEventListener('mouseleave', hideTermTooltip);
+    el.addEventListener('focus', () => {
+      const rect = el.getBoundingClientRect();
+      showTermTooltip(texto, rect.left, rect.bottom);
+    });
+    el.addEventListener('blur', hideTermTooltip);
+  } else {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(termTooltip.classList.contains('is-visible')){ hideTermTooltip(); return; }
+      const rect = el.getBoundingClientRect();
+      showTermTooltip(texto, rect.left, rect.bottom + 6);
+    });
+  }
+}
+
+// Toque fora da palavra fecha o popover (só é preciso no modo sem hover).
+if(!podeUsarHover){
+  document.addEventListener('click', (e) => {
+    if(!e.target.closest('.term')) hideTermTooltip();
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') hideTermTooltip();
+});
+
+document.getElementById('btnRedo').addEventListener('click', () => {
+  try{ sessionStorage.removeItem('quizLeadDone'); }catch(err){}
+  window.location.reload();
+});
+
+// Já respondeu nesta sessão: mostra o resultado direto, sem deixar
+// gerar um segundo lead no Supabase por engano (refresh, voltar, etc).
+(function verificarSessao(){
+  let salvo;
+  try{ salvo = JSON.parse(sessionStorage.getItem('quizLeadDone') || 'null'); }catch(err){ salvo = null; }
+  if(salvo && RESULTADOS[salvo.resultKey]){
+    mostrarResultado(salvo.resultKey);
+  } else {
+    show('p1');
+  }
+})();
+</script>
+
+</body>
+</html>
