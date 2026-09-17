@@ -235,12 +235,19 @@ export async function enviarAlertaLead(lead: {
 
   const timeout = AbortSignal.timeout(5000);
   try {
-    await fetch(url, {
+    const resp = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...lead, segredo }),
       signal: timeout,
     });
+
+    // O Apps Script responde 200 mesmo quando rejeita (ex.: segredo errado)
+    // — sem checar o corpo, esse tipo de falha passaria em silêncio.
+    const data = await resp.json().catch(() => null);
+    if (!resp.ok || !data || data.ok !== true) {
+      console.error('enviarAlertaLead: webhook não confirmou envio', resp.status, JSON.stringify(data));
+    }
   } catch (err) {
     console.error('enviarAlertaLead: falha ao chamar webhook', err);
   }
