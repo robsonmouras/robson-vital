@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
 // Remove os comentários HTML (<!-- ... -->) do index.html só no build de
@@ -46,4 +47,16 @@ function serveDirIndex() {
 export default defineConfig({
   base: '/',
   plugins: [stripHtmlComments(), serveDirIndex()],
+  // Duas páginas: português em / e inglês em /en/ (ver <html lang> em cada
+  // uma e src/i18n.js). O idioma inicial é escolhido no navegador por um
+  // script inline no <head> — o GitHub Pages é estático, sem negociação
+  // de idioma no servidor.
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(import.meta.dirname, 'index.html'),
+        en: resolve(import.meta.dirname, 'en/index.html'),
+      },
+    },
+  },
 });

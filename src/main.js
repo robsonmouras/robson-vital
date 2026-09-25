@@ -6,6 +6,7 @@ import { initTrajectory } from './trajectory.js';
 import { initSectionNav } from './section-nav.js';
 import { initContact } from './contact.js';
 import { initTabTitle } from './tab-title.js';
+import { initLangSwitch } from './lang-switch.js';
 
 const prefersReducedMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
@@ -18,3 +19,4 @@ initTrajectory({ prefersReducedMotion });
 initSectionNav({ lenis });
 initContact({ lenis });
 initTabTitle();
+initLangSwitch();

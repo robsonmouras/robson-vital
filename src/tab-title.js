@@ -1,10 +1,6 @@
-const PHRASES = [
-  'Volta aqui vai. 🥺',
-  'Tô te esperando...',
-  'Não esqueça de mim.',
-  'Que tal voltar aqui.',
-  'Psiuuuu!!',
-];
+import { t } from './i18n.js';
+
+const PHRASES = t.tabPhrases;
 
 function pickRandomPhrase() {
   return PHRASES[Math.floor(Math.random() * PHRASES.length)];
