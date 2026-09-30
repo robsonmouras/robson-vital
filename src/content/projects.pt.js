@@ -156,8 +156,12 @@ export const PROJECT_CONTENT = {
         alt: 'Painel "Overview" do Kwik Ledgers, com status da contabilidade, contas bancárias, lucro e despesas.',
       },
       {
-        heading: 'O desafio',
-        text: 'Uma plataforma de contabilidade que combina IA com revisão humana lida com dois públicos bem diferentes dentro do mesmo produto: o cliente, dono do negócio e geralmente sem conhecimento contábil, que precisa concluir um onboarding, enviar documentos e entender relatórios financeiros complexos sem se perder; e o contador, que precisa localizar, revisar e processar documentos e transações de múltiplos clientes com o mínimo de fricção possível. Uma interface mal pensada nesse contexto não gera só insatisfação — ela vira onboarding incompleto, documento enviado errado e mais tempo da equipe interna compensando a confusão de quem está do outro lado.',
+        heading: 'Meu papel',
+        text: 'Product Designer (UX/UI) no Kwik Ledgers, pela Ambra, de janeiro de 2023 a junho de 2025. Atuei de ponta a ponta, do discovery ao handoff, em parceria com desenvolvimento, marketing e negócios.',
+      },
+      {
+        heading: 'Antes',
+        text: 'Depois do cadastro, o cliente caía direto em um dashboard sem nenhuma orientação. Ele precisava enviar documentos para o contador começar a trabalhar, mas não sabia quais, nem por onde começar. Muitos paravam ali, e a análise contábil ficava travada esperando informação.',
       },
       {
         type: 'image',
@@ -168,8 +172,17 @@ export const PROJECT_CONTENT = {
         alt: 'Formulário de cadastro do Kwik Ledgers, com seleção de tipo (pessoa física/jurídica), endereço e contatos.',
       },
       {
-        heading: 'Processo',
-        text: 'Comecei alinhando com o time de negócio as métricas que mais importavam — conclusão do onboarding, envio correto de documentos e tempo de processamento dos contadores — pra guiar as prioridades de pesquisa e design. A partir daí, cruzei gravações de sessão e mapas de calor do Hotjar com dados de analytics pra identificar, com evidência, em quais telas os clientes hesitavam ou desistiam, e validei essas hipóteses com testes de usabilidade antes de qualquer mudança de layout ir pra produção.',
+        heading: 'Decisões de design',
+        text: 'Cadastro por etapas. Troquei a entrada no dashboard por um percurso guiado, que leva o cliente do cadastro até o envio dos documentos.',
+      },
+      {
+        text: 'Obrigatórios e opcionais separados. O cliente sabe exatamente o que precisa agora e o que pode ficar para depois, sem se assustar com uma lista longa.',
+      },
+      {
+        text: 'Completar depois. Documento contábil nem sempre está à mão. Em vez de bloquear o avanço, o cliente pode seguir e voltar quando tiver o arquivo.',
+      },
+      {
+        text: 'Pedir ajuda ao contador. Para um público sem conhecimento contábil, o ponto de dúvida é inevitável. Deixei o caminho para o contador dentro do próprio fluxo, em vez de o cliente abandonar ou abrir um chamado.',
       },
       {
         type: 'image',
@@ -191,8 +204,11 @@ export const PROJECT_CONTENT = {
         },
       },
       {
-        heading: 'Fluxos principais',
-        text: 'Com os achados validados, construí um design system consistente — cores, tipografia, botões, inputs, cards, modais e estados de pagamento — pra dar previsibilidade visual à medida que o produto crescia, e apliquei essa base nos principais fluxos: onboarding e autenticação, gestão de empresas e sócios, dashboard financeiro, contas bancárias, métodos de pagamento, planos e checkout, relatórios financeiros e notificações. Trabalhei em conjunto com o desenvolvimento em cada etapa, pra garantir que as soluções fossem viáveis tecnicamente, não só consistentes na tela.',
+        heading: 'Fluxo de aprovação de documentos',
+        text: 'O mesmo documento tem dois lados. O cliente envia notas fiscais e extratos, e o arquivo fica pendente. O contador analisa e pode aprovar, recusar ou comentar.',
+      },
+      {
+        text: 'Desenhei visões e estados diferentes para cada perfil: o cliente precisa saber em que pé está o que enviou e o que falta corrigir; o contador precisa encontrar rápido o que está pendente entre vários clientes. Os status visuais (pendente, aprovado, recusado) são os mesmos nos dois lados, para que os dois falem a mesma língua.',
       },
       {
         type: 'image',
@@ -204,17 +220,10 @@ export const PROJECT_CONTENT = {
       },
       {
         heading: 'Resultado',
-        text: 'Depois das melhorias de layout aplicadas a partir dos testes de usabilidade e da análise comportamental, os números confirmaram o que a pesquisa já apontava:',
+        text: 'Com o novo onboarding, os usuários passaram a concluir o percurso completo, do cadastro ao envio dos documentos. Os contadores passaram a receber a documentação de forma mais organizada, o que facilitou a análise contábil.',
       },
       {
-        type: 'stats',
-        items: [
-          { value: '+17%', label: 'na conclusão de onboarding e envio de documentos pelos clientes' },
-          { value: '+24%', label: 'na produtividade da equipe de contadores' },
-        ],
-      },
-      {
-        text: 'Cruzar pesquisa qualitativa com dados de Hotjar e analytics foi o que deu segurança pra priorizar as mudanças certas junto aos stakeholders — em vez de redesenhar por intuição, cada ajuste partiu de um ponto de fricção observado e comprovado, com o impacto medido depois da entrega.',
+        text: 'Cruzar gravações do Hotjar, fluxos do Google Analytics e o acompanhamento dos primeiros clientes permitiu priorizar mudanças com base em pontos de atrito observados, e não em intuição.',
       },
     ],
   },

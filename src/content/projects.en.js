@@ -136,8 +136,12 @@ export const PROJECT_CONTENT = {
         alt: 'Kwik Ledgers "Overview" dashboard, with bookkeeping status, bank accounts, profit and expenses.',
       },
       {
-        heading: 'The challenge',
-        text: "An accounting platform that combines AI with human review serves two very different audiences within the same product: the client, a business owner who usually has no accounting background and needs to complete onboarding, upload documents and understand complex financial reports without getting lost; and the accountant, who needs to find, review and process documents and transactions for multiple clients with as little friction as possible. A poorly thought-out interface in this context doesn't just cause dissatisfaction — it turns into incomplete onboarding, wrongly submitted documents and more internal team time spent compensating for the confusion on the other side.",
+        heading: 'My role',
+        text: 'Product Designer (UX/UI) at Kwik Ledgers, through Ambra, from January 2023 to June 2025. I worked end to end, from discovery to handoff, in partnership with development, marketing and business.',
+      },
+      {
+        heading: 'Before',
+        text: 'After signing up, the client landed straight on a dashboard with no guidance. They had to send documents so the accountant could start working, but didn\'t know which ones or where to begin. Many stopped there, and the accounting analysis stayed blocked waiting for information.',
       },
       {
         type: 'image',
@@ -148,8 +152,17 @@ export const PROJECT_CONTENT = {
         alt: 'Kwik Ledgers sign-up form, with type selection (individual/company), address and contacts.',
       },
       {
-        heading: 'Process',
-        text: 'I started by aligning with the business team on the metrics that mattered most — onboarding completion, correct document submission and accountants\' processing time — to guide research and design priorities. From there, I cross-referenced Hotjar session recordings and heatmaps with analytics data to identify, with evidence, which screens made clients hesitate or drop off, and validated those hypotheses with usability tests before any layout change went to production.',
+        heading: 'Design decisions',
+        text: 'Step-by-step sign-up. I replaced the direct entry into the dashboard with a guided path that takes the client from sign-up to document submission.',
+      },
+      {
+        text: 'Required and optional separated. The client knows exactly what is needed now and what can wait, without being scared off by a long list.',
+      },
+      {
+        text: 'Complete later. Accounting documents aren\'t always at hand. Instead of blocking progress, the client can move on and come back once they have the file.',
+      },
+      {
+        text: 'Ask the accountant for help. For an audience with no accounting knowledge, moments of doubt are inevitable. I placed the path to the accountant inside the flow itself, instead of the client giving up or opening a ticket.',
       },
       {
         type: 'image',
@@ -171,8 +184,11 @@ export const PROJECT_CONTENT = {
         },
       },
       {
-        heading: 'Key flows',
-        text: 'With the findings validated, I built a consistent design system — colors, typography, buttons, inputs, cards, modals and payment states — to give visual predictability as the product grew, and applied that foundation to the main flows: onboarding and authentication, company and partner management, financial dashboard, bank accounts, payment methods, plans and checkout, financial reports and notifications. I worked together with development at every step, to make sure the solutions were technically feasible, not just consistent on screen.',
+        heading: 'Document approval flow',
+        text: 'The same document has two sides. The client uploads invoices and statements, and the file stays pending. The accountant reviews it and can approve, reject or comment.',
+      },
+      {
+        text: 'I designed different views and states for each profile: the client needs to know where what they sent stands and what still needs fixing; the accountant needs to quickly find what is pending across many clients. The visual statuses (pending, approved, rejected) are the same on both sides, so both speak the same language.',
       },
       {
         type: 'image',
@@ -184,17 +200,10 @@ export const PROJECT_CONTENT = {
       },
       {
         heading: 'Result',
-        text: 'After the layout improvements driven by usability tests and behavioral analysis, the numbers confirmed what the research had already pointed to:',
+        text: 'With the new onboarding, users started completing the full path, from sign-up to document submission. Accountants started receiving documentation in a more organized way, which made the accounting analysis easier.',
       },
       {
-        type: 'stats',
-        items: [
-          { value: '+17%', label: 'in onboarding completion and document submission by clients' },
-          { value: '+24%', label: 'in accounting team productivity' },
-        ],
-      },
-      {
-        text: 'Cross-referencing qualitative research with Hotjar and analytics data is what gave me the confidence to prioritize the right changes with stakeholders — instead of redesigning by intuition, every adjustment started from an observed, proven friction point, with the impact measured after delivery.',
+        text: 'Cross-referencing Hotjar recordings, Google Analytics flows and follow-up with the first clients made it possible to prioritize changes based on observed friction points, not intuition.',
       },
     ],
   },
