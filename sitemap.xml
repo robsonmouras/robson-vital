@@ -24,4 +24,64 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/moodboard-studio/" />
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/jumper/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/jumper/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/jumper/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/en/projects/jumper/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/jumper/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/jumper/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/inov9/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/inov9/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/inov9/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/en/projects/inov9/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/inov9/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/inov9/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/grupo-rcr/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/grupo-rcr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/grupo-rcr/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/en/projects/grupo-rcr/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/grupo-rcr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/grupo-rcr/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/kwik-ledgers/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/kwik-ledgers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/kwik-ledgers/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/en/projects/kwik-ledgers/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/kwik-ledgers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/kwik-ledgers/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/projetos/grupo-vikings/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/grupo-vikings/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/grupo-vikings/" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://robsonvital.com.br/en/projects/grupo-vikings/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://robsonvital.com.br/projetos/grupo-vikings/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://robsonvital.com.br/en/projects/grupo-vikings/" />
+    <priority>0.8</priority>
+  </url>
 </urlset>
