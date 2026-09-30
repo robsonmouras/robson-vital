@@ -20,8 +20,9 @@
           var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
           want = String(langs[0] || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
         }
-        if (want === 'en' && !isEn) location.replace('/en/' + location.search + location.hash);
-        else if (want === 'pt' && isEn) location.replace('/' + location.search + location.hash);
+        var path = location.pathname;
+        if (want === 'en' && !isEn) location.replace((path.indexOf('/projetos/') === 0 ? path.replace('/projetos/', '/en/projects/') : '/en/') + location.search + location.hash);
+        else if (want === 'pt' && isEn) location.replace((path.indexOf('/en/projects/') === 0 ? path.replace('/en/projects/', '/projetos/') : '/') + location.search + location.hash);
       } catch (e) {}
     })();
   </script>

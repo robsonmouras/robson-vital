@@ -114,22 +114,40 @@ function initOverlay({ lenis }) {
   let pushedHistoryEntry = false;
 
   /**
-   * URL própria por projeto, pra rastrear no GTM/Analytics qual case é
-   * mais visto e permitir link direto. Usa hash (`#/projetos/<slug>`) em
-   * vez de caminho real porque o site é estático no GitHub Pages — hash
-   * não precisa de fallback de servidor e não corre risco de SEO.
-   * Slug = `data-slug` do tile (ver index.html).
+   * URL própria por projeto, pra compartilhar o case direto e rastrear no
+   * GTM/Analytics qual é mais visto: `/projetos/<slug>/` em PT e
+   * `/en/projects/<slug>/` em EN. Cada uma existe como página estática
+   * gerada no build (ver plugin `projectPages` no vite.config.js), com
+   * título e preview de compartilhamento próprios — o JS só abre o
+   * overlay em cima da home conforme a URL. Slug = `data-slug` do tile
+   * (ver index.html). Links antigos com hash (`#/projetos/<slug>`) ainda
+   * funcionam e são trocados pela URL limpa.
    */
-  const PROJECT_HASH_PREFIX = '#/projetos/';
+  const PROJECT_PATH_PREFIX = LANG === 'en' ? '/en/projects/' : '/projetos/';
+  const HOME_PATH = LANG === 'en' ? '/en/' : '/';
+  const LEGACY_HASH_PREFIX = '#/projetos/';
   const slugToTile = new Map();
   tiles.forEach((tile) => {
     if (tile.dataset.slug) slugToTile.set(tile.dataset.slug, tile);
   });
 
-  function slugFromHash() {
+  function projectUrl(slug) {
+    return PROJECT_PATH_PREFIX + slug + '/';
+  }
+
+  function slugFromPath() {
+    const match = window.location.pathname.match(
+      /^\/(?:en\/projects|projetos)\/([^/]+)\/?$/
+    );
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function slugFromUrl() {
+    const fromPath = slugFromPath();
+    if (fromPath) return fromPath;
     const hash = window.location.hash;
-    return hash.startsWith(PROJECT_HASH_PREFIX)
-      ? decodeURIComponent(hash.slice(PROJECT_HASH_PREFIX.length))
+    return hash.startsWith(LEGACY_HASH_PREFIX)
+      ? decodeURIComponent(hash.slice(LEGACY_HASH_PREFIX.length))
       : null;
   }
 
@@ -168,13 +186,13 @@ function initOverlay({ lenis }) {
         window.history.replaceState(
           { project: slug },
           '',
-          PROJECT_HASH_PREFIX + slug
+          projectUrl(slug)
         );
       } else {
         window.history.pushState(
           { project: slug },
           '',
-          PROJECT_HASH_PREFIX + slug
+          projectUrl(slug)
         );
         pushedHistoryEntry = true;
       }
@@ -569,7 +587,7 @@ function initOverlay({ lenis }) {
     // Só mexe na URL quando o fechamento partiu de um gesto do usuário
     // (botão, fundo, Escape). Se veio do popstate (voltar), a URL já
     // está limpa.
-    if (syncUrl && slugFromHash()) {
+    if (syncUrl && slugFromUrl()) {
       if (pushedHistoryEntry) {
         // Abrimos via clique (empilhamos uma entrada): voltar remove o
         // hash e mantém o histórico consistente. Um replaceState posterior
@@ -581,7 +599,7 @@ function initOverlay({ lenis }) {
         window.history.replaceState(
           null,
           '',
-          window.location.pathname + window.location.search
+          HOME_PATH + window.location.search
         );
       }
     }
@@ -591,7 +609,7 @@ function initOverlay({ lenis }) {
 
   // Voltar/avançar do navegador: sincroniza o overlay com a URL.
   window.addEventListener('popstate', () => {
-    const slug = slugFromHash();
+    const slug = slugFromUrl();
     const tile = slug ? slugToTile.get(slug) : null;
 
     if (tile && !tile.querySelector('.project-tile__wip')) {
@@ -601,12 +619,19 @@ function initOverlay({ lenis }) {
     }
   });
 
-  // Link direto (`robsonvital.com.br/#/projetos/jumper`): abre o case já
-  // no carregamento.
-  const initialSlug = slugFromHash();
+  // Link direto (`robsonvital.com.br/projetos/jumper/`): abre o case já
+  // no carregamento. Se veio por um link antigo com hash, limpa a URL.
+  const initialSlug = slugFromUrl();
   const initialTile = initialSlug ? slugToTile.get(initialSlug) : null;
   if (initialTile && !initialTile.querySelector('.project-tile__wip')) {
     open(initialTile, { syncUrl: false });
+    if (window.location.hash) {
+      window.history.replaceState(
+        { project: initialSlug },
+        '',
+        projectUrl(initialSlug)
+      );
+    }
   }
 
   // Tiles marcados como "em andamento" (ver .project-tile__wip no
